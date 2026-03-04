@@ -13,19 +13,19 @@ Architecture:
 import os
 import json
 import asyncio
-from typing import Dict, Any
+from typing import Dict, Any, List, Union
 from datetime import datetime, timezone
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.exceptions import RequestValidationError
 
 # Handle both module and standalone execution
 try:
     from agent.config import SERVER_PORT, MAX_TIMEOUT_SECONDS, validate_agent_environment
     from agent.models import (
         ScriptRequestItem,
-        ScriptRequestArray,
         ScriptResponse,
         create_initial_state,
         state_to_response
@@ -39,7 +39,6 @@ except ModuleNotFoundError:
     from agent.config import SERVER_PORT, MAX_TIMEOUT_SECONDS, validate_agent_environment
     from agent.models import (
         ScriptRequestItem,
-        ScriptRequestArray,
         ScriptResponse,
         create_initial_state,
         state_to_response
@@ -71,6 +70,39 @@ app.add_middleware(
 
 # Initialize database manager
 db_manager = DatabaseManager()
+
+
+# =============================================================================
+# EXCEPTION HANDLERS
+# =============================================================================
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    """
+    Custom handler for Pydantic validation errors.
+    Logs detailed error information for debugging.
+    """
+    # Log detailed error info
+    print(f"\n{'!' * 80}")
+    print(f"VALIDATION ERROR - {request.method} {request.url.path}")
+    print(f"{'!' * 80}")
+    print(f"Client IP: {request.client.host if request.client else 'unknown'}")
+    print(f"Errors: {exc.errors()}")
+    
+    # Try to log request body
+    try:
+        body = await request.body()
+        print(f"Request body: {body.decode('utf-8')[:500]}")
+    except:
+        print("Request body: <unable to read>")
+    
+    print(f"{'!' * 80}\n")
+    
+    # Return standard 422 response
+    return JSONResponse(
+        status_code=422,
+        content={"detail": exc.errors(), "body": exc.body}
+    )
 
 
 # =============================================================================
@@ -211,21 +243,49 @@ async def test_endpoint():
 
 
 @app.post("/generate-script", response_model=ScriptResponse)
-async def generate_script(request_data: ScriptRequestArray):
+async def generate_script(request: Request):
     """
     Main endpoint for script generation.
     
-    Accepts n8n array format, processes first item.
+    Accepts BOTH n8n formats:
+    1. Array format (original): [{...}]
+    2. Direct object (n8n default): {...}
+    
+    Supports BOTH field naming conventions:
+    - camelCase: projectName, storyIdea
+    - snake_case: project_name, story_idea (n8n default)
+    
+    Expected formats:
+    
+    Format 1 (Array):
+    [
+      {
+        "isValid": true,
+        "projectName": "string",  // or "project_name"
+        "genre": "string",
+        "storyIdea": "string",    // or "story_idea"
+        "duration": 5
+      }
+    ]
+    
+    Format 2 (Direct object):
+    {
+      "project_name": "string",   // or "projectName"
+      "genre": "string",
+      "story_idea": "string",     // or "storyIdea"
+      "duration": 5
+    }
     
     Flow:
-        1. Validate request (Pydantic)
-        2. Check database for existing execution (idempotency)
-        3. Execute agent graph if new request
-        4. Save execution to database
-        5. Return response
+        1. Parse request body (auto-detect format)
+        2. Validate request (Pydantic)
+        3. Check database for existing execution (idempotency)
+        4. Execute agent graph if new request
+        5. Save execution to database
+        6. Return response
     
     Args:
-        request_data: ScriptRequestArray from n8n
+        request: FastAPI Request object
         
     Returns:
         ScriptResponse with script, outline, and metrics
@@ -234,18 +294,42 @@ async def generate_script(request_data: ScriptRequestArray):
         HTTPException: On validation or execution errors
     """
     try:
-        # Extract first item (n8n sends array)
-        request_item = request_data.first_item
+        # Parse raw body
+        body = await request.body()
+        body_str = body.decode('utf-8')
+        body_json = json.loads(body_str)
+        
+        # Auto-detect format and extract item
+        if isinstance(body_json, list):
+            # Format 1: Array [{...}]
+            if not body_json or len(body_json) == 0:
+                raise HTTPException(
+                    status_code=422,
+                    detail="Request array cannot be empty"
+                )
+            request_item = ScriptRequestItem(**body_json[0])
+            print(f"→ Detected array format: {len(body_json)} item(s)")
+        elif isinstance(body_json, dict):
+            # Format 2: Direct object {...}
+            request_item = ScriptRequestItem(**body_json)
+            print(f"→ Detected direct object format")
+        else:
+            raise HTTPException(
+                status_code=422,
+                detail="Invalid request format. Expected array [{...}] or object {...}"
+            )
+        
+        # Get request ID
         request_id = request_item.request_id
         
         print(f"\n{'=' * 80}")
         print(f"SCRIPT GENERATION REQUEST")
         print(f"{'=' * 80}")
         print(f"Request ID: {request_id}")
-        print(f"Project: {request_item.projectName}")
+        print(f"Project: {request_item.normalized_project_name}")
         print(f"Genre: {request_item.genre}")
         print(f"Duration: {request_item.duration} min")
-        print(f"Idea: {request_item.storyIdea[:100]}...")
+        print(f"Idea: {request_item.normalized_story_idea[:100]}...")
         
         # Check for existing execution (idempotency)
         existing = await db_manager.get_execution(request_id)
@@ -276,7 +360,7 @@ async def generate_script(request_data: ScriptRequestArray):
             execution = Execution(
                 request_id=request_id,
                 status="error",
-                project_name=request_item.projectName,
+                project_name=request_item.normalized_project_name,
                 genre=request_item.genre,
                 duration=request_item.duration,
                 language=initial_state['language'],
@@ -299,7 +383,7 @@ async def generate_script(request_data: ScriptRequestArray):
             execution = Execution(
                 request_id=request_id,
                 status="error",
-                project_name=request_item.projectName,
+                project_name=request_item.normalized_project_name,
                 genre=request_item.genre,
                 duration=request_item.duration,
                 language=final_state['language'],
@@ -329,7 +413,7 @@ async def generate_script(request_data: ScriptRequestArray):
         execution = Execution(
             request_id=request_id,
             status="success",
-            project_name=request_item.projectName,
+            project_name=request_item.normalized_project_name,
             genre=request_item.genre,
             duration=request_item.duration,
             language=final_state['language'],

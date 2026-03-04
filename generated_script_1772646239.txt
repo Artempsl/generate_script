@@ -1,0 +1,17 @@
+PROJECT: Noir Detective Final Test
+GENRE: Noir Detective
+DURATION: 1 min
+LANGUAGE: None
+LENGTH: 1057 characters
+ITERATIONS: 0
+TOKENS: 15281
+SOURCES: 5 from Pinecone
+GENERATED: 2026-03-04T17:45:13.871328+00:00
+
+======================================================================
+
+In a shadowed office, rain drummed against the window like a relentless heartbeat. Detective Sam Hayes, a man with a past heavier than his trench coat, stared into the abyss of his guilt, haunted by Emily's laugh echoing in his mind—she’d been a fleeting ghost in his life, yet he’d never saved her. The sudden slip of an envelope broke the silence. A photograph of Emily, vibrant yet eerily alive, stood amidst yesterday’s crowd, a specter of time, wrenching his heart. 
+
+Memories flooded back—a brief encounter over whiskey and whispered secrets. Guilt twisted in his gut as he hunted down leads, confronting corrupt cops and sultry femme fatales in smoky bars, where truth wove through lies like smoke. But in a darkened room, clarity struck; a hidden message on the photo’s back read, “I didn’t leave you behind.” 
+
+Rain-soaked streets bore witness as he faced the femme fatale, his own demons looming large. Redemption beckoned, a flicker of hope igniting. Sam vowed to unearth the truth, finally ready to confront his past as the downpour intensified.

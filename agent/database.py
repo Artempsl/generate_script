@@ -141,11 +141,16 @@ class Execution:
     
     def to_response(self) -> Dict[str, Any]:
         """Convert execution to API response format (summary only)."""
+        from uuid import uuid4
+        
         # Return summary of reasoning trace (not full trace)
         reasoning_summary = f"{len(self.reasoning_trace)} steps" if self.reasoning_trace else "0 steps"
         
+        # Ensure request_id is never None (handle legacy database records)
+        request_id = self.request_id if self.request_id else str(uuid4())
+        
         return {
-            "request_id": self.request_id,
+            "request_id": request_id,
             "status": self.status,
             "script": self.script,
             "outline": self.outline,

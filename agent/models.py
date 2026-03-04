@@ -22,18 +22,26 @@ class ScriptRequestItem(BaseModel):
     Single script generation request (from n8n array).
     
     Matches n8n execution node output format.
+    Supports both camelCase and snake_case field names.
     """
     
-    isValid: bool = Field(
-        ...,
+    isValid: Optional[bool] = Field(
+        default=True,
         description="Validation status from n8n"
     )
     
-    projectName: str = Field(
-        ...,
+    projectName: Optional[str] = Field(
+        default=None,
         min_length=1,
         max_length=200,
-        description="Project name"
+        description="Project name (camelCase)"
+    )
+    
+    project_name: Optional[str] = Field(
+        default=None,
+        min_length=1,
+        max_length=200,
+        description="Project name (snake_case, n8n default)"
     )
     
     genre: str = Field(
@@ -43,11 +51,18 @@ class ScriptRequestItem(BaseModel):
         description="Story genre (e.g., Comedy, Drama, Sci-Fi)"
     )
     
-    storyIdea: str = Field(
-        ...,
+    storyIdea: Optional[str] = Field(
+        default=None,
         min_length=10,
         max_length=5000,
-        description="Story concept/idea"
+        description="Story concept/idea (camelCase)"
+    )
+    
+    story_idea: Optional[str] = Field(
+        default=None,
+        min_length=10,
+        max_length=5000,
+        description="Story concept/idea (snake_case, n8n default)"
     )
     
     duration: int = Field(
@@ -57,26 +72,36 @@ class ScriptRequestItem(BaseModel):
         description="Target video duration in minutes (1-60)"
     )
     
-    request_id: Optional[str] = Field(
-        default=None,
-        description="Unique request ID for idempotency"
+    request_id: str = Field(
+        default_factory=lambda: str(uuid4()),
+        description="Unique request ID for idempotency (auto-generated if not provided)"
     )
-    
-    @field_validator('request_id', mode='before')
-    @classmethod
-    def generate_request_id(cls, v):
-        """Generate UUID if request_id not provided."""
-        if v is None or v == "":
-            return str(uuid4())
-        return v
     
     @field_validator('isValid')
     @classmethod
     def check_is_valid(cls, v):
         """Ensure isValid is True."""
-        if not v:
+        if v is False:
             raise ValueError("Request validation failed: isValid must be True")
         return v
+    
+    def get_project_name(self) -> str:
+        """Get project name from either camelCase or snake_case field."""
+        return self.projectName or self.project_name or ""
+    
+    def get_story_idea(self) -> str:
+        """Get story idea from either camelCase or snake_case field."""
+        return self.storyIdea or self.story_idea or ""
+    
+    @property
+    def normalized_project_name(self) -> str:
+        """Normalized project name (prioritize camelCase)."""
+        return self.projectName or self.project_name or ""
+    
+    @property
+    def normalized_story_idea(self) -> str:
+        """Normalized story idea (prioritize camelCase)."""
+        return self.storyIdea or self.story_idea or ""
 
 
 class ScriptRequestArray(BaseModel):
@@ -239,7 +264,7 @@ def create_initial_state(request: ScriptRequestItem) -> AgentState:
     Create initial agent state from request.
     
     Args:
-        request: Validated request from n8n
+        request: Validated request from n8n (supports both camelCase and snake_case)
         
     Returns:
         Initial AgentState with input fields populated
@@ -253,10 +278,50 @@ def create_initial_state(request: ScriptRequestItem) -> AgentState:
         sys.path.insert(0, str(Path(__file__).parent.parent))
         from agent.language_utils import detect_language, calculate_target_chars
     
+    # Get normalized field values (works with both camelCase and snake_case)
+    project_name = request.normalized_project_name
+    story_idea = request.normalized_story_idea
+    
+    # Validate we have required fields
+    if not project_name:
+        raise ValueError("projectName or project_name is required")
+    if not story_idea:
+        raise ValueError("storyIdea or story_idea is required")
+    
     # Detect language from genre + idea
-    combined_text = f"{request.genre} {request.storyIdea}"
+    combined_text = f"{request.genre} {story_idea}"
     language = detect_language(combined_text)
     target_chars = calculate_target_chars(request.duration, language)
+    
+    # Return dict instead of AgentState() for LangGraph compatibility
+    return {
+        "request_id": request.request_id or str(uuid4()),
+        "project_name": project_name,
+        "genre": request.genre,
+        "idea": story_idea,
+        "duration": request.duration,
+        "language": language,
+        "target_chars": target_chars,
+        "retrieved_context": "",
+        "web_context": "",
+        "synthesized_context": "",
+        "retrieved_sources_count": 0,
+        "reasoning": "",  # NEW: ReAct reasoning
+        "reasoning_strategy": {},  # NEW: Strategic decisions
+        "outline": "",
+        "script": "",
+        "char_count": 0,
+        "validation_passed": False,
+        "validation_ratio": 0.0,
+        "validation_message": "",
+        "iteration": 0,
+        "max_iterations": 3,
+        "web_search_enabled": request.duration > 10,
+        "should_regenerate": False,
+        "reasoning_trace": [],
+        "tokens_used": 0,
+        "error": None,
+    }
     
     # Return dict instead of AgentState() for LangGraph compatibility
     return {
@@ -305,8 +370,11 @@ def state_to_response(state: AgentState) -> ScriptResponse:
     # Create reasoning summary (not full trace)
     reasoning_summary = f"{len(state.get('reasoning_trace', []))} steps completed"
     
+    # Ensure request_id is never None
+    request_id = state.get("request_id") or str(uuid4())
+    
     return ScriptResponse(
-        request_id=state["request_id"],
+        request_id=request_id,
         status=status,
         script=state.get("script"),
         outline=state.get("outline"),
