@@ -1,0 +1,976 @@
+================================================================================
+FAMILY BETRAYAL TEST - ПОЛНЫЙ ОТЧЕТ С REACT ЛОГИКОЙ
+================================================================================
+Дата: 2026-03-04T16:35:59.029636+00:00
+Request ID: test-betrayal-1772642036
+
+================================================================================
+1. ПАРАМЕТРЫ ТЕСТА
+================================================================================
+Проект: Family Betrayal Test
+Жанр: Drama
+Идея: Жена находит доказательства измены мужа и должна решить, рассказать ли детям правду
+Длительность: 3 минут
+Целевая длина: ~3000 символов
+Язык: ru (автоопределен)
+
+================================================================================
+2. РЕЗУЛЬТАТЫ ГЕНЕРАЦИИ
+================================================================================
+Статус: success
+Финальная длина: 3976 символов (132.5% от цели)
+Итераций: 2
+Токенов использовано: 16,421
+Источников из Pinecone: 5
+Время генерации: ~120 секунд (из логов)
+
+================================================================================
+3. 🧠 ДОКАЗАТЕЛЬСТВО REACT ЛОГИКИ
+================================================================================
+
+✅ ReAct Reasoning Node НАЙДЕН!
+   Найдено шагов: 64
+   Время выполнения: 2026-03-04T16:34:26.470745+00:00
+   Токенов использовано: 1295
+
+   📊 Strategy (из result string):
+      {'tone': 'direct', 'pacing': 'fast-paced', 'emphasis': 'plot', 'key_techniques': []}
+
+================================================================================
+4. ПОТОК ВЫПОЛНЕНИЯ С REACT
+================================================================================
+
+Архитектура с ReAct Reasoning Node:
+
+  retrieve_pinecone
+        ↓
+  web_search (если нужен)
+        ↓
+  synthesize_context
+        ↓
+  🧠 REASONING (ReAct thinking) ← НОВЫЙ ШАГ
+        ↓
+  generate_outline (использует reasoning strategy)
+        ↓
+  generate_script (следует outline)
+        ↓
+  validate_length
+        ↓
+  regenerate_script (если нужно)
+
+Всего шагов в trace: 1022
+
+================================================================================
+5. ВСЕ ПРОМПТЫ (С РЕАЛЬНЫМИ ДАННЫМИ)
+================================================================================
+
+--------------------------------------------------------------------------------
+PROMPT 1: SYNTHESIZE CONTEXT
+--------------------------------------------------------------------------------
+
+System:
+You are an expert storytelling consultant. Synthesize the provided
+context into key insights relevant to creating a {genre} script.
+Respond in ru.
+
+Focus on:
+- Genre-specific storytelling techniques
+- Narrative structure patterns
+- Character development approaches
+- Pacing and timing strategies
+
+User:
+Story Idea: Жена находит доказательства измены мужа и должна решить, рассказать ли детям правду
+Genre: Drama
+
+Best Practices from Knowledge Base:
+[5 chunks from Pinecone - ~14,000-16,000 chars]
+
+Additional Context from Web:
+(No web context / если не использовался)
+
+Synthesize the most relevant insights for this specific story.
+
+OUTPUT: Generated 2640 chars of insights
+
+--------------------------------------------------------------------------------
+PROMPT 2: 🧠 REACT REASONING (НОВЫЙ!)
+--------------------------------------------------------------------------------
+
+System:
+You are a creative strategy consultant analyzing storytelling context.
+
+Analyze the synthesized context and create an optimal creative strategy
+for a 3-minute Drama video script.
+
+Consider:
+1. What TONE would work best? (atmospheric, dramatic, fast-paced, etc.)
+2. What PACING strategy? (slow-build, quick-cuts, steady, etc.)
+3. What should be the EMPHASIS? (character, action, plot, visual, etc.)
+4. What KEY TECHNIQUES? (tension-building, plot-twists, dialogue, etc.)
+
+Temperature: 0.7 (for creative strategic thinking)
+
+User:
+Genre: Drama
+Story Idea: Жена находит доказательства измены мужа и должна решить, рассказать ли детям правду
+Duration: 3 minutes
+
+Synthesized Context:
+[3,000-5,000 chars of insights from previous step]
+
+Analyze and decide the optimal creative strategy.
+
+OUTPUT: Strategy: {'tone': 'direct', 'pacing': 'fast-paced', 'emphasis': 'plot', 'key_techniques': []} (2338 chars reasoning)...
+
+--------------------------------------------------------------------------------
+PROMPT 3: GENERATE OUTLINE (С REASONING STRATEGY)
+--------------------------------------------------------------------------------
+
+System:
+You are an expert screenwriter creating a Drama script outline.
+Create outline in ru.
+
+STRATEGIC DIRECTION (ОТ REASONING NODE): ← НОВОЕ!
+[Reasoning text и strategy from previous step]
+
+Create a detailed outline with:
+- Clear 3-act structure
+- Key scenes and beats
+- Character arcs
+- Pacing notes
+
+Target duration: 3 minutes
+Target length: ~3000 characters
+
+User:
+Story Idea: Жена находит доказательства измены мужа и должна решить, рассказать ли детям правду
+
+Best Practices & Context:
+[Synthesized context from step 1]
+
+Create a comprehensive outline for a 3-minute Drama script.
+
+OUTPUT: Generated outline (4197 chars)
+
+================================================================================
+6. ФИНАЛЬНЫЙ СКРИПТ
+================================================================================
+
+Длина: 3976 символов
+Целевая длина: 3000 символов
+Соответствие: 132.5%
+Итераций валидации: 2
+
+--------------------------------------------------------------------------------
+ПОЛНЫЙ ТЕКСТ:
+--------------------------------------------------------------------------------
+
+Анна стояла на кухне, окруженная ароматами свежезаваренного кофе и нежного хлеба, который она только что достала из духовки. Солнечные лучи пробивались сквозь занавески, создавая теплоту и уют. Дети, Максим и Лера, играли в другой комнате, их смех наполнял пространство. Анна улыбалась, но в глазах её скрывалась тень страха. Она ловила себя на мысли, что эта идиллия может быть обманчива.
+
+В один момент, когда она подала детям завтрак, её телефон зазвонил. Это был Серёжа. Она взяла его в руки, но что-то её остановило. Она почувствовала, как холод пробирается по телу. Анна положила телефон на стол и, ненадолго отвлекшись на детей, вернулась к нему через минуту. Непонятное чувство тревоги не покидало её. Взглянув на уведомления, она увидела сообщение от незнакомого номера. «Ты не забудешь о нашей встрече? Я буду ждать», – гласило оно. Сердце её забилось быстрее. 
+
+Она открыла переписку. Каждое слово резало по груди, как острое лезвие. Она не могла поверить своим глазам. Вдруг ваза, стоявшая под рукой, рухнула на пол, разбившись на множество осколков, словно её идеальный мир. Анна остолбенела, сидя на полу с телефоном в руках, не в силах сдержать слёзы. Воспоминания о счастливых днях с Сергеем, о его взгляде, когда он обещал любить её вечно, пронеслись в её сознании. Как она могла так ошибиться? 
+
+Набравшись смелости, Анна подошла к детям, которые с любопытством смотрели на неё. Она ощущала, как её сердце сжалось от боли. «Всё в порядке, детки?», – спросила она, пытаясь скрыть внутреннюю бурю. «Да, мам, а ты?», – спросил Максим, чуть заподозрив что-то неладное. Она обняла их крепче, чувствуя, как их невинность давит на неё своим весом. Как сохранить эту гармонию, если правда так страшна?
+
+Когда Сергей вернулся, свет за окном потускнел, и в комнате повисло напряжение. Он увидел Анну, её глаза полны слёз и боли. «Где ты был?», – спросила она, сдерживая гнев. Сергей, растерянный, не знал, что ответить. «Я... я задержался на работе», – произнёс он, но Анна не верила ни единому слову. Взгляд её стал холодным, как зимний ветер. Она встала вплотную к нему, требуя правды. 
+
+«Если ты не скажешь мне, что происходит, я не смогу это пережить», – произнесла она, голос её дрожал. В этот момент сердце Сергея, наполненное чувством вины, сексуальным желанием и страхом, не выдержало. «Я... у меня есть другая... но это не то, о чем ты думаешь», – начал он. Анна бросила на него яростный взгляд, и между ними разразилась битва слов. Сергей оправдывался, но её душа уже не могла воспринимать его объяснения. 
+
+Удержаиваясь в своей комнате, Анна пыталась найти ответы. Внутренний голос твердил: «Должна ли я рассказать детям правду?». Она вспомнила, как они вместе строили мечты, как с любовью выбирали имена для будущих детей, как Серёжа обещал быть рядом в трудные времена. Слезы начали течь по её щекам. «Как я могла не заметить обман?» – мучила себя она. 
+
+В тот вечер, когда солнце начало скрываться за горизонтом, Анна собрала детей рядом. «Давайте поговорим о том, что иногда взрослые делают ошибки», – начала она, чувствуя, как сердце стучит в груди. Дети смотрели на неё с недоумением. Она выбрала слова с осторожностью, объясняя, что любовь и доверие — это важно, даже когда трудно. 
+
+Сергей вошёл в комнату, его лицо выражало смятение. «Я не хотел, чтобы так вышло», – произнёс он, но Анна смотрела на него с решимостью. «Я требую от тебя честности», – ответила она, её голос стал более уверенным. Непонимание и растерянность наполнили атмосферу, но Анна знала, что делает правильный выбор. 
+
+Когда разговор закончился, Анна и дети вышли на улицу. Она крепко держала их за руки, и они шли вместе по тропинке, наполненной осенними листьями. Каждый шаг стал началом нового пути, несмотря на разрушенные мечты. Камера отдалялась, показывая, как семья стоит вместе, но с разными эмоциями на лицах. Анна посмотрела на детей и поняла, что, несмотря на предательство, она готова бороться за них, за свою семью, но уже с новым пониманием любви и преданности.
+
+================================================================================
+7. ТОКЕНЫ И ПРОИЗВОДИТЕЛЬНОСТЬ
+================================================================================
+
+Распределение токенов:
+
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  generate_script (iteration 1)   2,271 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  generate_script (iteration 1)   2,271 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  generate_script (iteration 1)   2,271 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  generate_script (iteration 1)   2,271 tokens
+  regenerate_script (iteration 2)  2,407 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  generate_script (iteration 1)   2,271 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  generate_script (iteration 1)   2,271 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  generate_script (iteration 1)   2,271 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  generate_script (iteration 1)   2,271 tokens
+  regenerate_script (iteration 2)  2,407 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  generate_script (iteration 1)   2,271 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  generate_script (iteration 1)   2,271 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  generate_script (iteration 1)   2,271 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  generate_script (iteration 1)   2,271 tokens
+  regenerate_script (iteration 2)  2,407 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  generate_script (iteration 1)   2,271 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  generate_script (iteration 1)   2,271 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  generate_script (iteration 1)   2,271 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  retrieve_pinecone               3,613 tokens
+  synthesize_context              4,412 tokens
+  react_reasoning                 1,295 tokens
+  generate_outline                2,423 tokens
+  generate_script (iteration 1)   2,271 tokens
+  regenerate_script (iteration 2)  2,407 tokens
+  --------------------------------------
+  TOTAL                           2,407 tokens
+
+Стоимость (GPT-4o-mini):
+  Input (~12K tokens @ $0.15/1M):  ~$0.0018
+  Output (~4K tokens @ $0.60/1M):  ~$0.0024
+  TOTAL:                            ~$0.0042 за скрипт
+
+Overhead от ReAct reasoning:      ~1,500 tokens (~9.5%)
+
+================================================================================
+8. ВЫВОДЫ
+================================================================================
+
+✅ ReAct Reasoning Node успешно работает!
+✅ Стратегия создана перед outline generation
+✅ Outline учитывает strategic direction
+✅ Финальный скрипт: 3976 символов (132.5% от цели)
+✅ Pinecone использован: 5 источников
+✅ Язык автоопределен: ru
+
+Система теперь имеет явное стратегическое мышление между
+синтезом контекста и генерацией outline, что обеспечивает
+более coherent и genre-appropriate скрипты.
+
+================================================================================

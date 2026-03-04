@@ -1,0 +1,295 @@
+HORROR SCRIPT GENERATION - FULL PROMPTS ANALYSIS
+===============================================
+
+Request Data:
+- Project: Horror Test
+- Genre: Horror
+- Story Idea: "A person discovers their reflection has started acting independently"
+- Duration: 1 min
+- Target chars: 1000 (based on 1 min * 1000 chars/min for English)
+
+===============================================
+EXECUTION FLOW
+===============================================
+
+The agent follows this STRICT SEQUENCE (not full ReAct loop):
+
+1. retrieve_pinecone
+   ↓
+2. web_search (conditional - skipped for videos ≤10 min if no SERPAPI key)
+   ↓
+3. synthesize_context
+   ↓
+4. generate_outline
+   ↓
+5. generate_script
+   ↓
+6. validate
+   ↓
+7. (conditional) IF invalid → regenerate → validate (loop max 3 times)
+   ↓
+8. END
+
+This is NOT a full ReAct loop with dynamic decision-making.
+It's a LINEAR PIPELINE with ONE conditional loop (validation).
+
+===============================================
+PROOF OF PINECONE USAGE
+===============================================
+
+Step 1: retrieve_pinecone
+→ Retrieved: 5 sources
+→ Total chars: 14,452
+→ Tokens: 3,613
+
+This context was DEFINITELY used because:
+- Step 3 synthesize_context consumed it
+- Generated 4,205 chars of synthesized insights
+- Used 4,799 tokens (includes Pinecone context + OpenAI processing)
+
+===============================================
+PROMPT 1: SYNTHESIZE CONTEXT
+===============================================
+
+System Prompt:
+--------------
+You are an expert storytelling consultant. Synthesize the provided context into key insights relevant to creating a Horror script.
+
+Respond in English.
+
+Focus on:
+- Genre-specific storytelling techniques
+- Narrative structure patterns
+- Character development approaches
+- Pacing and timing strategies
+
+User Prompt:
+------------
+Story Idea: A person discovers their reflection has started acting independently
+Genre: Horror
+
+Best Practices from Knowledge Base:
+[14,452 chars from Pinecone - 5 chunks from bestpractices.pdf including:]
+- Storytelling architecture principles
+- Audience engagement strategies
+- Narrative structure patterns
+- Pacing techniques
+- Character development approaches
+- (Full text from all 5 retrieved chunks)
+
+Additional Context from Web:
+(No web context)
+
+Synthesize the most relevant insights for this specific story.
+
+OUTPUT:
+→ Generated: 4,205 chars of synthesized insights
+→ Tokens: 4,799
+
+===============================================
+PROMPT 2: GENERATE OUTLINE
+===============================================
+
+System Prompt:
+--------------
+You are an expert screenwriter creating a Horror script outline.
+
+Create outline in English.
+
+Create a detailed outline with:
+- Clear 3-act structure
+- Key scenes and beats
+- Character arcs
+- Pacing notes
+
+Target duration: 1 minutes
+Target length: ~1,000 characters
+
+User Prompt:
+------------
+Story Idea:
+A person discovers their reflection has started acting independently
+
+Best Practices & Context:
+[4,205 chars of synthesized insights from previous step]
+
+Create a comprehensive outline for a 1-minute Horror script.
+
+OUTPUT:
+→ Generated: 2,270 chars outline
+→ Tokens: 1,727
+
+===============================================
+PROMPT 3: GENERATE SCRIPT (Iteration 1)
+===============================================
+
+System Prompt:
+--------------
+You are a professional screenwriter creating a Horror video script.
+
+Write script in English.
+
+STORYTELLING GUIDELINES:
+Generate a story in the format of artistic storytelling. This should be an emotionally rich, captivating story that is perceived as a real event that happened in life. The text should evoke empathy, tension, internal response, create the effect of presence and gradual disclosure of the situation. The story should be written in vivid literary language with attention to details, atmosphere, internal experiences and motivations of the characters.
+
+Format strictly as continuous text. Do not use scene numbering, headings, time stamps, actor designations, stage directions or any structural elements. Only a cohesive artistic text of the story without explanations, comments and technical inserts.
+
+Requirements:
+- Target duration: 1 minutes
+- Target length: 1,000 characters (STRICT - aim for 90-110% of target)
+- Follow provided outline closely
+- Include vivid descriptions and natural dialogue
+- Maintain consistent pacing
+
+User Prompt:
+------------
+Story Idea:
+A person discovers their reflection has started acting independently
+
+Outline:
+[2,270 chars outline from previous step]
+
+Write the complete 1-minute Horror script. Aim for exactly 1,000 characters.
+
+OUTPUT (Iteration 1):
+→ Generated: 1,108 chars
+→ Validation: ✗ Too long (110.8%)
+→ Tokens: 1,148
+
+===============================================
+PROMPT 4: REGENERATE SCRIPT (Iteration 2)
+===============================================
+
+System Prompt:
+--------------
+You are a professional screenwriter creating a Horror video script.
+
+Write script in English.
+
+STORYTELLING GUIDELINES:
+[Same as above]
+
+Requirements:
+- Target duration: 1 minutes
+- Target length: 1,000 characters (STRICT - aim for 90-110% of target)
+- Follow provided outline closely
+- Include vivid descriptions and natural dialogue
+- Maintain consistent pacing
+
+(Iteration 2)
+
+ADJUSTMENT NEEDED:
+Current length: 1,108 characters (110.8% of target)
+Target: 1,000 characters (900-1,100 acceptable)
+Adjustment: REDUCE by ~8 chars (or keep if within 90-110%)
+
+User Prompt:
+------------
+Story Idea:
+A person discovers their reflection has started acting independently
+
+Outline:
+[2,270 chars outline]
+
+Write the complete 1-minute Horror script. Aim for exactly 1,000 characters.
+
+OUTPUT (Iteration 2):
+→ Generated: 1,152 chars
+→ Validation: ✗ Too long (115.2%)
+→ Tokens: 1,213
+
+===============================================
+PROMPT 5: REGENERATE SCRIPT (Iteration 3)
+===============================================
+
+[Same as Iteration 2, but with updated adjustment instruction]
+
+ADJUSTMENT NEEDED:
+Current length: 1,152 characters (115.2% of target)
+Target: 1,000 characters (900-1,100 acceptable)
+Adjustment: REDUCE by ~152 chars
+
+OUTPUT (Iteration 3):
+→ Generated: 1,096 chars
+→ Validation: ✓ Length valid (109.6%)
+→ Tokens: 1,199
+
+===============================================
+FINAL SCRIPT OUTPUT
+===============================================
+
+Length: 1,096 characters (109.6% of target - VALID)
+Iterations: 3
+Total tokens: 13,699
+
+Script text:
+"Alex stood before the mirror, face smeared with paint, struggling to define their identity. An unsettling whisper of static hung in the air, each brush stroke thick with doubt. Suddenly, their reflection smirked while their own face remained still, an unsettling contrast. Heart racing, Alex shook their head, chalking it up to stress-induced paranoia.
+
+Days passed, and the reflection began to twist and delay, movements erratic and mocking. Friends faded away, their concern replaced by Alex's growing isolation. They confronted the reflection. "What do you want?" The image laughed, sharp and taunting, a sinister echo of Alex's fear, sending adrenaline coursing through their veins.
+
+With a sudden lunge, the reflection shattered the glass, fingers grasping Alex's wrist. Panic surged as they felt a pull, the coldness of the mirror's depths threatening to consume them. In that final moment, Alex's face softened, a chilling smile forming in unison with the reflection—a terrifying acceptance as they merged, identities entwined. The screen faded to black, leaving reality forever shattered."
+
+===============================================
+VERIFICATION CHECKLIST
+===============================================
+
+✅ Pinecone was queried: 5 sources (14,452 chars)
+✅ Context was synthesized: 4,205 chars → used in outline
+✅ Outline was generated: 2,270 chars → used in script
+✅ Pinecone context influenced final script: YES
+   - Evidence: synthesis step consumed Pinecone data
+   - Outline generation used synthesized context
+   - Script generation used outline (which includes Pinecone insights)
+
+✅ Artistic storytelling format applied: YES
+   - No scene numbers ✓
+   - No timestamps ✓
+   - No character labels in dialogue ✓
+   - No stage directions ✓
+   - Continuous narrative text ✓
+   - Emotional language ("unsettling", "panic", "chilling") ✓
+
+===============================================
+AGENT ARCHITECTURE: STRICT SEQUENCE vs ReAct
+===============================================
+
+CURRENT IMPLEMENTATION:
+-----------------------
+This is a SIMPLIFIED ReAct - a strict linear pipeline with ONE conditional loop:
+
+Flow:
+  retrieve → web_search → synthesize → generate_outline → generate_script
+    ↓
+  validate → (if invalid) regenerate → validate (loop max 3x)
+    ↓
+  END
+
+Characteristics:
+✓ Fixed sequence of steps (no dynamic routing)
+✓ ONE decision point: "should_regenerate" function
+✓ No observation → reasoning → action loop
+✓ No tool selection based on intermediate results
+✓ No dynamic planning
+
+FULL ReAct WOULD INCLUDE:
+-------------------------
+✗ Dynamic tool selection at each step
+✗ Observation-based decision making
+✗ Reasoning traces for "why choose this tool"
+✗ Ability to skip/repeat arbitrary steps
+✗ Backtracking to previous states
+✗ Multiple conditional branches
+
+WHY THIS DESIGN:
+----------------
+✓ Predictable execution for production use
+✓ Easier to debug and monitor
+✓ Guaranteed completion (no infinite loops)
+✓ Clear token budget management
+✓ Deterministic cost estimation
+✓ Suitable for n8n integration (fixed workflow)
+
+The current architecture is better described as:
+"Linear Pipeline with Validation Loop" rather than "Full ReAct Agent"
+
+===============================================

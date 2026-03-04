@@ -1,0 +1,50 @@
+PROJECT: Simple Test
+GENRE: Comedy
+DURATION: 1 min
+LANGUAGE: en
+LENGTH: 1431 characters
+ITERATIONS: 4
+TOKENS USED: 6776
+GENERATED: 2026-03-04T15:23:06.978200+00:00
+
+======================================================================
+
+**Title: Cat-tastrophe Online**
+
+**Act 1: The Mundane Life of a Cat**  
+*Scene 1 (0:00 - 0:10)*  
+*(Whiskers lounges lazily on the couch, Cathy scrolls through cat memes.)*  
+**Cathy:** (chuckles) Look at this one, Whiskers!  
+
+*Scene 2 (0:10 - 0:20)*  
+*(Whiskers accidentally steps on the laptop, launching a viral cat video.)*  
+*(The screen fills with likes, but Whiskers is fixated on the moving cursor.)*  
+**Whiskers:** (confused blink) What’s that?  
+
+**Act 2: Online Misadventures**  
+*Scene 3 (0:20 - 0:30)*  
+*(Whiskers tries to type, hilariously mashing keys.)*  
+*(Profile appears: “Looking for a purr-fect match!”)*  
+**Whiskers:** (paws raised) I’m a dating cat now?    
+
+*Scene 4 (0:30 - 0:40)*  
+*(Rex, a dog influencer, challenges Whiskers to a competition.)*  
+**Rex:** Bet I’m cuter!  
+**Whiskers:** (growls, misunderstanding) You wanna fight?  
+
+*Scene 5 (0:40 - 0:50)*  
+*(Montage of Whiskers failing at selfies, chasing his tail on video calls.)*  
+*(He crashes into a plant, leaves flying.)*  
+
+**Act 3: Realizations and Resolution**  
+*Scene 6 (0:50 - 0:55)*  
+*(Whiskers sees Cathy laughing at real cat videos.)*  
+**Whiskers:** (realization) Oh...  
+
+*Scene 7 (0:55 - 1:00)*  
+*(Whiskers leaps off the laptop, chasing a laser pointer.)*  
+*(He knocks the laptop down, breaking the spell.)*  
+**Cathy:** (laughs) Classic Whiskers!  
+
+*(Whiskers purrs contentedly, back to real-life antics.)*  
+**[END]**  
