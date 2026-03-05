@@ -1,5 +1,0 @@
-# Audio files directory
-# TTS-generated audio files will be stored in subdirectories by project name:
-# audio/{project_name}/0001.mp3
-# audio/{project_name}/0002.mp3
-# etc.

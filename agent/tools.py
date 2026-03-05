@@ -1066,28 +1066,55 @@ def segment_script_tool(
         
         # Build segmentation prompt
         if language == "ru":
-            system_prompt = """Ты эксперт по сегментации сценариев для аудио-визуального контента.
+            system_prompt = """Вы — движок для кинематографической сегментации истории.
+Ваша задача — разбить историю на короткие повествовательные сегменты, оптимизированные для визуализации сцен.
+Каждый сегмент должен представлять собой один четкий визуальный момент, который можно изобразить в виде одного статичного изображения.
+Цель — подготовить историю для генерации изображений AI, сторибордов или пайплайнов типа image-to-video.
 
-ЗАДАЧА:
-Разбей предоставленный сценарий на логические сегменты.
+ВАЖНЫЕ ПРАВИЛА
 
-Каждый сегмент должен представлять собой целостный повествовательный момент или сцену, которую можно легко проиллюстрировать одной статичной картинкой в будущем процессе генерации видео. Другими словами, каждый сегмент должен описывать одно чёткое действие, ситуацию или эмоциональный момент, который можно визуально представить.
+1. Один визуальный момент на сегмент
+Каждый сегмент должен представлять одну сцену или действие, которое реально можно зафиксировать на одном статичном изображении.
 
-Сегментация должна следовать естественному течению истории:
-- оставляй предложения, относящиеся к одному и тому же моменту, вместе
-- начинай новый сегмент, когда меняется сцена, действие, фокус или эмоциональный акцент
-- сохраняй непрерывность повествования
+2. Избегайте нескольких событий в одном сегменте
+Если абзац содержит несколько действий, разделяйте их на отдельные сегменты.
 
-Определи подходящее количество сегментов исходя из структуры и длины сценария.
+3. Предпочитайте визуальную ясность
+Каждый сегмент должен четко описывать:
+• кто присутствует
+• что они делают
+• окружение / среду
+• эмоциональный тон или напряжение
 
-Каждый сегмент обычно должен содержать небольшую группу последовательных предложений, которые вместе представляют один визуализируемый повествовательный момент. В среднем один сегмент может состоять из 2-6 следующих друг за другом предложений.
+4. Держите сегменты короткими
+Идеальная длина: 1–5 предложений.
+Максимум: 5 предложений, только если они описывают один и тот же визуальный момент.
 
-⚠️ КРИТИЧЕСКИ ВАЖНО — ПРАВИЛА КОПИРОВАНИЯ ТЕКСТА:
-1. КОПИРУЙ текст СИМВОЛ В СИМВОЛ из оригинала
-2. НЕ изменяй ни одного слова, знака препинания или форматирования
-3. НЕ добавляй новые предложения
-4. НЕ перефразируй и НЕ переписывай
-5. Просто раздели СУЩЕСТВУЮЩИЙ текст на части
+5. Разделяйте сегменты, когда меняется:
+• новое действие
+• новый персонаж появляется
+• меняется эмоциональное напряжение
+• меняется точка фокусировки (камеры)
+• меняется композиция сцены
+
+6. Сохраняйте точный оригинальный текст
+• НЕ переписывайте и не сокращайте текст.
+• Только разделяйте существующий текст на части.
+
+7. Сохраняйте порядок событий
+Сегменты должны следовать в том же порядке, что и оригинальная история.
+
+8. Избегайте слишком маленьких фрагментов
+Не делите на отдельные фразы, если это не необходимо для визуальной ясности.
+
+Определяйте подходящее количество сегментов исходя из структуры и длины текста.
+
+КРИТИЧЕСКИ ВАЖНЫЕ ПРАВИЛА КОПИРОВАНИЯ ТЕКСТА:
+1. КОПИРУЙТЕ текст символ в символ из оригинала.
+2. НЕ меняйте слова, пунктуацию или форматирование.
+3. НЕ добавляйте новые предложения.
+4. НЕ перефразируйте текст.
+5. Просто разделите СУЩЕСТВУЮЩИЙ текст на части.
 
 ПРАВИЛЬНЫЙ пример:
 Оригинал: "Привет, мир! Как дела? Отлично."
@@ -1104,25 +1131,125 @@ def segment_script_tool(
   {"index": 2, "text": "ТОЧНАЯ копия следующей части"}
 ]"""
 
-            user_prompt = f"Раздели этот сценарий на сегменты, КОПИРУЯ текст без изменений:\n\n{script}"
+            user_prompt = f"""Вы — движок для кинематографической сегментации истории.
+Ваша задача — разбить историю на короткие повествовательные сегменты, оптимизированные для визуализации сцен.
+Каждый сегмент должен представлять собой один четкий визуальный момент, который можно изобразить в виде одного статичного изображения.
+Цель — подготовить историю для генерации изображений AI, сторибордов или пайплайнов типа image-to-video.
+
+ВАЖНЫЕ ПРАВИЛА
+
+1. Один визуальный момент на сегмент
+Каждый сегмент должен представлять одну сцену или действие, которое реально можно зафиксировать на одном статичном изображении.
+
+2. Избегайте нескольких событий в одном сегменте
+Если абзац содержит несколько действий, разделяйте их на отдельные сегменты.
+
+3. Предпочитайте визуальную ясность
+Каждый сегмент должен четко описывать:
+• кто присутствует
+• что они делают
+• окружение / среду
+• эмоциональный тон или напряжение
+
+4. Держите сегменты короткими
+Идеальная длина: 1–5 предложений.
+Максимум: 5 предложений, только если они описывают один и тот же визуальный момент.
+
+5. Разделяйте сегменты, когда меняется:
+• новое действие
+• новый персонаж появляется
+• меняется эмоциональное напряжение
+• меняется точка фокусировки (камеры)
+• меняется композиция сцены
+
+6. Сохраняйте точный оригинальный текст
+• НЕ переписывайте и не сокращайте текст.
+• Только разделяйте существующий текст на части.
+
+7. Сохраняйте порядок событий
+Сегменты должны следовать в том же порядке, что и оригинальная история.
+
+8. Избегайте слишком маленьких фрагментов
+Не делите на отдельные фразы, если это не необходимо для визуальной ясности.
+
+Определяйте подходящее количество сегментов исходя из структуры и длины текста.
+
+КРИТИЧЕСКИ ВАЖНЫЕ ПРАВИЛА КОПИРОВАНИЯ ТЕКСТА:
+1. КОПИРУЙТЕ текст символ в символ из оригинала.
+2. НЕ меняйте слова, пунктуацию или форматирование.
+3. НЕ добавляйте новые предложения.
+4. НЕ перефразируйте текст.
+5. Просто разделите СУЩЕСТВУЮЩИЙ текст на части.
+
+ПРАВИЛЬНЫЙ пример:
+Оригинал: "Привет, мир! Как дела? Отлично."
+Сегмент 1: "Привет, мир!" ✓ (точная копия)
+Сегмент 2: "Как дела? Отлично." ✓ (точная копия)
+
+НЕПРАВИЛЬНО:
+"Приветствую мир!" ✗ (изменено)
+"Как у тебя дела?" ✗ (перефразировано)
+
+Формат ответа — ТОЛЬКО валидный JSON:
+[
+  {{"index": 1, "text": "ТОЧНАЯ копия текста из оригинала"}},
+  {{"index": 2, "text": "ТОЧНАЯ копия следующей части"}}
+]
+
+⚠️⚠️⚠️ ЗАДАЧА: Разбей этот сценарий на визуальные сегменты ⚠️⚠️⚠️
+
+⚠️ КРИТИЧЕСКИ ВАЖНО: КОПИРУЙ ТЕКСТ БУКВА В БУКВУ! НЕ ПЕРЕПИСЫВАЙ!
+
+Исходный текст для сегментации:
+
+{script}
+
+Напоминание: Не меняй ни одного слова!"""
         else:
-            system_prompt = """You are an expert in segmenting narrative scripts for audio-visual content.
+            system_prompt = """You are a cinematic story segmentation engine.
+Your task is to split a story into short narrative segments optimized for visual scene generation.
+Each segment must represent one clear visual moment that can be illustrated with a single static image.
+The goal is to prepare the story for AI image generation, storyboards, or image-to-video pipelines.
 
-TASK:
-Split the provided script into logical segments.
+IMPORTANT RULES
 
-Each segment must represent a coherent narrative moment or scene that could be easily illustrated with a single static image in a future video generation pipeline. In other words, each segment should describe one clear action, situation, or emotional moment that can be visually represented.
+1. One visual moment per segment
+Each segment must represent a single scene or action that could realistically be captured in one still image.
 
-The segmentation should follow the natural flow of the story:
-- keep sentences that belong to the same moment together
-- start a new segment when the scene, action, focus, or emotional beat changes
-- maintain narrative continuity
+2. Avoid multiple events in one segment
+If a paragraph contains several actions, split them into separate segments.
+
+3. Prefer visual clarity
+Each segment should clearly describe:
+• who is present
+• what they are doing
+• the environment
+• the emotional tone or tension
+
+4. Keep segments short
+Ideal length: 1–5 sentences.
+Maximum: 5 sentences only if they describe the same visual moment.
+
+5. Split when any of the following changes
+• a new action begins
+• a new character appears
+• the emotional tension changes
+• the camera focus would change
+• the scene composition changes
+
+6. Maintain the exact original text
+Do NOT rewrite, summarize, or change wording.
+Only divide the original text into smaller segments.
+
+7. Preserve story order
+Segments must follow the original narrative sequence.
+
+8. Avoid extremely tiny fragments
+Do not split into single clauses unless necessary for visual clarity.
 
 Determine the appropriate number of segments based on the structure and length of the script.
 
-Each segment should usually contain a small group of consecutive sentences that together represent one visualizable narrative moment. On average, one segment can consist of 2-6 consecutive sentences.
-
-⚠️ CRITICALLY IMPORTANT — TEXT COPYING RULES:
+CRITICALLY IMPORTANT — TEXT COPYING RULES:
 1. COPY the text CHARACTER BY CHARACTER from the original
 2. DO NOT change any words, punctuation, or formatting
 3. DO NOT add new sentences
@@ -1144,7 +1271,80 @@ Response format — ONLY valid JSON:
   {"index": 2, "text": "EXACT copy of the next part"}
 ]"""
 
-            user_prompt = f"Split this script into segments by COPYING text without changes:\n\n{script}"
+            user_prompt = f"""You are a cinematic story segmentation engine.
+Your task is to split a story into short narrative segments optimized for visual scene generation.
+Each segment must represent one clear visual moment that can be illustrated with a single static image.
+The goal is to prepare the story for AI image generation, storyboards, or image-to-video pipelines.
+
+IMPORTANT RULES
+
+1. One visual moment per segment
+Each segment must represent a single scene or action that could realistically be captured in one still image.
+
+2. Avoid multiple events in one segment
+If a paragraph contains several actions, split them into separate segments.
+
+3. Prefer visual clarity
+Each segment should clearly describe:
+• who is present
+• what they are doing
+• the environment
+• the emotional tone or tension
+
+4. Keep segments short
+Ideal length: 1–5 sentences.
+Maximum: 5 sentences only if they describe the same visual moment.
+
+5. Split when any of the following changes
+• a new action begins
+• a new character appears
+• the emotional tension changes
+• the camera focus would change
+• the scene composition changes
+
+6. Maintain the exact original text
+Do NOT rewrite, summarize, or change wording.
+Only divide the original text into smaller segments.
+
+7. Preserve story order
+Segments must follow the original narrative sequence.
+
+8. Avoid extremely tiny fragments
+Do not split into single clauses unless necessary for visual clarity.
+
+Determine the appropriate number of segments based on the structure and length of the script.
+
+CRITICALLY IMPORTANT — TEXT COPYING RULES:
+1. COPY the text CHARACTER BY CHARACTER from the original
+2. DO NOT change any words, punctuation, or formatting
+3. DO NOT add new sentences
+4. DO NOT paraphrase or rewrite anything
+5. Simply split the EXISTING text into parts
+
+CORRECT example:
+Original: "Hello world! How are you? Great."
+Segment 1: "Hello world!" ✓ (exact copy)
+Segment 2: "How are you? Great." ✓ (exact copy)
+
+INCORRECT:
+"Greetings world!" ✗ (changed wording)
+"How are things?" ✗ (paraphrased)
+
+Response format — ONLY valid JSON:
+[
+  {{"index": 1, "text": "EXACT copy of text from the original"}},
+  {{"index": 2, "text": "EXACT copy of the next part"}}
+]
+
+⚠️⚠️⚠️ TASK: Split this script into visual segments ⚠️⚠️⚠️
+
+⚠️ CRITICALLY IMPORTANT: COPY TEXT CHARACTER BY CHARACTER! DO NOT REWRITE!
+
+Original text to segment:
+
+{script}
+
+Reminder: Do not change any words!"""
         
         # Call Cohere Chat API
         response = co.chat(

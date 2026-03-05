@@ -624,3 +624,283 @@
 2026-03-05 18:00:12,763 - agent.api - INFO - ✓ Database initialized
 2026-03-05 18:00:12,763 - agent.api - INFO - ✓ Server ready on port 8001
 2026-03-05 18:00:12,763 - agent.api - INFO - ================================================================================
+2026-03-05 19:45:56,899 - agent.api - INFO - → POST /generate-script
+2026-03-05 19:45:56,971 - agent.api - INFO - ================================================================================
+2026-03-05 19:45:56,978 - agent.api - INFO - SCRIPT GENERATION REQUEST
+2026-03-05 19:45:56,983 - agent.api - INFO - ================================================================================
+2026-03-05 19:45:56,985 - agent.api - INFO - Request ID: 193427a6-e7b5-4419-b691-102c837a8a97
+2026-03-05 19:45:56,987 - agent.api - INFO - Project: fgfgdfgd4554544
+2026-03-05 19:45:56,993 - agent.api - INFO - Genre: horror
+2026-03-05 19:45:56,997 - agent.api - INFO - Duration: 1 min
+2026-03-05 19:45:56,999 - agent.api - INFO - Idea: horror about cats and foxes...
+2026-03-05 19:45:57,017 - agent.api - INFO - → Creating initial state...
+2026-03-05 19:45:57,020 - agent.api - INFO -   Language detected: en
+2026-03-05 19:45:57,023 - agent.api - INFO -   Target characters: 1,000
+2026-03-05 19:45:57,029 - agent.api - INFO -   Audio base URL: https://cinema-furnished-research-announce.trycloudflare.com
+2026-03-05 19:45:57,031 - agent.api - INFO - → Executing agent graph (timeout: 300s)...
+2026-03-05 19:45:57,154 - agent.tools - INFO - Created project directory: projects\fgfgdfgd4554544
+2026-03-05 19:45:57,154 - agent.graph - INFO - [GRAPH] create_project_node returning: project_slug='fgfgdfgd4554544', project_dir='projects\fgfgdfgd4554544'
+2026-03-05 19:45:59,755 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2026-03-05 19:46:29,949 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 19:46:40,959 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 19:46:55,407 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 19:47:02,577 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 19:47:02,584 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'fgfgdfgd4554544')
+2026-03-05 19:47:02,585 - agent.graph - INFO - [GRAPH] Validation result: is_valid=True, project_slug='fgfgdfgd4554544'
+2026-03-05 19:47:02,586 - agent.graph - INFO - [GRAPH] Validation passed, saving script to file...
+2026-03-05 19:47:02,592 - agent.tools - INFO - Saved script to: projects\fgfgdfgd4554544\script.txt (1031 chars)
+2026-03-05 19:47:02,593 - agent.graph - INFO - [GRAPH] ✓ Script saved: projects\fgfgdfgd4554544\script.txt
+2026-03-05 19:47:02,595 - agent.tools - INFO - Starting script segmentation (language: en, script length: 1031 chars)
+2026-03-05 19:47:08,596 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/chat "HTTP/1.1 200 OK"
+2026-03-05 19:47:08,601 - agent.tools - INFO - Segmentation successful: 4 segments created, 557 tokens used
+2026-03-05 19:47:08,601 - agent.tools - INFO - ✓ Validation passed: Original text preserved (char diff: 0.0%)
+2026-03-05 19:47:08,605 - agent.tools - INFO - Saved segmented script to: projects\fgfgdfgd4554544\script_segmented.txt (4 segments)
+2026-03-05 19:47:08,609 - agent.tools - INFO - ========== GENERATE_TTS_TOOL CALLED ==========
+2026-03-05 19:47:08,610 - agent.tools - INFO - Project: fgfgdfgd4554544
+2026-03-05 19:47:08,610 - agent.tools - INFO - Total segments received: 4
+2026-03-05 19:47:08,611 - agent.tools - INFO - First 3 segments:
+2026-03-05 19:47:08,611 - agent.tools - INFO -   Segment 1: As dusk settled over the quaint neighborhood, Lila giggled, her fluffy cat batti... (288 chars)
+2026-03-05 19:47:08,612 - agent.tools - INFO -   Segment 2: The cat stilled, its eyes glinting like shards of glass, focused intently on the... (99 chars)
+2026-03-05 19:47:08,612 - agent.tools - INFO -   Segment 3: From the thicket, a fox emerged, its gaze luminous, sharp teeth glimmering benea... (326 chars)
+2026-03-05 19:47:09,055 - agent.tools - INFO - Generating TTS audio for 4 segments in: projects\fgfgdfgd4554544
+2026-03-05 19:47:09,056 - agent.tools - INFO - Generating TTS for segment 1: 288 chars
+2026-03-05 19:47:09,056 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'As dusk settled over the quaint neighborhood, Lila giggled, her fluffy cat batting at shadows in the yard. The evening air held a nostalgic charm, wit...'
+2026-03-05 19:47:11,160 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 19:47:15,008 - agent.tools - INFO - Generating TTS for segment 2: 99 chars
+2026-03-05 19:47:15,008 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'The cat stilled, its eyes glinting like shards of glass, focused intently on the encroaching night....'
+2026-03-05 19:47:16,150 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 19:47:17,039 - agent.tools - INFO - Generating TTS for segment 3: 326 chars
+2026-03-05 19:47:17,040 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'From the thicket, a fox emerged, its gaze luminous, sharp teeth glimmering beneath the waning light. Lila's heart quickened, her smile faltering. The ...'
+2026-03-05 19:47:19,012 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 19:47:24,012 - agent.tools - INFO - Generating TTS for segment 4: 313 chars
+2026-03-05 19:47:24,013 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'In a flash, the cat lunged, claws bared, and Lila gasped, eyes wide with terror. The fox slinked closer, its presence menacing. Surrounded, she felt b...'
+2026-03-05 19:47:25,618 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 19:47:29,162 - agent.api - INFO - ✓ Script generated successfully
+2026-03-05 19:47:29,163 - agent.api - INFO -   Iterations: 1
+2026-03-05 19:47:29,164 - agent.api - INFO -   Characters: 1,031
+2026-03-05 19:47:29,164 - agent.api - INFO -   Tokens used: 15,105
+2026-03-05 19:47:29,165 - agent.api - INFO -   Sources: 5
+2026-03-05 19:47:29,165 - agent.api - INFO -   Validation: ✓ Passed
+2026-03-05 19:47:29,166 - agent.api - INFO -   Segments: 4
+2026-03-05 19:47:29,167 - agent.api - INFO -   Audio files: 4
+2026-03-05 19:47:29,189 - agent.api - INFO - ✓ Execution saved to database
+2026-03-05 19:47:29,190 - agent.api - INFO - ================================================================================
+2026-03-05 19:47:29,193 - agent.api - INFO - ← 200 (92.29s)
+2026-03-05 20:05:36,811 - agent.api - INFO - ================================================================================
+2026-03-05 20:05:36,812 - agent.api - INFO - AGENT BACKEND STARTUP
+2026-03-05 20:05:36,812 - agent.api - INFO - ================================================================================
+2026-03-05 20:05:36,812 - agent.api - INFO - ✓ Environment variables validated
+2026-03-05 20:05:36,815 - agent.api - INFO - ✓ Database initialized
+2026-03-05 20:05:36,815 - agent.api - INFO - ✓ Server ready on port 8001
+2026-03-05 20:05:36,816 - agent.api - INFO - ================================================================================
+2026-03-05 20:07:00,368 - agent.api - INFO - → POST /generate-script
+2026-03-05 20:07:00,370 - agent.api - INFO - ================================================================================
+2026-03-05 20:07:00,371 - agent.api - INFO - SCRIPT GENERATION REQUEST
+2026-03-05 20:07:00,371 - agent.api - INFO - ================================================================================
+2026-03-05 20:07:00,371 - agent.api - INFO - Request ID: 19c84a85-3048-4a6d-a8ce-3f6b589eb0d4
+2026-03-05 20:07:00,371 - agent.api - INFO - Project: fgfgdfgd4554544
+2026-03-05 20:07:00,371 - agent.api - INFO - Genre: horror
+2026-03-05 20:07:00,372 - agent.api - INFO - Duration: 1 min
+2026-03-05 20:07:00,372 - agent.api - INFO - Idea: horror about cats and foxes...
+2026-03-05 20:07:00,375 - agent.api - INFO - → Creating initial state...
+2026-03-05 20:07:00,376 - agent.api - INFO -   Language detected: en
+2026-03-05 20:07:00,376 - agent.api - INFO -   Target characters: 1,000
+2026-03-05 20:07:00,376 - agent.api - INFO -   Audio base URL: https://cinema-furnished-research-announce.trycloudflare.com
+2026-03-05 20:07:00,377 - agent.api - INFO - → Executing agent graph (timeout: 300s)...
+2026-03-05 20:07:00,415 - agent.tools - INFO - Created project directory: projects\fgfgdfgd4554544
+2026-03-05 20:07:00,415 - agent.graph - INFO - [GRAPH] create_project_node returning: project_slug='fgfgdfgd4554544', project_dir='projects\fgfgdfgd4554544'
+2026-03-05 20:07:01,124 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2026-03-05 20:07:18,682 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 20:07:30,807 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 20:07:46,542 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 20:07:51,951 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 20:07:51,961 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'fgfgdfgd4554544')
+2026-03-05 20:07:51,962 - agent.graph - INFO - [GRAPH] Validation result: is_valid=False, project_slug='fgfgdfgd4554544'
+2026-03-05 20:07:51,963 - agent.graph - INFO - [GRAPH] Validation failed, skipping script save
+2026-03-05 20:07:57,878 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 20:07:57,886 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'fgfgdfgd4554544')
+2026-03-05 20:07:57,887 - agent.graph - INFO - [GRAPH] Validation result: is_valid=False, project_slug='fgfgdfgd4554544'
+2026-03-05 20:07:57,889 - agent.graph - INFO - [GRAPH] Validation failed, skipping script save
+2026-03-05 20:08:03,587 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 20:08:03,591 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'fgfgdfgd4554544')
+2026-03-05 20:08:03,592 - agent.graph - INFO - [GRAPH] Validation result: is_valid=True, project_slug='fgfgdfgd4554544'
+2026-03-05 20:08:03,592 - agent.graph - INFO - [GRAPH] Validation passed, saving script to file...
+2026-03-05 20:08:03,593 - agent.tools - INFO - Saved script to: projects\fgfgdfgd4554544\script.txt (1059 chars)
+2026-03-05 20:08:03,593 - agent.graph - INFO - [GRAPH] ✓ Script saved: projects\fgfgdfgd4554544\script.txt
+2026-03-05 20:08:03,595 - agent.tools - INFO - Starting script segmentation (language: en, script length: 1059 chars)
+2026-03-05 20:08:10,698 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/chat "HTTP/1.1 200 OK"
+2026-03-05 20:08:10,703 - agent.tools - INFO - Segmentation successful: 3 segments created, 562 tokens used
+2026-03-05 20:08:10,703 - agent.tools - INFO - ✓ Validation passed: Original text preserved (char diff: 0.0%)
+2026-03-05 20:08:10,706 - agent.tools - INFO - Saved segmented script to: projects\fgfgdfgd4554544\script_segmented.txt (3 segments)
+2026-03-05 20:08:10,707 - agent.tools - INFO - ========== GENERATE_TTS_TOOL CALLED ==========
+2026-03-05 20:08:10,707 - agent.tools - INFO - Project: fgfgdfgd4554544
+2026-03-05 20:08:10,707 - agent.tools - INFO - Total segments received: 3
+2026-03-05 20:08:10,707 - agent.tools - INFO - First 3 segments:
+2026-03-05 20:08:10,708 - agent.tools - INFO -   Segment 1: In a dimly lit living room, SAM lounged on the couch, playing with their affecti... (362 chars)
+2026-03-05 20:08:10,708 - agent.tools - INFO -   Segment 2: Then the cat froze, growling at the window. SAM’s heart raced as a shadowy FIGUR... (309 chars)
+2026-03-05 20:08:10,708 - agent.tools - INFO -   Segment 3: Desperate, SAM confronted the cat, demanding answers. The cat's eyes glowed eeri... (384 chars)
+2026-03-05 20:08:11,115 - agent.tools - INFO - Removing 4 old audio files from projects\fgfgdfgd4554544
+2026-03-05 20:08:11,123 - agent.tools - INFO - Generating TTS audio for 3 segments in: projects\fgfgdfgd4554544
+2026-03-05 20:08:11,123 - agent.tools - INFO - Generating TTS for segment 1: 362 chars
+2026-03-05 20:08:11,124 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'In a dimly lit living room, SAM lounged on the couch, playing with their affectionate CAT. Shadows flickered, the television’s glow battling the encro...'
+2026-03-05 20:08:13,834 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 20:08:16,355 - agent.tools - INFO - Generating TTS for segment 2: 309 chars
+2026-03-05 20:08:16,356 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Then the cat froze, growling at the window. SAM’s heart raced as a shadowy FIGURE lurked outside—a fox, watching. As night fell, the fox crept closer:...'
+2026-03-05 20:08:17,662 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 20:08:21,173 - agent.tools - INFO - Generating TTS for segment 3: 384 chars
+2026-03-05 20:08:21,174 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Desperate, SAM confronted the cat, demanding answers. The cat's eyes glowed eerily, communicating with the fox. In horror, SAM realized their protecto...'
+2026-03-05 20:08:23,260 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 20:08:27,987 - agent.api - INFO - ✓ Script generated successfully
+2026-03-05 20:08:27,987 - agent.api - INFO -   Iterations: 3
+2026-03-05 20:08:27,988 - agent.api - INFO -   Characters: 1,059
+2026-03-05 20:08:27,988 - agent.api - INFO -   Tokens used: 18,923
+2026-03-05 20:08:27,989 - agent.api - INFO -   Sources: 5
+2026-03-05 20:08:27,989 - agent.api - INFO -   Validation: ✓ Passed
+2026-03-05 20:08:27,990 - agent.api - INFO -   Segments: 3
+2026-03-05 20:08:27,990 - agent.api - INFO -   Audio files: 3
+2026-03-05 20:08:28,122 - agent.api - INFO - ✓ Execution saved to database
+2026-03-05 20:08:28,122 - agent.api - INFO - ================================================================================
+2026-03-05 20:08:28,123 - agent.api - INFO - ← 200 (87.76s)
+2026-03-05 20:22:58,680 - agent.api - INFO - ================================================================================
+2026-03-05 20:22:58,680 - agent.api - INFO - AGENT BACKEND STARTUP
+2026-03-05 20:22:58,680 - agent.api - INFO - ================================================================================
+2026-03-05 20:22:58,680 - agent.api - INFO - ✓ Environment variables validated
+2026-03-05 20:22:58,682 - agent.api - INFO - ✓ Database initialized
+2026-03-05 20:22:58,683 - agent.api - INFO - ✓ Server ready on port 8001
+2026-03-05 20:22:58,683 - agent.api - INFO - ================================================================================
+2026-03-05 20:23:19,604 - agent.api - INFO - → POST /generate-script
+2026-03-05 20:23:19,605 - agent.api - INFO - ================================================================================
+2026-03-05 20:23:19,605 - agent.api - INFO - SCRIPT GENERATION REQUEST
+2026-03-05 20:23:19,606 - agent.api - INFO - ================================================================================
+2026-03-05 20:23:19,606 - agent.api - INFO - Request ID: a4b138dc-b3ce-4225-807d-9e67e3217cd0
+2026-03-05 20:23:19,606 - agent.api - INFO - Project: fgfgdfgd4554544
+2026-03-05 20:23:19,606 - agent.api - INFO - Genre: horror
+2026-03-05 20:23:19,606 - agent.api - INFO - Duration: 1 min
+2026-03-05 20:23:19,606 - agent.api - INFO - Idea: horror about cats and foxes...
+2026-03-05 20:23:19,608 - agent.api - INFO - → Creating initial state...
+2026-03-05 20:23:19,628 - agent.api - INFO -   Language detected: en
+2026-03-05 20:23:19,628 - agent.api - INFO -   Target characters: 1,000
+2026-03-05 20:23:19,628 - agent.api - INFO -   Audio base URL: https://cinema-furnished-research-announce.trycloudflare.com
+2026-03-05 20:23:19,629 - agent.api - INFO - → Executing agent graph (timeout: 300s)...
+2026-03-05 20:23:19,704 - agent.tools - INFO - Created project directory: projects\fgfgdfgd4554544
+2026-03-05 20:23:19,704 - agent.graph - INFO - [GRAPH] create_project_node returning: project_slug='fgfgdfgd4554544', project_dir='projects\fgfgdfgd4554544'
+2026-03-05 20:23:20,391 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2026-03-05 20:23:35,167 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 20:23:48,533 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 20:24:03,686 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 20:24:08,001 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 20:24:08,009 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'fgfgdfgd4554544')
+2026-03-05 20:24:08,009 - agent.graph - INFO - [GRAPH] Validation result: is_valid=True, project_slug='fgfgdfgd4554544'
+2026-03-05 20:24:08,010 - agent.graph - INFO - [GRAPH] Validation passed, saving script to file...
+2026-03-05 20:24:08,012 - agent.tools - INFO - Saved script to: projects\fgfgdfgd4554544\script.txt (1037 chars)
+2026-03-05 20:24:08,013 - agent.graph - INFO - [GRAPH] ✓ Script saved: projects\fgfgdfgd4554544\script.txt
+2026-03-05 20:24:08,015 - agent.tools - INFO - Starting script segmentation (language: en, script length: 1037 chars)
+2026-03-05 20:24:13,090 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/chat "HTTP/1.1 200 OK"
+2026-03-05 20:24:13,095 - agent.tools - INFO - Segmentation successful: 3 segments created, 549 tokens used
+2026-03-05 20:24:13,095 - agent.tools - INFO - ✓ Validation passed: Original text preserved (char diff: 0.0%)
+2026-03-05 20:24:13,096 - agent.tools - INFO - Saved segmented script to: projects\fgfgdfgd4554544\script_segmented.txt (3 segments)
+2026-03-05 20:24:13,097 - agent.tools - INFO - ========== GENERATE_TTS_TOOL CALLED ==========
+2026-03-05 20:24:13,097 - agent.tools - INFO - Project: fgfgdfgd4554544
+2026-03-05 20:24:13,098 - agent.tools - INFO - Total segments received: 3
+2026-03-05 20:24:13,098 - agent.tools - INFO - First 3 segments:
+2026-03-05 20:24:13,098 - agent.tools - INFO -   Segment 1: In the dim backyard, the night draped shadows like a shroud. A cat's wide eyes g... (389 chars)
+2026-03-05 20:24:13,098 - agent.tools - INFO -   Segment 2: Instinct ignited, the cat stalked the creature, a predator now. Heartbeat thumpi... (330 chars)
+2026-03-05 20:24:13,098 - agent.tools - INFO -   Segment 3: Then silence fell; the fox retreated, leaving the cat panting, alert. Shadows lo... (314 chars)
+2026-03-05 20:24:13,616 - agent.tools - INFO - Removing 3 old audio files from projects\fgfgdfgd4554544
+2026-03-05 20:24:13,620 - agent.tools - INFO - Generating TTS audio for 3 segments in: projects\fgfgdfgd4554544
+2026-03-05 20:24:13,621 - agent.tools - INFO - Generating TTS for segment 1: 389 chars
+2026-03-05 20:24:13,621 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'In the dim backyard, the night draped shadows like a shroud. A cat's wide eyes glimmered in the moonlight, purring softly, suddenly stilled by rustlin...'
+2026-03-05 20:24:14,822 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 20:24:19,240 - agent.tools - INFO - Generating TTS for segment 2: 330 chars
+2026-03-05 20:24:19,241 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Instinct ignited, the cat stalked the creature, a predator now. Heartbeat thumping, tension thickened. The fox sensed it, eyes narrowing, but it was t...'
+2026-03-05 20:24:20,451 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 20:24:24,905 - agent.tools - INFO - Generating TTS for segment 3: 314 chars
+2026-03-05 20:24:24,905 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Then silence fell; the fox retreated, leaving the cat panting, alert. Shadows loomed, thick with unresolved tension. A faint rustle drew its gaze; pup...'
+2026-03-05 20:24:26,246 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 20:24:31,763 - agent.api - INFO - ✓ Script generated successfully
+2026-03-05 20:24:31,763 - agent.api - INFO -   Iterations: 1
+2026-03-05 20:24:31,764 - agent.api - INFO -   Characters: 1,037
+2026-03-05 20:24:31,765 - agent.api - INFO -   Tokens used: 15,085
+2026-03-05 20:24:31,765 - agent.api - INFO -   Sources: 5
+2026-03-05 20:24:31,765 - agent.api - INFO -   Validation: ✓ Passed
+2026-03-05 20:24:31,765 - agent.api - INFO -   Segments: 3
+2026-03-05 20:24:31,766 - agent.api - INFO -   Audio files: 3
+2026-03-05 20:24:31,785 - agent.api - INFO - ✓ Execution saved to database
+2026-03-05 20:24:31,787 - agent.api - INFO - ================================================================================
+2026-03-05 20:24:31,788 - agent.api - INFO - ← 200 (72.18s)
+2026-03-05 20:43:41,051 - agent.api - INFO - ================================================================================
+2026-03-05 20:43:41,051 - agent.api - INFO - AGENT BACKEND STARTUP
+2026-03-05 20:43:41,051 - agent.api - INFO - ================================================================================
+2026-03-05 20:43:41,051 - agent.api - INFO - ✓ Environment variables validated
+2026-03-05 20:43:41,054 - agent.api - INFO - ✓ Database initialized
+2026-03-05 20:43:41,054 - agent.api - INFO - ✓ Server ready on port 8001
+2026-03-05 20:43:41,054 - agent.api - INFO - ================================================================================
+2026-03-05 20:44:11,941 - agent.api - INFO - → POST /generate-script
+2026-03-05 20:44:11,942 - agent.api - INFO - ================================================================================
+2026-03-05 20:44:11,942 - agent.api - INFO - SCRIPT GENERATION REQUEST
+2026-03-05 20:44:11,942 - agent.api - INFO - ================================================================================
+2026-03-05 20:44:11,942 - agent.api - INFO - Request ID: 35009229-00f3-473e-ab26-c58448ef3d79
+2026-03-05 20:44:11,943 - agent.api - INFO - Project: fgfgdfgd4554544
+2026-03-05 20:44:11,943 - agent.api - INFO - Genre: horror
+2026-03-05 20:44:11,943 - agent.api - INFO - Duration: 1 min
+2026-03-05 20:44:11,943 - agent.api - INFO - Idea: horror about cats and foxes...
+2026-03-05 20:44:11,946 - agent.api - INFO - → Creating initial state...
+2026-03-05 20:44:11,946 - agent.api - INFO -   Language detected: en
+2026-03-05 20:44:11,946 - agent.api - INFO -   Target characters: 1,000
+2026-03-05 20:44:11,946 - agent.api - INFO -   Audio base URL: https://cinema-furnished-research-announce.trycloudflare.com
+2026-03-05 20:44:11,947 - agent.api - INFO - → Executing agent graph (timeout: 300s)...
+2026-03-05 20:44:12,004 - agent.tools - INFO - Created project directory: projects\fgfgdfgd4554544
+2026-03-05 20:44:12,013 - agent.graph - INFO - [GRAPH] create_project_node returning: project_slug='fgfgdfgd4554544', project_dir='projects\fgfgdfgd4554544'
+2026-03-05 20:44:12,785 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2026-03-05 20:44:32,856 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 20:44:46,546 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 20:45:01,450 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 20:45:07,282 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 20:45:07,293 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'fgfgdfgd4554544')
+2026-03-05 20:45:07,294 - agent.graph - INFO - [GRAPH] Validation result: is_valid=True, project_slug='fgfgdfgd4554544'
+2026-03-05 20:45:07,295 - agent.graph - INFO - [GRAPH] Validation passed, saving script to file...
+2026-03-05 20:45:07,297 - agent.tools - INFO - Saved script to: projects\fgfgdfgd4554544\script.txt (1050 chars)
+2026-03-05 20:45:07,298 - agent.graph - INFO - [GRAPH] ✓ Script saved: projects\fgfgdfgd4554544\script.txt
+2026-03-05 20:45:07,303 - agent.tools - INFO - Starting script segmentation (language: en, script length: 1050 chars)
+2026-03-05 20:45:13,981 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/chat "HTTP/1.1 200 OK"
+2026-03-05 20:45:13,986 - agent.tools - INFO - Segmentation successful: 6 segments created, 585 tokens used
+2026-03-05 20:45:13,987 - agent.tools - INFO - ✓ Validation passed: Original text preserved (char diff: 0.0%)
+2026-03-05 20:45:13,990 - agent.tools - INFO - Saved segmented script to: projects\fgfgdfgd4554544\script_segmented.txt (6 segments)
+2026-03-05 20:45:13,993 - agent.tools - INFO - ========== GENERATE_TTS_TOOL CALLED ==========
+2026-03-05 20:45:13,993 - agent.tools - INFO - Project: fgfgdfgd4554544
+2026-03-05 20:45:13,994 - agent.tools - INFO - Total segments received: 6
+2026-03-05 20:45:13,994 - agent.tools - INFO - First 3 segments:
+2026-03-05 20:45:13,994 - agent.tools - INFO -   Segment 1: In the dim light of her living room, Sarah sank into the warmth of her favorite ... (277 chars)
+2026-03-05 20:45:13,995 - agent.tools - INFO -   Segment 2: "Just a stray," she murmured, scratching Luna's head, but the cat’s gaze remaine... (121 chars)
+2026-03-05 20:45:13,996 - agent.tools - INFO -   Segment 3: Moments later, the room echoed with a sudden crash. Heart racing, Sarah rushed o... (251 chars)
+2026-03-05 20:45:14,505 - agent.tools - INFO - Removing 3 old audio files from projects\fgfgdfgd4554544
+2026-03-05 20:45:14,508 - agent.tools - INFO - Generating TTS audio for 6 segments in: projects\fgfgdfgd4554544
+2026-03-05 20:45:14,509 - agent.tools - INFO - Generating TTS for segment 1: 277 chars
+2026-03-05 20:45:14,509 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'In the dim light of her living room, Sarah sank into the warmth of her favorite chair, her cat, Luna, curled contentedly in her lap. A low growl rumbl...'
+2026-03-05 20:45:15,559 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 20:45:18,591 - agent.tools - INFO - Generating TTS for segment 2: 121 chars
+2026-03-05 20:45:18,592 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: '"Just a stray," she murmured, scratching Luna's head, but the cat’s gaze remained fixed, an unsettling intensity brewing....'
+2026-03-05 20:45:19,708 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 20:45:21,718 - agent.tools - INFO - Generating TTS for segment 3: 251 chars
+2026-03-05 20:45:21,718 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Moments later, the room echoed with a sudden crash. Heart racing, Sarah rushed outside, the cool air biting at her skin. There, the fox sat, a sly gri...'
+2026-03-05 20:45:22,724 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 20:45:25,885 - agent.tools - INFO - Generating TTS for segment 4: 99 chars
+2026-03-05 20:45:25,886 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: '"Luna?" Sarah called, but the cat's eyes glowed with a strange hunger, shadowed by sinister intent....'
+2026-03-05 20:45:26,655 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 20:45:27,523 - agent.tools - INFO - Generating TTS for segment 5: 126 chars
+2026-03-05 20:45:27,524 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'The fox beckoned like a puppeteer, and as Sarah’s breath quickened, she sensed betrayal. The air thickened, tension crackling....'
+2026-03-05 20:45:28,893 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 20:45:29,589 - agent.tools - INFO - Generating TTS for segment 6: 161 chars
+2026-03-05 20:45:29,590 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'A scuffle erupted; darkness swallowed the scene. The last image—a chilling alliance of cat and fox, eyes shimmering with malice—echoed in Sarah’s terr...'
+2026-03-05 20:45:30,499 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 20:45:32,296 - agent.api - INFO - ✓ Script generated successfully
+2026-03-05 20:45:32,296 - agent.api - INFO -   Iterations: 1
+2026-03-05 20:45:32,297 - agent.api - INFO -   Characters: 1,050
+2026-03-05 20:45:32,297 - agent.api - INFO -   Tokens used: 15,577
+2026-03-05 20:45:32,298 - agent.api - INFO -   Sources: 5
+2026-03-05 20:45:32,299 - agent.api - INFO -   Validation: ✓ Passed
+2026-03-05 20:45:32,299 - agent.api - INFO -   Segments: 6
+2026-03-05 20:45:32,300 - agent.api - INFO -   Audio files: 6
+2026-03-05 20:45:32,318 - agent.api - INFO - ✓ Execution saved to database
+2026-03-05 20:45:32,319 - agent.api - INFO - ================================================================================
+2026-03-05 20:45:32,320 - agent.api - INFO - ← 200 (80.38s)
