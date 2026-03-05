@@ -13,6 +13,7 @@ Architecture:
 import os
 import json
 import asyncio
+import logging
 from typing import Dict, Any, List, Union
 from datetime import datetime, timezone
 
@@ -50,6 +51,13 @@ except ModuleNotFoundError:
     )
     from agent.database import DatabaseManager, Execution
     from agent.graph import execute_agent
+
+
+# =============================================================================
+# LOGGING SETUP
+# =============================================================================
+
+logger = logging.getLogger(__name__)
 
 
 # =============================================================================
@@ -91,20 +99,19 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
     Logs detailed error information for debugging.
     """
     # Log detailed error info
-    print(f"\n{'!' * 80}")
-    print(f"VALIDATION ERROR - {request.method} {request.url.path}")
-    print(f"{'!' * 80}")
-    print(f"Client IP: {request.client.host if request.client else 'unknown'}")
-    print(f"Errors: {exc.errors()}")
+    logger.error("=" * 80)
+    logger.error(f"VALIDATION ERROR - {request.method} {request.url.path}")
+    logger.error(f"Client IP: {request.client.host if request.client else 'unknown'}")
+    logger.error(f"Errors: {exc.errors()}")
     
     # Try to log request body
     try:
         body = await request.body()
-        print(f"Request body: {body.decode('utf-8')[:500]}")
+        logger.error(f"Request body: {body.decode('utf-8')[:500]}")
     except:
-        print("Request body: <unable to read>")
+        logger.error("Request body: <unable to read>")
     
-    print(f"{'!' * 80}\n")
+    logger.error("=" * 80)
     
     # Return standard 422 response
     return JSONResponse(
@@ -120,35 +127,35 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 @app.on_event("startup")
 async def startup_event():
     """Initialize database and validate environment on startup."""
-    print("=" * 80)
-    print("AGENT BACKEND STARTUP")
-    print("=" * 80)
+    logger.info("=" * 80)
+    logger.info("AGENT BACKEND STARTUP")
+    logger.info("=" * 80)
     
     # Validate environment variables
     try:
         validate_agent_environment()
-        print("✓ Environment variables validated")
+        logger.info("✓ Environment variables validated")
     except ValueError as e:
-        print(f"✗ Environment validation failed: {e}")
-        print("  Warning: Some features may not work correctly")
+        logger.warning(f"✗ Environment validation failed: {e}")
+        logger.warning("  Warning: Some features may not work correctly")
     
     # Initialize database
     await db_manager.initialize()
-    print("✓ Database initialized")
+    logger.info("✓ Database initialized")
     
-    print(f"✓ Server ready on port {SERVER_PORT}")
-    print("=" * 80)
+    logger.info(f"✓ Server ready on port {SERVER_PORT}")
+    logger.info("=" * 80)
 
 
 @app.on_event("shutdown")
 async def shutdown_event():
     """Cleanup on shutdown."""
-    print("\n" + "=" * 80)
-    print("AGENT BACKEND SHUTDOWN")
-    print("=" * 80)
+    logger.info("=" * 80)
+    logger.info("AGENT BACKEND SHUTDOWN")
+    logger.info("=" * 80)
     # Database manager cleanup (connection pool auto-closes)
-    print("✓ Shutdown complete")
-    print("=" * 80)
+    logger.info("✓ Shutdown complete")
+    logger.info("=" * 80)
 
 
 # =============================================================================
@@ -161,14 +168,14 @@ async def log_requests(request: Request, call_next):
     start_time = datetime.now(timezone.utc)
     
     # Log request
-    print(f"\n→ {request.method} {request.url.path}")
+    logger.info(f"→ {request.method} {request.url.path}")
     
     # Process request
     response = await call_next(request)
     
     # Log response time
     duration = (datetime.now(timezone.utc) - start_time).total_seconds()
-    print(f"← {response.status_code} ({duration:.2f}s)")
+    logger.info(f"← {response.status_code} ({duration:.2f}s)")
     
     return response
 
@@ -316,11 +323,11 @@ async def generate_script(request: Request):
                     detail="Request array cannot be empty"
                 )
             request_item = ScriptRequestItem(**body_json[0])
-            print(f"→ Detected array format: {len(body_json)} item(s)")
+            logger.debug(f"→ Detected array format: {len(body_json)} item(s)")
         elif isinstance(body_json, dict):
             # Format 2: Direct object {...}
             request_item = ScriptRequestItem(**body_json)
-            print(f"→ Detected direct object format")
+            logger.debug(f"→ Detected direct object format")
         else:
             raise HTTPException(
                 status_code=422,
@@ -330,21 +337,21 @@ async def generate_script(request: Request):
         # Get request ID
         request_id = request_item.request_id
         
-        print(f"\n{'=' * 80}")
-        print(f"SCRIPT GENERATION REQUEST")
-        print(f"{'=' * 80}")
-        print(f"Request ID: {request_id}")
-        print(f"Project: {request_item.normalized_project_name}")
-        print(f"Genre: {request_item.genre}")
-        print(f"Duration: {request_item.duration} min")
-        print(f"Idea: {request_item.normalized_story_idea[:100]}...")
+        logger.info("=" * 80)
+        logger.info("SCRIPT GENERATION REQUEST")
+        logger.info("=" * 80)
+        logger.info(f"Request ID: {request_id}")
+        logger.info(f"Project: {request_item.normalized_project_name}")
+        logger.info(f"Genre: {request_item.genre}")
+        logger.info(f"Duration: {request_item.duration} min")
+        logger.info(f"Idea: {request_item.normalized_story_idea[:100]}...")
         
         # Check for existing execution (idempotency)
         existing = await db_manager.get_execution(request_id)
         if existing:
-            print(f"✓ Found existing execution (cached)")
+            logger.info("✓ Found existing execution (cached)")
             response = existing.to_response()
-            print(f"{'=' * 80}\n")
+            logger.info("=" * 80)
             return response
         
         # Detect audio base URL from request headers
@@ -353,15 +360,15 @@ async def generate_script(request: Request):
         audio_base_url = f"{scheme}://{host}"
         
         # Create initial state
-        print("→ Creating initial state...")
+        logger.info("→ Creating initial state...")
         initial_state = create_initial_state(request_item)
         initial_state['audio_base_url'] = audio_base_url
-        print(f"  Language detected: {initial_state['language']}")
-        print(f"  Target characters: {initial_state['target_chars']:,}")
-        print(f"  Audio base URL: {audio_base_url}")
+        logger.info(f"  Language detected: {initial_state['language']}")
+        logger.info(f"  Target characters: {initial_state['target_chars']:,}")
+        logger.info(f"  Audio base URL: {audio_base_url}")
         
         # Execute agent graph with timeout wrapper
-        print(f"→ Executing agent graph (timeout: {MAX_TIMEOUT_SECONDS}s)...")
+        logger.info(f"→ Executing agent graph (timeout: {MAX_TIMEOUT_SECONDS}s)...")
         try:
             final_state = await asyncio.wait_for(
                 execute_agent(initial_state),
@@ -369,7 +376,7 @@ async def generate_script(request: Request):
             )
         except asyncio.TimeoutError:
             error_msg = f"Agent execution timed out after {MAX_TIMEOUT_SECONDS}s"
-            print(f"✗ {error_msg}")
+            logger.error(f"✗ {error_msg}")
             
             # Save timeout execution
             execution = Execution(
@@ -392,7 +399,7 @@ async def generate_script(request: Request):
         
         # Check for errors
         if final_state.get('error'):
-            print(f"✗ Agent execution failed: {final_state['error']}")
+            logger.error(f"✗ Agent execution failed: {final_state['error']}")
             
             # Save failed execution
             execution = Execution(
@@ -417,14 +424,14 @@ async def generate_script(request: Request):
         response = state_to_segmented_response(final_state)
         
         # Print execution summary
-        print(f"✓ Script generated successfully")
-        print(f"  Iterations: {final_state.get('iteration', 0) + 1}")
-        print(f"  Characters: {final_state.get('char_count', 0):,}")
-        print(f"  Tokens used: {final_state.get('tokens_used', 0):,}")
-        print(f"  Sources: {final_state.get('retrieved_sources_count', 0)}")
-        print(f"  Validation: {'✓ Passed' if final_state.get('validation_passed') else '✗ Failed'}")
-        print(f"  Segments: {final_state.get('segment_count', 0)}")
-        print(f"  Audio files: {final_state.get('audio_files_count', 0)}")
+        logger.info("✓ Script generated successfully")
+        logger.info(f"  Iterations: {final_state.get('iteration', 0) + 1}")
+        logger.info(f"  Characters: {final_state.get('char_count', 0):,}")
+        logger.info(f"  Tokens used: {final_state.get('tokens_used', 0):,}")
+        logger.info(f"  Sources: {final_state.get('retrieved_sources_count', 0)}")
+        logger.info(f"  Validation: {'✓ Passed' if final_state.get('validation_passed') else '✗ Failed'}")
+        logger.info(f"  Segments: {final_state.get('segment_count', 0)}")
+        logger.info(f"  Audio files: {final_state.get('audio_files_count', 0)}")
         
         # Save successful execution to database
         execution = Execution(
@@ -447,15 +454,15 @@ async def generate_script(request: Request):
         )
         
         await db_manager.save_execution(execution)
-        print(f"✓ Execution saved to database")
-        print(f"{'=' * 80}\n")
+        logger.info("✓ Execution saved to database")
+        logger.info("=" * 80)
         
         return response
         
     except HTTPException:
         raise
     except Exception as e:
-        print(f"✗ Unexpected error: {e}")
+        logger.error(f"✗ Unexpected error: {e}")
         import traceback
         traceback.print_exc()
         raise HTTPException(
@@ -505,7 +512,7 @@ async def get_statistics():
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
     """Global exception handler for uncaught errors."""
-    print(f"\n✗ Uncaught exception: {exc}")
+    logger.error(f"✗ Uncaught exception: {exc}")
     import traceback
     traceback.print_exc()
     
@@ -527,13 +534,13 @@ if __name__ == "__main__":
     """Run server directly for testing."""
     import uvicorn
     
-    print("\n" + "=" * 80)
-    print("STARTING AGENT BACKEND SERVER (TEST MODE)")
-    print("=" * 80)
-    print(f"Server will run on: http://0.0.0.0:{SERVER_PORT}")
-    print(f"API docs available at: http://localhost:{SERVER_PORT}/docs")
-    print(f"Test endpoint: http://localhost:{SERVER_PORT}/test")
-    print("=" * 80 + "\n")
+    logger.info("=" * 80)
+    logger.info("STARTING AGENT BACKEND SERVER (TEST MODE)")
+    logger.info("=" * 80)
+    logger.info(f"Server will run on: http://0.0.0.0:{SERVER_PORT}")
+    logger.info(f"API docs available at: http://localhost:{SERVER_PORT}/docs")
+    logger.info(f"Test endpoint: http://localhost:{SERVER_PORT}/test")
+    logger.info("=" * 80)
     
     uvicorn.run(
         app,

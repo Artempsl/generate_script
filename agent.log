@@ -211,3 +211,416 @@
 2026-03-05 15:47:12,888 - agent.tools - INFO - Generating TTS for segment 8: 84 chars
 2026-03-05 15:47:12,889 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'With resolve, JAMES steps into the void, swallowed whole. The true evil lies within....'
 2026-03-05 15:47:14,001 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:26:55,743 - agent.api - INFO - ================================================================================
+2026-03-05 16:26:55,744 - agent.api - INFO - AGENT BACKEND STARTUP
+2026-03-05 16:26:55,744 - agent.api - INFO - ================================================================================
+2026-03-05 16:26:55,744 - agent.api - INFO - ✓ Environment variables validated
+2026-03-05 16:26:55,748 - agent.api - INFO - ✓ Database initialized
+2026-03-05 16:26:55,748 - agent.api - INFO - ✓ Server ready on port 8001
+2026-03-05 16:26:55,748 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:02,115 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:02,115 - agent.api - INFO - AGENT BACKEND SHUTDOWN
+2026-03-05 16:27:02,116 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:02,116 - agent.api - INFO - ✓ Shutdown complete
+2026-03-05 16:27:02,116 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:03,507 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:03,507 - agent.api - INFO - AGENT BACKEND STARTUP
+2026-03-05 16:27:03,507 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:03,507 - agent.api - INFO - ✓ Environment variables validated
+2026-03-05 16:27:03,510 - agent.api - INFO - ✓ Database initialized
+2026-03-05 16:27:03,510 - agent.api - INFO - ✓ Server ready on port 8001
+2026-03-05 16:27:03,510 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:15,216 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:15,217 - agent.api - INFO - AGENT BACKEND SHUTDOWN
+2026-03-05 16:27:15,217 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:15,217 - agent.api - INFO - ✓ Shutdown complete
+2026-03-05 16:27:15,217 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:16,631 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:16,632 - agent.api - INFO - AGENT BACKEND STARTUP
+2026-03-05 16:27:16,632 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:16,632 - agent.api - INFO - ✓ Environment variables validated
+2026-03-05 16:27:16,634 - agent.api - INFO - ✓ Database initialized
+2026-03-05 16:27:16,634 - agent.api - INFO - ✓ Server ready on port 8001
+2026-03-05 16:27:16,635 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:25,508 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:25,508 - agent.api - INFO - AGENT BACKEND SHUTDOWN
+2026-03-05 16:27:25,508 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:25,508 - agent.api - INFO - ✓ Shutdown complete
+2026-03-05 16:27:25,508 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:27,001 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:27,001 - agent.api - INFO - AGENT BACKEND STARTUP
+2026-03-05 16:27:27,001 - agent.api - INFO - ================================================================================
+2026-03-05 16:27:27,001 - agent.api - INFO - ✓ Environment variables validated
+2026-03-05 16:27:27,004 - agent.api - INFO - ✓ Database initialized
+2026-03-05 16:27:27,004 - agent.api - INFO - ✓ Server ready on port 8001
+2026-03-05 16:27:27,004 - agent.api - INFO - ================================================================================
+2026-03-05 16:29:39,555 - agent.api - INFO - ================================================================================
+2026-03-05 16:29:39,555 - agent.api - INFO - AGENT BACKEND STARTUP
+2026-03-05 16:29:39,555 - agent.api - INFO - ================================================================================
+2026-03-05 16:29:39,556 - agent.api - INFO - ✓ Environment variables validated
+2026-03-05 16:29:39,559 - agent.api - INFO - ✓ Database initialized
+2026-03-05 16:29:39,559 - agent.api - INFO - ✓ Server ready on port 8001
+2026-03-05 16:29:39,559 - agent.api - INFO - ================================================================================
+2026-03-05 16:32:28,392 - agent.api - INFO - → GET /health
+2026-03-05 16:32:28,412 - agent.api - INFO - ← 200 (0.02s)
+2026-03-05 16:33:09,748 - agent.api - INFO - → GET /health
+2026-03-05 16:33:09,753 - agent.api - INFO - ← 200 (0.01s)
+2026-03-05 16:34:00,620 - agent.api - INFO - → GET /generate-script
+2026-03-05 16:34:00,621 - agent.api - INFO - ← 405 (0.00s)
+2026-03-05 16:35:34,159 - agent.api - INFO - → POST /generate-sct
+2026-03-05 16:35:34,160 - agent.api - INFO - ← 404 (0.00s)
+2026-03-05 16:35:35,532 - agent.api - INFO - → POST /generate-sct
+2026-03-05 16:35:35,532 - agent.api - INFO - ← 404 (0.00s)
+2026-03-05 16:35:36,632 - agent.api - INFO - → POST /generate-sct
+2026-03-05 16:35:36,633 - agent.api - INFO - ← 404 (0.00s)
+2026-03-05 16:43:52,777 - agent.api - INFO - → POST /generate-script
+2026-03-05 16:43:52,789 - agent.api - INFO - ================================================================================
+2026-03-05 16:43:52,789 - agent.api - INFO - SCRIPT GENERATION REQUEST
+2026-03-05 16:43:52,789 - agent.api - INFO - ================================================================================
+2026-03-05 16:43:52,790 - agent.api - INFO - Request ID: 36afc060-bfa0-45c2-8bf5-62f3f2070e8c
+2026-03-05 16:43:52,790 - agent.api - INFO - Project: asasad55653322
+2026-03-05 16:43:52,790 - agent.api - INFO - Genre: comedy
+2026-03-05 16:43:52,790 - agent.api - INFO - Duration: 1 min
+2026-03-05 16:43:52,790 - agent.api - INFO - Idea: a fallout comedy in Vaulttec...
+2026-03-05 16:43:52,793 - agent.api - INFO - → Creating initial state...
+2026-03-05 16:43:52,793 - agent.api - INFO -   Language detected: en
+2026-03-05 16:43:52,794 - agent.api - INFO -   Target characters: 1,000
+2026-03-05 16:43:52,794 - agent.api - INFO -   Audio base URL: https://cinema-furnished-research-announce.trycloudflare.com
+2026-03-05 16:43:52,794 - agent.api - INFO - → Executing agent graph (timeout: 300s)...
+2026-03-05 16:43:52,865 - agent.tools - INFO - Created project directory: projects\asasad55653322
+2026-03-05 16:43:52,866 - agent.graph - INFO - [GRAPH] create_project_node returning: project_slug='asasad55653322', project_dir='projects\asasad55653322'
+2026-03-05 16:43:55,531 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2026-03-05 16:44:30,410 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 16:44:45,141 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 16:45:08,347 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 16:45:14,913 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 16:45:14,916 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'asasad55653322')
+2026-03-05 16:45:14,917 - agent.graph - INFO - [GRAPH] Validation result: is_valid=False, project_slug='asasad55653322'
+2026-03-05 16:45:14,917 - agent.graph - INFO - [GRAPH] Validation failed, skipping script save
+2026-03-05 16:45:22,501 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 16:45:22,511 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'asasad55653322')
+2026-03-05 16:45:22,512 - agent.graph - INFO - [GRAPH] Validation result: is_valid=False, project_slug='asasad55653322'
+2026-03-05 16:45:22,513 - agent.graph - INFO - [GRAPH] Validation failed, skipping script save
+2026-03-05 16:45:28,558 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 16:45:28,564 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'asasad55653322')
+2026-03-05 16:45:28,565 - agent.graph - INFO - [GRAPH] Validation result: is_valid=False, project_slug='asasad55653322'
+2026-03-05 16:45:28,565 - agent.graph - INFO - [GRAPH] Validation failed, skipping script save
+2026-03-05 16:45:37,209 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 16:45:37,237 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'asasad55653322')
+2026-03-05 16:45:37,237 - agent.graph - INFO - [GRAPH] Validation result: is_valid=False, project_slug='asasad55653322'
+2026-03-05 16:45:37,237 - agent.graph - INFO - [GRAPH] Validation failed, skipping script save
+2026-03-05 16:45:37,238 - agent.tools - INFO - Starting script segmentation (language: en, script length: 1184 chars)
+2026-03-05 16:45:58,929 - agent.api - INFO - → POST /generate-script
+2026-03-05 16:45:58,931 - agent.api - INFO - ================================================================================
+2026-03-05 16:45:58,931 - agent.api - INFO - SCRIPT GENERATION REQUEST
+2026-03-05 16:45:58,931 - agent.api - INFO - ================================================================================
+2026-03-05 16:45:58,931 - agent.api - INFO - Request ID: 40665e99-9851-4f2c-b00b-17df4a0acead
+2026-03-05 16:45:58,931 - agent.api - INFO - Project: asasad55653322
+2026-03-05 16:45:58,932 - agent.api - INFO - Genre: comedy
+2026-03-05 16:45:58,932 - agent.api - INFO - Duration: 1 min
+2026-03-05 16:45:58,932 - agent.api - INFO - Idea: a fallout comedy in Vaulttec...
+2026-03-05 16:45:58,934 - agent.api - INFO - → Creating initial state...
+2026-03-05 16:45:58,935 - agent.api - INFO -   Language detected: en
+2026-03-05 16:45:58,935 - agent.api - INFO -   Target characters: 1,000
+2026-03-05 16:45:58,935 - agent.api - INFO -   Audio base URL: https://cinema-furnished-research-announce.trycloudflare.com
+2026-03-05 16:45:58,935 - agent.api - INFO - → Executing agent graph (timeout: 300s)...
+2026-03-05 16:45:58,994 - agent.tools - INFO - Created project directory: projects\asasad55653322
+2026-03-05 16:45:58,995 - agent.graph - INFO - [GRAPH] create_project_node returning: project_slug='asasad55653322', project_dir='projects\asasad55653322'
+2026-03-05 16:45:59,738 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2026-03-05 16:46:14,766 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 16:46:33,534 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 16:46:49,084 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 16:46:54,563 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 16:46:54,570 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'asasad55653322')
+2026-03-05 16:46:54,571 - agent.graph - INFO - [GRAPH] Validation result: is_valid=True, project_slug='asasad55653322'
+2026-03-05 16:46:54,571 - agent.graph - INFO - [GRAPH] Validation passed, saving script to file...
+2026-03-05 16:46:54,572 - agent.tools - INFO - Saved script to: projects\asasad55653322\script.txt (1095 chars)
+2026-03-05 16:46:54,572 - agent.graph - INFO - [GRAPH] ✓ Script saved: projects\asasad55653322\script.txt
+2026-03-05 16:46:54,573 - agent.tools - INFO - Starting script segmentation (language: en, script length: 1095 chars)
+2026-03-05 16:48:05,079 - agent.api - INFO - → POST /generate-script
+2026-03-05 16:48:05,080 - agent.api - INFO - ================================================================================
+2026-03-05 16:48:05,080 - agent.api - INFO - SCRIPT GENERATION REQUEST
+2026-03-05 16:48:05,080 - agent.api - INFO - ================================================================================
+2026-03-05 16:48:05,081 - agent.api - INFO - Request ID: fd73a507-a498-484b-aa2b-bba3ee0c33bc
+2026-03-05 16:48:05,081 - agent.api - INFO - Project: asasad55653322
+2026-03-05 16:48:05,081 - agent.api - INFO - Genre: comedy
+2026-03-05 16:48:05,081 - agent.api - INFO - Duration: 1 min
+2026-03-05 16:48:05,081 - agent.api - INFO - Idea: a fallout comedy in Vaulttec...
+2026-03-05 16:48:05,085 - agent.api - INFO - → Creating initial state...
+2026-03-05 16:48:05,086 - agent.api - INFO -   Language detected: en
+2026-03-05 16:48:05,086 - agent.api - INFO -   Target characters: 1,000
+2026-03-05 16:48:05,086 - agent.api - INFO -   Audio base URL: https://cinema-furnished-research-announce.trycloudflare.com
+2026-03-05 16:48:05,086 - agent.api - INFO - → Executing agent graph (timeout: 300s)...
+2026-03-05 16:48:05,137 - agent.tools - INFO - Created project directory: projects\asasad55653322
+2026-03-05 16:48:05,137 - agent.graph - INFO - [GRAPH] create_project_node returning: project_slug='asasad55653322', project_dir='projects\asasad55653322'
+2026-03-05 16:48:05,774 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2026-03-05 16:48:19,807 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 16:48:35,818 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/chat "HTTP/1.1 200 OK"
+2026-03-05 16:48:35,822 - agent.tools - INFO - Segmentation successful: 10 segments created, 655 tokens used
+2026-03-05 16:48:35,824 - agent.tools - INFO - Saved segmented script to: projects\asasad55653322\script_segmented.txt (10 segments)
+2026-03-05 16:48:35,825 - agent.tools - INFO - ========== GENERATE_TTS_TOOL CALLED ==========
+2026-03-05 16:48:35,825 - agent.tools - INFO - Project: asasad55653322
+2026-03-05 16:48:35,825 - agent.tools - INFO - Total segments received: 10
+2026-03-05 16:48:35,826 - agent.tools - INFO - First 3 segments:
+2026-03-05 16:48:35,826 - agent.tools - INFO -   Segment 1: Inside Vault-Tec, fluorescent lights flicker as Tina, the overly enthusiastic re... (230 chars)
+2026-03-05 16:48:35,826 - agent.tools - INFO -   Segment 2: Gary raises an eyebrow, skepticism etched on his face. “Amenities? Like the emer... (113 chars)
+2026-03-05 16:48:35,826 - agent.tools - INFO -   Segment 3: “Absolutely!” Tina grins, leading him to a malfunctioning “Emergency Food Dispen... (174 chars)
+2026-03-05 16:48:36,258 - agent.tools - INFO - Generating TTS audio for 10 segments in: projects\asasad55653322
+2026-03-05 16:48:36,258 - agent.tools - INFO - Generating TTS for segment 1: 230 chars
+2026-03-05 16:48:36,259 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Inside Vault-Tec, fluorescent lights flicker as Tina, the overly enthusiastic representative, beams at Gary, clipboard in hand. “Welcome to your new h...'
+2026-03-05 16:48:36,912 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 16:48:38,006 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:48:41,655 - agent.tools - INFO - Generating TTS for segment 2: 113 chars
+2026-03-05 16:48:41,655 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Gary raises an eyebrow, skepticism etched on his face. “Amenities? Like the emergency shelter that doesn’t open?”...'
+2026-03-05 16:48:43,022 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:48:44,207 - agent.tools - INFO - Generating TTS for segment 3: 174 chars
+2026-03-05 16:48:44,207 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: '“Absolutely!” Tina grins, leading him to a malfunctioning “Emergency Food Dispenser.” She presses a button, and it spews air and confetti. “See? Just ...'
+2026-03-05 16:48:45,861 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:48:47,948 - agent.tools - INFO - Generating TTS for segment 4: 57 chars
+2026-03-05 16:48:47,948 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Gary deadpans, “Great, I’ll throw a party with confetti.”...'
+2026-03-05 16:48:48,551 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:48:49,152 - agent.tools - INFO - Generating TTS for segment 5: 125 chars
+2026-03-05 16:48:49,152 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Amid Tina’s exaggerated cheer, Gary, panicked, pulls out a tin foil helmet. “This protects against Vault madness!” he claims....'
+2026-03-05 16:48:49,980 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:48:50,939 - agent.tools - INFO - Generating TTS for segment 6: 71 chars
+2026-03-05 16:48:50,939 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: '“Oh, that’s cute!” Tina giggles. “But we have a safety guide for that!”...'
+2026-03-05 16:48:52,804 - agent.api - ERROR - ✗ Agent execution timed out after 300s
+2026-03-05 16:48:52,816 - agent.api - INFO - ← 500 (300.04s)
+2026-03-05 16:48:52,953 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:48:53,767 - agent.tools - INFO - Generating TTS for segment 7: 124 chars
+2026-03-05 16:48:53,767 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Fed up, Gary strides to the Vault door, flinging it open. Outside, mutated creatures in suits bicker over a vending machine....'
+2026-03-05 16:48:54,478 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:48:56,094 - agent.tools - INFO - Generating TTS for segment 8: 68 chars
+2026-03-05 16:48:56,095 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Staring in disbelief, he mutters, “This is worse than the confetti!”...'
+2026-03-05 16:48:56,721 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:48:57,674 - agent.tools - INFO - Generating TTS for segment 9: 39 chars
+2026-03-05 16:48:57,682 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Tina beams, “At least you have snacks!”...'
+2026-03-05 16:48:58,567 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:48:58,950 - agent.tools - INFO - Generating TTS for segment 10: 82 chars
+2026-03-05 16:48:58,950 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'A chart pops up: “Vault-Tec Success Rate: 0%!” A cartoon mascot gives a thumbs-up....'
+2026-03-05 16:49:00,080 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:49:00,971 - agent.api - INFO - ✓ Script generated successfully
+2026-03-05 16:49:00,971 - agent.api - INFO -   Iterations: 1
+2026-03-05 16:49:00,971 - agent.api - INFO -   Characters: 1,095
+2026-03-05 16:49:00,971 - agent.api - INFO -   Tokens used: 15,226
+2026-03-05 16:49:00,971 - agent.api - INFO -   Sources: 5
+2026-03-05 16:49:00,972 - agent.api - INFO -   Validation: ✓ Passed
+2026-03-05 16:49:00,972 - agent.api - INFO -   Segments: 10
+2026-03-05 16:49:00,972 - agent.api - INFO -   Audio files: 10
+2026-03-05 16:49:00,985 - agent.api - INFO - ✓ Execution saved to database
+2026-03-05 16:49:00,985 - agent.api - INFO - ================================================================================
+2026-03-05 16:49:00,986 - agent.api - INFO - ← 200 (182.06s)
+2026-03-05 16:49:01,538 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 16:49:06,660 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 16:49:06,663 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'asasad55653322')
+2026-03-05 16:49:06,663 - agent.graph - INFO - [GRAPH] Validation result: is_valid=True, project_slug='asasad55653322'
+2026-03-05 16:49:06,663 - agent.graph - INFO - [GRAPH] Validation passed, saving script to file...
+2026-03-05 16:49:06,664 - agent.tools - INFO - Saved script to: projects\asasad55653322\script.txt (1073 chars)
+2026-03-05 16:49:06,664 - agent.graph - INFO - [GRAPH] ✓ Script saved: projects\asasad55653322\script.txt
+2026-03-05 16:49:06,665 - agent.tools - INFO - Starting script segmentation (language: en, script length: 1073 chars)
+2026-03-05 16:49:13,487 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/chat "HTTP/1.1 200 OK"
+2026-03-05 16:49:13,490 - agent.tools - INFO - Segmentation successful: 10 segments created, 631 tokens used
+2026-03-05 16:49:13,491 - agent.tools - INFO - Saved segmented script to: projects\asasad55653322\script_segmented.txt (10 segments)
+2026-03-05 16:49:13,493 - agent.tools - INFO - ========== GENERATE_TTS_TOOL CALLED ==========
+2026-03-05 16:49:13,494 - agent.tools - INFO - Project: asasad55653322
+2026-03-05 16:49:13,494 - agent.tools - INFO - Total segments received: 10
+2026-03-05 16:49:13,494 - agent.tools - INFO - First 3 segments:
+2026-03-05 16:49:13,494 - agent.tools - INFO -   Segment 1: “Welcome, fellow Vault Dwellers! Today, we learn how to survive a radroach attac... (219 chars)
+2026-03-05 16:49:13,494 - agent.tools - INFO -   Segment 2: Ned, the resident conspiracy theorist, rolled his eyes, muttering, “Yeah, like t... (103 chars)
+2026-03-05 16:49:13,494 - agent.tools - INFO -   Segment 3: Holding a gigantic paper fan, Charlie declared, “First, we’ll use this to scare ... (91 chars)
+2026-03-05 16:49:13,974 - agent.tools - INFO - Removing 10 old audio files from projects\asasad55653322
+2026-03-05 16:49:13,979 - agent.tools - INFO - Generating TTS audio for 10 segments in: projects\asasad55653322
+2026-03-05 16:49:13,979 - agent.tools - INFO - Generating TTS for segment 1: 219 chars
+2026-03-05 16:49:13,979 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: '“Welcome, fellow Vault Dwellers! Today, we learn how to survive a radroach attack—Vault-Tec style!” Charlie beamed, standing proudly in front of the s...'
+2026-03-05 16:49:16,347 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:49:19,109 - agent.tools - INFO - Generating TTS for segment 2: 103 chars
+2026-03-05 16:49:19,109 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Ned, the resident conspiracy theorist, rolled his eyes, muttering, “Yeah, like that’s the real danger…”...'
+2026-03-05 16:49:20,251 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:49:21,680 - agent.tools - INFO - Generating TTS for segment 3: 91 chars
+2026-03-05 16:49:21,680 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Holding a gigantic paper fan, Charlie declared, “First, we’ll use this to scare them away!”...'
+2026-03-05 16:49:22,458 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:49:23,007 - agent.tools - INFO - Generating TTS for segment 4: 94 chars
+2026-03-05 16:49:23,007 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: '“You’re just going to make them angry! We need a flamethrower!” Ned interjected, arms crossed....'
+2026-03-05 16:49:23,978 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:49:25,048 - agent.tools - INFO - Generating TTS for segment 5: 180 chars
+2026-03-05 16:49:25,049 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: '“Or... cookies!” Charlie misread the manual, suggesting snacks to appease the radroaches. The crowd exchanged puzzled glances, one person gripping a b...'
+2026-03-05 16:49:25,974 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:49:28,135 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/chat "HTTP/1.1 200 OK"
+2026-03-05 16:49:28,137 - agent.tools - INFO - Segmentation successful: 4 segments created, 631 tokens used
+2026-03-05 16:49:28,139 - agent.tools - INFO - Saved segmented script to: projects\asasad55653322\script_segmented.txt (4 segments)
+2026-03-05 16:49:28,140 - agent.tools - INFO - ========== GENERATE_TTS_TOOL CALLED ==========
+2026-03-05 16:49:28,140 - agent.tools - INFO - Project: asasad55653322
+2026-03-05 16:49:28,140 - agent.tools - INFO - Total segments received: 4
+2026-03-05 16:49:28,140 - agent.tools - INFO - First 3 segments:
+2026-03-05 16:49:28,140 - agent.tools - INFO -   Segment 1: Welcome to Vault 111! Your one-stop solution for surviving the apocalypse! As th... (264 chars)
+2026-03-05 16:49:28,140 - agent.tools - INFO -   Segment 2: Meet Gary, the paranoid survivalist hoarding rubber chickens while dramatically ... (236 chars)
+2026-03-05 16:49:28,141 - agent.tools - INFO -   Segment 3: "Mandatory safety drill!" Pam announces, demonstrating an inflatable raft for “f... (347 chars)
+2026-03-05 16:49:28,542 - agent.tools - INFO - Removing 4 old audio files from projects\asasad55653322
+2026-03-05 16:49:28,543 - agent.tools - INFO - Generating TTS audio for 4 segments in: projects\asasad55653322
+2026-03-05 16:49:28,543 - agent.tools - INFO - Generating TTS for segment 1: 264 chars
+2026-03-05 16:49:28,543 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Welcome to Vault 111! Your one-stop solution for surviving the apocalypse! As the overly enthusiastic Pam beams, a cracked screen showcases an outdate...'
+2026-03-05 16:49:29,150 - agent.tools - INFO - Generating TTS for segment 6: 123 chars
+2026-03-05 16:49:29,150 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Suddenly, a real radroach scuttled on stage. Charlie shouted, “Remember, Vault-Tec’s motto: ‘Safety First, Snacks Second!’”...'
+2026-03-05 16:49:29,671 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:49:29,811 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:49:31,265 - agent.tools - INFO - Generating TTS for segment 7: 67 chars
+2026-03-05 16:49:31,266 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'In a frenzy, participants hurled snacks, creating chaotic laughter....'
+2026-03-05 16:49:32,367 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:49:32,368 - agent.tools - INFO - Generating TTS for segment 2: 236 chars
+2026-03-05 16:49:32,368 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Meet Gary, the paranoid survivalist hoarding rubber chickens while dramatically narrating his “survival” plans. “Real gear, Pam!” he insists, hiding b...'
+2026-03-05 16:49:33,090 - agent.tools - INFO - Generating TTS for segment 8: 54 chars
+2026-03-05 16:49:33,090 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Covered in goodies, the radroach sat munching happily....'
+2026-03-05 16:49:33,166 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:49:34,376 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:49:35,010 - agent.tools - INFO - Generating TTS for segment 9: 39 chars
+2026-03-05 16:49:35,011 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: '“See? Problem solved!” Charlie grinned....'
+2026-03-05 16:49:35,551 - agent.tools - INFO - Generating TTS for segment 3: 347 chars
+2026-03-05 16:49:35,552 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: '"Mandatory safety drill!" Pam announces, demonstrating an inflatable raft for “flooding.” Gary rolls his eyes as chaos ensues. The raft gets stuck in ...'
+2026-03-05 16:49:36,125 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:49:36,463 - agent.tools - INFO - Generating TTS for segment 10: 78 chars
+2026-03-05 16:49:36,463 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Ned, deadpan, replied, “What’s next, a seminar on negotiating with mole rats?”...'
+2026-03-05 16:49:37,001 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:49:37,257 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:49:38,183 - agent.api - INFO - ✓ Script generated successfully
+2026-03-05 16:49:38,183 - agent.api - INFO -   Iterations: 1
+2026-03-05 16:49:38,183 - agent.api - INFO -   Characters: 1,073
+2026-03-05 16:49:38,183 - agent.api - INFO -   Tokens used: 15,547
+2026-03-05 16:49:38,183 - agent.api - INFO -   Sources: 5
+2026-03-05 16:49:38,184 - agent.api - INFO -   Validation: ✓ Passed
+2026-03-05 16:49:38,184 - agent.api - INFO -   Segments: 10
+2026-03-05 16:49:38,184 - agent.api - INFO -   Audio files: 10
+2026-03-05 16:49:38,195 - agent.api - INFO - ✓ Execution saved to database
+2026-03-05 16:49:38,195 - agent.api - INFO - ================================================================================
+2026-03-05 16:49:38,196 - agent.api - INFO - ← 200 (93.12s)
+2026-03-05 16:49:41,109 - agent.tools - INFO - Generating TTS for segment 4: 330 chars
+2026-03-05 16:49:41,109 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Amidst the mess, they share a laugh. “Maybe we don’t need all those survival tips,” Gary pants. “Exactly! Who needs a rubber chicken when you have tea...'
+2026-03-05 16:49:42,097 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 16:50:01,895 - agent.api - INFO - → GET /projects/asasad55653322/0001.mp3
+2026-03-05 16:50:01,949 - agent.api - INFO - ← 200 (0.05s)
+2026-03-05 16:50:02,113 - agent.api - INFO - → GET /projects/asasad55653322/0001.mp3
+2026-03-05 16:50:02,114 - agent.api - INFO - ← 206 (0.00s)
+2026-03-05 16:50:51,128 - agent.api - INFO - → GET /projects/asasad55653322/0002.mp3
+2026-03-05 16:50:51,130 - agent.api - INFO - ← 200 (0.00s)
+2026-03-05 16:50:51,294 - agent.api - INFO - → GET /projects/asasad55653322/0002.mp3
+2026-03-05 16:50:51,296 - agent.api - INFO - ← 206 (0.00s)
+2026-03-05 16:59:08,207 - agent.api - INFO - → GET /projects/asasad55653322/0001.mp3
+2026-03-05 16:59:08,210 - agent.api - INFO - ← 200 (0.00s)
+2026-03-05 16:59:08,349 - agent.api - INFO - → GET /projects/asasad55653322/0001.mp3
+2026-03-05 16:59:08,353 - agent.api - INFO - ← 304 (0.00s)
+2026-03-05 17:11:49,874 - agent.api - INFO - ================================================================================
+2026-03-05 17:11:49,881 - agent.api - INFO - AGENT BACKEND SHUTDOWN
+2026-03-05 17:11:49,882 - agent.api - INFO - ================================================================================
+2026-03-05 17:11:49,882 - agent.api - INFO - ✓ Shutdown complete
+2026-03-05 17:11:49,882 - agent.api - INFO - ================================================================================
+2026-03-05 17:11:50,305 - agent.api - INFO - ================================================================================
+2026-03-05 17:11:50,305 - agent.api - INFO - AGENT BACKEND SHUTDOWN
+2026-03-05 17:11:50,305 - agent.api - INFO - ================================================================================
+2026-03-05 17:11:50,305 - agent.api - INFO - ✓ Shutdown complete
+2026-03-05 17:11:50,305 - agent.api - INFO - ================================================================================
+2026-03-05 17:11:52,838 - agent.api - INFO - ================================================================================
+2026-03-05 17:11:52,838 - agent.api - INFO - AGENT BACKEND STARTUP
+2026-03-05 17:11:52,839 - agent.api - INFO - ================================================================================
+2026-03-05 17:11:52,839 - agent.api - INFO - ✓ Environment variables validated
+2026-03-05 17:11:52,843 - agent.api - INFO - ✓ Database initialized
+2026-03-05 17:11:52,843 - agent.api - INFO - ✓ Server ready on port 8001
+2026-03-05 17:11:52,843 - agent.api - INFO - ================================================================================
+2026-03-05 17:11:53,552 - agent.api - INFO - ================================================================================
+2026-03-05 17:11:53,553 - agent.api - INFO - AGENT BACKEND STARTUP
+2026-03-05 17:11:53,553 - agent.api - INFO - ================================================================================
+2026-03-05 17:11:53,553 - agent.api - INFO - ✓ Environment variables validated
+2026-03-05 17:11:53,556 - agent.api - INFO - ✓ Database initialized
+2026-03-05 17:11:53,557 - agent.api - INFO - ✓ Server ready on port 8001
+2026-03-05 17:11:53,557 - agent.api - INFO - ================================================================================
+2026-03-05 17:23:15,419 - agent.api - INFO - ================================================================================
+2026-03-05 17:23:15,419 - agent.api - INFO - AGENT BACKEND STARTUP
+2026-03-05 17:23:15,419 - agent.api - INFO - ================================================================================
+2026-03-05 17:23:15,419 - agent.api - INFO - ✓ Environment variables validated
+2026-03-05 17:23:15,421 - agent.api - INFO - ✓ Database initialized
+2026-03-05 17:23:15,422 - agent.api - INFO - ✓ Server ready on port 8001
+2026-03-05 17:23:15,422 - agent.api - INFO - ================================================================================
+2026-03-05 17:24:10,603 - agent.api - INFO - ================================================================================
+2026-03-05 17:24:10,603 - agent.api - INFO - AGENT BACKEND STARTUP
+2026-03-05 17:24:10,603 - agent.api - INFO - ================================================================================
+2026-03-05 17:24:10,603 - agent.api - INFO - ✓ Environment variables validated
+2026-03-05 17:24:10,606 - agent.api - INFO - ✓ Database initialized
+2026-03-05 17:24:10,606 - agent.api - INFO - ✓ Server ready on port 8001
+2026-03-05 17:24:10,606 - agent.api - INFO - ================================================================================
+2026-03-05 17:24:57,641 - agent.api - INFO - → GET /health
+2026-03-05 17:24:57,647 - agent.api - INFO - ← 200 (0.01s)
+2026-03-05 17:27:50,622 - agent.api - INFO - → POST /generate-script
+2026-03-05 17:27:50,625 - agent.api - INFO - ================================================================================
+2026-03-05 17:27:50,625 - agent.api - INFO - SCRIPT GENERATION REQUEST
+2026-03-05 17:27:50,625 - agent.api - INFO - ================================================================================
+2026-03-05 17:27:50,626 - agent.api - INFO - Request ID: 355ac77b-49ab-4085-8403-41acf08425fb
+2026-03-05 17:27:50,626 - agent.api - INFO - Project: fdfdfdfsd667788
+2026-03-05 17:27:50,626 - agent.api - INFO - Genre: horror
+2026-03-05 17:27:50,626 - agent.api - INFO - Duration: 1 min
+2026-03-05 17:27:50,626 - agent.api - INFO - Idea: noir horror about cats...
+2026-03-05 17:27:50,628 - agent.api - INFO - → Creating initial state...
+2026-03-05 17:27:50,628 - agent.api - INFO -   Language detected: en
+2026-03-05 17:27:50,629 - agent.api - INFO -   Target characters: 1,000
+2026-03-05 17:27:50,629 - agent.api - INFO -   Audio base URL: https://cinema-furnished-research-announce.trycloudflare.com
+2026-03-05 17:27:50,629 - agent.api - INFO - → Executing agent graph (timeout: 300s)...
+2026-03-05 17:27:50,667 - agent.tools - INFO - Created project directory: projects\fdfdfdfsd667788
+2026-03-05 17:27:50,667 - agent.graph - INFO - [GRAPH] create_project_node returning: project_slug='fdfdfdfsd667788', project_dir='projects\fdfdfdfsd667788'
+2026-03-05 17:27:52,674 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2026-03-05 17:28:14,387 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 17:28:25,734 - agent.api - INFO - → GET /projects/asasad55653322/0001.mp3
+2026-03-05 17:28:25,783 - agent.api - INFO - ← 200 (0.05s)
+2026-03-05 17:28:25,944 - agent.api - INFO - → GET /projects/asasad55653322/0001.mp3
+2026-03-05 17:28:25,946 - agent.api - INFO - ← 206 (0.00s)
+2026-03-05 17:28:28,785 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 17:28:44,335 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 17:28:49,889 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 17:28:49,937 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'fdfdfdfsd667788')
+2026-03-05 17:28:49,937 - agent.graph - INFO - [GRAPH] Validation result: is_valid=True, project_slug='fdfdfdfsd667788'
+2026-03-05 17:28:49,937 - agent.graph - INFO - [GRAPH] Validation passed, saving script to file...
+2026-03-05 17:28:49,938 - agent.tools - INFO - Saved script to: projects\fdfdfdfsd667788\script.txt (1010 chars)
+2026-03-05 17:28:49,938 - agent.graph - INFO - [GRAPH] ✓ Script saved: projects\fdfdfdfsd667788\script.txt
+2026-03-05 17:28:49,940 - agent.tools - INFO - Starting script segmentation (language: en, script length: 1010 chars)
+2026-03-05 17:28:55,107 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/chat "HTTP/1.1 200 OK"
+2026-03-05 17:28:55,109 - agent.tools - INFO - Segmentation successful: 4 segments created, 545 tokens used
+2026-03-05 17:28:55,109 - agent.tools - INFO - ✓ Validation passed: Original text preserved (char diff: 0.0%)
+2026-03-05 17:28:55,110 - agent.tools - INFO - Saved segmented script to: projects\fdfdfdfsd667788\script_segmented.txt (4 segments)
+2026-03-05 17:28:55,112 - agent.tools - INFO - ========== GENERATE_TTS_TOOL CALLED ==========
+2026-03-05 17:28:55,112 - agent.tools - INFO - Project: fdfdfdfsd667788
+2026-03-05 17:28:55,112 - agent.tools - INFO - Total segments received: 4
+2026-03-05 17:28:55,112 - agent.tools - INFO - First 3 segments:
+2026-03-05 17:28:55,112 - agent.tools - INFO -   Segment 1: Rain dripped like whispers against the window as Lena sat alone, her cats weavin... (269 chars)
+2026-03-05 17:28:55,113 - agent.tools - INFO -   Segment 2: She stared at the trio, their sleek forms moving with intent, as if they were aw... (307 chars)
+2026-03-05 17:28:55,113 - agent.tools - INFO -   Segment 3: Panic surged; she found symbols sketched in cat hair on her floor, an omen, a cu... (238 chars)
+2026-03-05 17:28:55,509 - agent.tools - INFO - Generating TTS audio for 4 segments in: projects\fdfdfdfsd667788
+2026-03-05 17:28:55,510 - agent.tools - INFO - Generating TTS for segment 1: 269 chars
+2026-03-05 17:28:55,510 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Rain dripped like whispers against the window as Lena sat alone, her cats weaving through shadows, their eyes glinting like shards of glass. The soft ...'
+2026-03-05 17:28:56,877 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 17:29:00,609 - agent.tools - INFO - Generating TTS for segment 2: 307 chars
+2026-03-05 17:29:00,610 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'She stared at the trio, their sleek forms moving with intent, as if they were aware of her troubled thoughts. Memories of betrayal flickered through h...'
+2026-03-05 17:29:01,984 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 17:29:05,111 - agent.tools - INFO - Generating TTS for segment 3: 238 chars
+2026-03-05 17:29:05,111 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Panic surged; she found symbols sketched in cat hair on her floor, an omen, a curse. In a frenzy, she faced them. Their shadows loomed larger, eyes bl...'
+2026-03-05 17:29:06,505 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 17:29:07,699 - agent.tools - INFO - Generating TTS for segment 4: 191 chars
+2026-03-05 17:29:07,700 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'They encircled her, merging with her own darkness. A final whisper echoed, “You can’t escape your past,” and silence swallowed her whole, leaving the ...'
+2026-03-05 17:29:09,312 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 17:29:11,728 - agent.api - INFO - ✓ Script generated successfully
+2026-03-05 17:29:11,728 - agent.api - INFO -   Iterations: 1
+2026-03-05 17:29:11,729 - agent.api - INFO -   Characters: 1,010
+2026-03-05 17:29:11,729 - agent.api - INFO -   Tokens used: 15,510
+2026-03-05 17:29:11,729 - agent.api - INFO -   Sources: 5
+2026-03-05 17:29:11,729 - agent.api - INFO -   Validation: ✓ Passed
+2026-03-05 17:29:11,729 - agent.api - INFO -   Segments: 4
+2026-03-05 17:29:11,729 - agent.api - INFO -   Audio files: 4
+2026-03-05 17:29:11,739 - agent.api - INFO - ✓ Execution saved to database
+2026-03-05 17:29:11,740 - agent.api - INFO - ================================================================================
+2026-03-05 17:29:11,741 - agent.api - INFO - ← 200 (81.12s)
+2026-03-05 17:35:31,707 - agent.api - INFO - → GET /projects/fdfdfdfsd667788/0004.mp3
+2026-03-05 17:35:31,709 - agent.api - INFO - ← 200 (0.00s)
+2026-03-05 17:35:31,881 - agent.api - INFO - → GET /projects/fdfdfdfsd667788/0004.mp3
+2026-03-05 17:35:31,883 - agent.api - INFO - ← 206 (0.00s)
+2026-03-05 18:00:12,753 - agent.api - INFO - ================================================================================
+2026-03-05 18:00:12,754 - agent.api - INFO - AGENT BACKEND STARTUP
+2026-03-05 18:00:12,754 - agent.api - INFO - ================================================================================
+2026-03-05 18:00:12,754 - agent.api - INFO - ✓ Environment variables validated
+2026-03-05 18:00:12,763 - agent.api - INFO - ✓ Database initialized
+2026-03-05 18:00:12,763 - agent.api - INFO - ✓ Server ready on port 8001
+2026-03-05 18:00:12,763 - agent.api - INFO - ================================================================================

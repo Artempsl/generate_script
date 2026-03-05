@@ -1,0 +1,59 @@
+================================================================================
+SEGMENTED SCRIPT
+================================================================================
+
+Total segments: 4
+Generated: 2026-03-05T15:49:28.138902+00:00
+
+================================================================================
+FULL SCRIPT (ORIGINAL)
+================================================================================
+
+Welcome to Vault 111! Your one-stop solution for surviving the apocalypse! As the overly enthusiastic Pam beams, a cracked screen showcases an outdated "How to Survive with Vault-Tec!" brochure featuring bizarre tips like “Always keep a rubber chicken for morale!” 
+
+Meet Gary, the paranoid survivalist hoarding rubber chickens while dramatically narrating his “survival” plans. “Real gear, Pam!” he insists, hiding behind useless items as Pam checks her clipboard, insisting on absurd safety protocols.
+
+“Mandatory safety drill!” Pam announces, demonstrating an inflatable raft for “flooding.” Gary rolls his eyes as chaos ensues. The raft gets stuck in the door; Gary trips over cones and accidentally activates a vending machine that sprays confetti. “This is NOT how you survive a flood!” he shouts. “It’s all about morale!” Pam counters with glee.
+
+Amidst the mess, they share a laugh. “Maybe we don’t need all those survival tips,” Gary pants. “Exactly! Who needs a rubber chicken when you have teamwork?” A rubber chicken suddenly launches, hitting Gary. “See? Morale booster!” the laughter echoes as the Vault-Tec logo fades in, “Vault-Tec: Surviving the ridiculous together!”
+
+================================================================================
+SEGMENTS (4 total)
+================================================================================
+
+[Segment 1]
+--------------------------------------------------------------------------------
+Welcome to Vault 111! Your one-stop solution for surviving the apocalypse! As the overly enthusiastic Pam beams, a cracked screen showcases an outdated "How to Survive with Vault-Tec!" brochure featuring bizarre tips like “Always keep a rubber chicken for morale!”
+
+Audio URL: N/A
+Character count: 264
+
+================================================================================
+
+[Segment 2]
+--------------------------------------------------------------------------------
+Meet Gary, the paranoid survivalist hoarding rubber chickens while dramatically narrating his “survival” plans. “Real gear, Pam!” he insists, hiding behind useless items as Pam checks her clipboard, insisting on absurd safety protocols.
+
+Audio URL: N/A
+Character count: 236
+
+================================================================================
+
+[Segment 3]
+--------------------------------------------------------------------------------
+"Mandatory safety drill!" Pam announces, demonstrating an inflatable raft for “flooding.” Gary rolls his eyes as chaos ensues. The raft gets stuck in the door; Gary trips over cones and accidentally activates a vending machine that sprays confetti. “This is NOT how you survive a flood!” he shouts. “It’s all about morale!” Pam counters with glee.
+
+Audio URL: N/A
+Character count: 347
+
+================================================================================
+
+[Segment 4]
+--------------------------------------------------------------------------------
+Amidst the mess, they share a laugh. “Maybe we don’t need all those survival tips,” Gary pants. “Exactly! Who needs a rubber chicken when you have teamwork?” A rubber chicken suddenly launches, hitting Gary. “See? Morale booster!” the laughter echoes as the Vault-Tec logo fades in, “Vault-Tec: Surviving the ridiculous together!”
+
+Audio URL: N/A
+Character count: 330
+
+================================================================================
+

@@ -1,0 +1,41 @@
+# ============================================================================
+# SCRIPT GENERATION AGENT - DEPENDENCIES
+# ============================================================================
+# Python 3.10+ required
+# Install: pip install -r requirements.txt
+
+# Core Framework
+fastapi==0.115.0
+uvicorn[standard]==0.31.0
+pydantic==2.9.2
+
+# Database
+aiosqlite==0.20.0
+
+# LangChain & LangGraph
+langgraph==0.2.34
+langchain==0.3.3
+langchain-openai==0.2.0
+langchain-core==0.3.7
+langchain-community==0.3.2
+
+# AI/ML APIs
+openai==1.51.2
+cohere==5.9.4
+pinecone-client==5.0.1
+
+# Utilities
+tenacity==9.0.0
+python-multipart==0.0.12
+
+# PDF Processing (for knowledge base ingestion)
+pypdf==4.0.1
+
+# Optional: Web Search (uncomment if using SerpAPI)
+# google-search-results==2.4.2
+
+# Development Tools (optional)
+# pytest==8.3.3
+# pytest-asyncio==0.24.0
+# black==24.8.0
+# ruff==0.6.8

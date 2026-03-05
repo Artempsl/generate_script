@@ -1066,51 +1066,85 @@ def segment_script_tool(
         
         # Build segmentation prompt
         if language == "ru":
-            system_prompt = """Ты эксперт по нарративу и визуальному сторителлингу.
-Твоя задача: разделить сценарий на семантические сегменты.
+            system_prompt = """Ты эксперт по сегментации сценариев для аудио-визуального контента.
 
-Каждый сегмент должен:
-- Содержать 2-6 предложений
-- Представлять визуально различимый момент
-- Быть подходящим для иллюстрации одним статичным изображением
-- Сохранять нарративный поток
+ЗАДАЧА:
+Разбей предоставленный сценарий на логические сегменты.
 
-КРИТИЧЕСКИ ВАЖНО: СОХРАНЯЙ ИСХОДНЫЙ ТЕКСТ ТОЧНО КАК ЕСТЬ.
-НЕ перефразируй, НЕ переписывай, НЕ меняй формулировки.
-Только разбей текст на сегменты, сохранив оригинальные слова и предложения.
+Каждый сегмент должен представлять собой целостный повествовательный момент или сцену, которую можно легко проиллюстрировать одной статичной картинкой в будущем процессе генерации видео. Другими словами, каждый сегмент должен описывать одно чёткое действие, ситуацию или эмоциональный момент, который можно визуально представить.
 
-Верни JSON массив в формате:
+Сегментация должна следовать естественному течению истории:
+- оставляй предложения, относящиеся к одному и тому же моменту, вместе
+- начинай новый сегмент, когда меняется сцена, действие, фокус или эмоциональный акцент
+- сохраняй непрерывность повествования
+
+Определи подходящее количество сегментов исходя из структуры и длины сценария.
+
+Каждый сегмент обычно должен содержать небольшую группу последовательных предложений, которые вместе представляют один визуализируемый повествовательный момент. В среднем один сегмент может состоять из 2-6 следующих друг за другом предложений.
+
+⚠️ КРИТИЧЕСКИ ВАЖНО — ПРАВИЛА КОПИРОВАНИЯ ТЕКСТА:
+1. КОПИРУЙ текст СИМВОЛ В СИМВОЛ из оригинала
+2. НЕ изменяй ни одного слова, знака препинания или форматирования
+3. НЕ добавляй новые предложения
+4. НЕ перефразируй и НЕ переписывай
+5. Просто раздели СУЩЕСТВУЮЩИЙ текст на части
+
+ПРАВИЛЬНЫЙ пример:
+Оригинал: "Привет, мир! Как дела? Отлично."
+Сегмент 1: "Привет, мир!" ✓ (точная копия)
+Сегмент 2: "Как дела? Отлично." ✓ (точная копия)
+
+НЕПРАВИЛЬНО:
+"Приветствую мир!" ✗ (изменено)
+"Как у тебя дела?" ✗ (перефразировано)
+
+Формат ответа — ТОЛЬКО валидный JSON:
 [
-  {"index": 1, "text": "текст первого сегмента (ТОЧНАЯ КОПИЯ из оригинала)"},
-  {"index": 2, "text": "текст второго сегмента (ТОЧНАЯ КОПИЯ из оригинала)"}
-]
+  {"index": 1, "text": "ТОЧНАЯ копия текста из оригинала"},
+  {"index": 2, "text": "ТОЧНАЯ копия следующей части"}
+]"""
 
-Важно: возвращай ТОЛЬКО валидный JSON, без дополнительных комментариев."""
-
-            user_prompt = f"Сегментируй следующий сценарий, СОХРАНЯЯ ТОЧНЫЙ ТЕКСТ:\n\n{script}"
+            user_prompt = f"Раздели этот сценарий на сегменты, КОПИРУЯ текст без изменений:\n\n{script}"
         else:
-            system_prompt = """You are an expert in narrative structure and visual storytelling.
-Your task: segment the script into semantic narrative moments.
+            system_prompt = """You are an expert in segmenting narrative scripts for audio-visual content.
 
-Each segment should:
-- Contain 2-6 sentences
-- Represent a visually distinct moment
-- Be suitable for illustration with a single static image
-- Maintain narrative flow
+TASK:
+Split the provided script into logical segments.
 
-CRITICALLY IMPORTANT: PRESERVE THE EXACT ORIGINAL TEXT.
-Do NOT rephrase, rewrite, or change any wording.
-Only split the text into segments while keeping the original words and sentences unchanged.
+Each segment must represent a coherent narrative moment or scene that could be easily illustrated with a single static image in a future video generation pipeline. In other words, each segment should describe one clear action, situation, or emotional moment that can be visually represented.
 
-Return JSON array in this format:
+The segmentation should follow the natural flow of the story:
+- keep sentences that belong to the same moment together
+- start a new segment when the scene, action, focus, or emotional beat changes
+- maintain narrative continuity
+
+Determine the appropriate number of segments based on the structure and length of the script.
+
+Each segment should usually contain a small group of consecutive sentences that together represent one visualizable narrative moment. On average, one segment can consist of 2-6 consecutive sentences.
+
+⚠️ CRITICALLY IMPORTANT — TEXT COPYING RULES:
+1. COPY the text CHARACTER BY CHARACTER from the original
+2. DO NOT change any words, punctuation, or formatting
+3. DO NOT add new sentences
+4. DO NOT paraphrase or rewrite anything
+5. Simply split the EXISTING text into parts
+
+CORRECT example:
+Original: "Hello world! How are you? Great."
+Segment 1: "Hello world!" ✓ (exact copy)
+Segment 2: "How are you? Great." ✓ (exact copy)
+
+INCORRECT:
+"Greetings world!" ✗ (changed wording)
+"How are things?" ✗ (paraphrased)
+
+Response format — ONLY valid JSON:
 [
-  {"index": 1, "text": "first segment text (EXACT COPY from original)"},
-  {"index": 2, "text": "second segment text (EXACT COPY from original)"}
-]
+  {"index": 1, "text": "EXACT copy of text from the original"},
+  {"index": 2, "text": "EXACT copy of the next part"}
+]"""
 
-Important: return ONLY valid JSON, no additional comments."""
-
-            user_prompt = f"Segment the following script while PRESERVING EXACT TEXT:\n\n{script}"
+            user_prompt = f"Split this script into segments by COPYING text without changes:\n\n{script}"
         
         # Call Cohere Chat API
         response = co.chat(
@@ -1119,7 +1153,7 @@ Important: return ONLY valid JSON, no additional comments."""
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
             ],
-            temperature=0.3,  # Lower temperature for structured output
+            temperature=0.0,  # Zero temperature = deterministic, no creativity
             max_tokens=4000  # Command-R-08-2024 max is 4096
         )
         
@@ -1163,10 +1197,33 @@ Important: return ONLY valid JSON, no additional comments."""
         if len(validated_segments) == 0:
             raise ValueError("No valid segments after validation")
         
+        # CRITICAL VALIDATION: Check if segments contain original text
+        # Combine all segment texts and compare with original
+        combined_text = " ".join([seg["text"] for seg in validated_segments])
+        
+        # Extract first 50 chars from original and check if they appear in segments
+        original_sample = script[:50].strip()
+        if original_sample and original_sample not in combined_text:
+            # LLM did rewrite instead of copy!
+            error_msg = f"Segmentation validation FAILED: Cohere rewrote the text instead of preserving it. Original start: '{original_sample}...' not found in segments."
+            logger.error(error_msg)
+            raise ValueError(error_msg)
+        
+        # Check character count similarity (should be ~same, allowing for whitespace)
+        original_chars = len(script.replace(" ", "").replace("\n", ""))
+        combined_chars = len(combined_text.replace(" ", "").replace("\n", ""))
+        char_diff_percent = abs(original_chars - combined_chars) / original_chars * 100
+        
+        if char_diff_percent > 15:  # More than 15% difference = likely rewrite
+            error_msg = f"Segmentation validation FAILED: Character count mismatch {char_diff_percent:.1f}% (original: {original_chars}, segments: {combined_chars}). Text was likely rewritten."
+            logger.error(error_msg)
+            raise ValueError(error_msg)
+        
         # Estimate tokens used (input + output)
         tokens_used = (len(script) + len(response_text)) // 4
         
         logger.info(f"Segmentation successful: {len(validated_segments)} segments created, {tokens_used} tokens used")
+        logger.info(f"✓ Validation passed: Original text preserved (char diff: {char_diff_percent:.1f}%)")
         
         return {
             "success": True,
