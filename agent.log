@@ -1,0 +1,213 @@
+2026-03-05 14:32:40,896 - agent.tools - INFO - Created project directory: projects\Melodrama_Test
+2026-03-05 14:32:40,897 - agent.graph - INFO - [GRAPH] create_project_node returning: project_slug='Melodrama_Test', project_dir='projects\Melodrama_Test'
+2026-03-05 14:32:42,655 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2026-03-05 14:33:07,514 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 14:33:18,400 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 14:33:31,955 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 14:33:36,365 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 14:33:36,374 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'Melodrama_Test')
+2026-03-05 14:33:36,374 - agent.graph - INFO - [GRAPH] Validation result: is_valid=True, project_slug='Melodrama_Test'
+2026-03-05 14:33:36,374 - agent.graph - INFO - [GRAPH] Validation passed, saving script to file...
+2026-03-05 14:33:36,375 - agent.tools - INFO - Saved script to: projects\Melodrama_Test\script.txt (1045 chars)
+2026-03-05 14:33:36,375 - agent.graph - INFO - [GRAPH] ✓ Script saved: projects\Melodrama_Test\script.txt
+2026-03-05 14:33:36,377 - agent.tools - INFO - Starting script segmentation (language: en, script length: 1045 chars)
+2026-03-05 14:33:51,169 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/chat "HTTP/1.1 200 OK"
+2026-03-05 14:33:51,171 - agent.tools - INFO - Segmentation successful: 9 segments created, 611 tokens used
+2026-03-05 14:33:51,172 - agent.tools - INFO - Saved segmented script to: projects\Melodrama_Test\script_segmented.txt (9 segments)
+2026-03-05 14:33:51,402 - agent.tools - INFO - Generating TTS audio for 9 segments in: projects\Melodrama_Test
+2026-03-05 14:33:51,402 - agent.tools - INFO - Generating TTS for segment 1: 138 chars
+2026-03-05 14:33:52,858 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 14:33:54,441 - agent.tools - INFO - Generating TTS for segment 2: 80 chars
+2026-03-05 14:33:55,842 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 14:33:56,706 - agent.tools - INFO - Generating TTS for segment 3: 80 chars
+2026-03-05 14:33:57,666 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 14:33:58,666 - agent.tools - INFO - Generating TTS for segment 4: 151 chars
+2026-03-05 14:34:00,213 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 14:34:01,170 - agent.tools - INFO - Generating TTS for segment 5: 161 chars
+2026-03-05 14:34:01,981 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 14:34:04,962 - agent.tools - INFO - Generating TTS for segment 6: 87 chars
+2026-03-05 14:34:06,231 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 14:34:07,457 - agent.tools - INFO - Generating TTS for segment 7: 74 chars
+2026-03-05 14:34:08,768 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 14:34:09,792 - agent.tools - INFO - Generating TTS for segment 8: 106 chars
+2026-03-05 14:34:10,732 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 14:34:11,898 - agent.tools - INFO - Generating TTS for segment 9: 151 chars
+2026-03-05 14:34:12,579 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 14:59:55,586 - agent.tools - INFO - Created project directory: projects\art4455667
+2026-03-05 14:59:55,587 - agent.graph - INFO - [GRAPH] create_project_node returning: project_slug='art4455667', project_dir='projects\art4455667'
+2026-03-05 14:59:58,133 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2026-03-05 15:00:34,387 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:00:55,490 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:01:22,004 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:01:29,523 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:01:29,531 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'art4455667')
+2026-03-05 15:01:29,531 - agent.graph - INFO - [GRAPH] Validation result: is_valid=True, project_slug='art4455667'
+2026-03-05 15:01:29,531 - agent.graph - INFO - [GRAPH] Validation passed, saving script to file...
+2026-03-05 15:01:29,534 - agent.tools - INFO - Saved script to: projects\art4455667\script.txt (1089 chars)
+2026-03-05 15:01:29,534 - agent.graph - INFO - [GRAPH] ✓ Script saved: projects\art4455667\script.txt
+2026-03-05 15:01:29,536 - agent.tools - INFO - Starting script segmentation (language: en, script length: 1089 chars)
+2026-03-05 15:02:01,753 - agent.tools - INFO - Created project directory: projects\art4455667
+2026-03-05 15:02:01,754 - agent.graph - INFO - [GRAPH] create_project_node returning: project_slug='art4455667', project_dir='projects\art4455667'
+2026-03-05 15:02:02,273 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2026-03-05 15:02:22,237 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:02:39,349 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:03:05,032 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:03:12,666 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:03:12,672 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'art4455667')
+2026-03-05 15:03:12,673 - agent.graph - INFO - [GRAPH] Validation result: is_valid=True, project_slug='art4455667'
+2026-03-05 15:03:12,673 - agent.graph - INFO - [GRAPH] Validation passed, saving script to file...
+2026-03-05 15:03:12,675 - agent.tools - INFO - Saved script to: projects\art4455667\script.txt (1058 chars)
+2026-03-05 15:03:12,675 - agent.graph - INFO - [GRAPH] ✓ Script saved: projects\art4455667\script.txt
+2026-03-05 15:03:12,676 - agent.tools - INFO - Starting script segmentation (language: en, script length: 1058 chars)
+2026-03-05 15:03:14,130 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/chat "HTTP/1.1 200 OK"
+2026-03-05 15:03:14,132 - agent.tools - INFO - Segmentation successful: 14 segments created, 725 tokens used
+2026-03-05 15:03:14,134 - agent.tools - INFO - Saved segmented script to: projects\art4455667\script_segmented.txt (14 segments)
+2026-03-05 15:03:14,556 - agent.tools - INFO - Generating TTS audio for 14 segments in: projects\art4455667
+2026-03-05 15:03:14,556 - agent.tools - INFO - Generating TTS for segment 1: 123 chars
+2026-03-05 15:03:16,017 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:17,564 - agent.tools - INFO - Generating TTS for segment 2: 103 chars
+2026-03-05 15:03:18,877 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:19,955 - agent.tools - INFO - Generating TTS for segment 3: 48 chars
+2026-03-05 15:03:20,566 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/chat "HTTP/1.1 200 OK"
+2026-03-05 15:03:20,569 - agent.tools - INFO - Segmentation successful: 9 segments created, 626 tokens used
+2026-03-05 15:03:20,570 - agent.tools - INFO - Saved segmented script to: projects\art4455667\script_segmented.txt (9 segments)
+2026-03-05 15:03:21,004 - agent.tools - INFO - Generating TTS audio for 9 segments in: projects\art4455667
+2026-03-05 15:03:21,005 - agent.tools - INFO - Audio file already exists: 0001.mp3
+2026-03-05 15:03:21,006 - agent.tools - INFO - Audio file already exists: 0002.mp3
+2026-03-05 15:03:21,006 - agent.tools - INFO - Generating TTS for segment 3: 216 chars
+2026-03-05 15:03:21,829 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:22,116 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:22,317 - agent.tools - INFO - Generating TTS for segment 4: 90 chars
+2026-03-05 15:03:22,950 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:23,956 - agent.tools - INFO - Generating TTS for segment 5: 115 chars
+2026-03-05 15:03:24,596 - agent.tools - INFO - Audio file already exists: 0004.mp3
+2026-03-05 15:03:24,596 - agent.tools - INFO - Generating TTS for segment 5: 159 chars
+2026-03-05 15:03:25,148 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:25,845 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:26,670 - agent.tools - INFO - Generating TTS for segment 6: 50 chars
+2026-03-05 15:03:27,364 - agent.tools - INFO - Generating TTS for segment 6: 62 chars
+2026-03-05 15:03:27,473 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:27,845 - agent.tools - INFO - Generating TTS for segment 7: 57 chars
+2026-03-05 15:03:28,329 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:28,911 - agent.tools - INFO - Generating TTS for segment 7: 20 chars
+2026-03-05 15:03:28,980 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:30,008 - agent.tools - INFO - Generating TTS for segment 8: 52 chars
+2026-03-05 15:03:30,160 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:30,352 - agent.tools - INFO - Generating TTS for segment 8: 120 chars
+2026-03-05 15:03:31,310 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:31,389 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:31,934 - agent.tools - INFO - Generating TTS for segment 9: 64 chars
+2026-03-05 15:03:32,738 - agent.tools - INFO - Generating TTS for segment 9: 100 chars
+2026-03-05 15:03:33,109 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:33,460 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:33,775 - agent.tools - INFO - Generating TTS for segment 10: 46 chars
+2026-03-05 15:03:34,719 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:35,149 - agent.tools - INFO - Generating TTS for segment 11: 51 chars
+2026-03-05 15:03:36,304 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:36,772 - agent.tools - INFO - Generating TTS for segment 12: 90 chars
+2026-03-05 15:03:37,893 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:39,133 - agent.tools - INFO - Generating TTS for segment 13: 88 chars
+2026-03-05 15:03:39,916 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:03:40,734 - agent.tools - INFO - Generating TTS for segment 14: 94 chars
+2026-03-05 15:03:41,354 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:44:24,994 - agent.tools - INFO - Created project directory: projects\asasd565656
+2026-03-05 15:44:24,995 - agent.graph - INFO - [GRAPH] create_project_node returning: project_slug='asasd565656', project_dir='projects\asasd565656'
+2026-03-05 15:44:27,330 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2026-03-05 15:45:27,724 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:45:40,227 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:45:47,769 - agent.tools - INFO - Created project directory: projects\asasd565656
+2026-03-05 15:45:47,769 - agent.graph - INFO - [GRAPH] create_project_node returning: project_slug='asasd565656', project_dir='projects\asasd565656'
+2026-03-05 15:45:48,335 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/embed "HTTP/1.1 200 OK"
+2026-03-05 15:45:55,754 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:46:00,450 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:46:00,458 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'asasd565656')
+2026-03-05 15:46:00,459 - agent.graph - INFO - [GRAPH] Validation result: is_valid=True, project_slug='asasd565656'
+2026-03-05 15:46:00,459 - agent.graph - INFO - [GRAPH] Validation passed, saving script to file...
+2026-03-05 15:46:00,460 - agent.tools - INFO - Saved script to: projects\asasd565656\script.txt (1079 chars)
+2026-03-05 15:46:00,460 - agent.graph - INFO - [GRAPH] ✓ Script saved: projects\asasd565656\script.txt
+2026-03-05 15:46:00,461 - agent.tools - INFO - Starting script segmentation (language: en, script length: 1079 chars)
+2026-03-05 15:46:07,509 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:46:08,484 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/chat "HTTP/1.1 200 OK"
+2026-03-05 15:46:08,487 - agent.tools - INFO - Segmentation successful: 8 segments created, 626 tokens used
+2026-03-05 15:46:08,488 - agent.tools - INFO - Saved segmented script to: projects\asasd565656\script_segmented.txt (8 segments)
+2026-03-05 15:46:08,490 - agent.tools - INFO - ========== GENERATE_TTS_TOOL CALLED ==========
+2026-03-05 15:46:08,490 - agent.tools - INFO - Project: asasd565656
+2026-03-05 15:46:08,490 - agent.tools - INFO - Total segments received: 8
+2026-03-05 15:46:08,490 - agent.tools - INFO - First 3 segments:
+2026-03-05 15:46:08,490 - agent.tools - INFO -   Segment 1: The landscape stretched desolately, rusted cars and crumbling buildings under a ... (151 chars)
+2026-03-05 15:46:08,490 - agent.tools - INFO -   Segment 2: A close-up revealed Lara, a survivor with haunted eyes. “I have to find it… befo... (143 chars)
+2026-03-05 15:46:08,490 - agent.tools - INFO -   Segment 3: She stepped cautiously into the abandoned building, shadows flickering, a low gr... (120 chars)
+2026-03-05 15:46:08,930 - agent.tools - INFO - Generating TTS audio for 8 segments in: projects\asasd565656
+2026-03-05 15:46:08,931 - agent.tools - INFO - Generating TTS for segment 1: 151 chars
+2026-03-05 15:46:08,931 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'The landscape stretched desolately, rusted cars and crumbling buildings under a blood-red sky. Eerie winds howled through the remnants of civilization...'
+2026-03-05 15:46:10,379 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:46:11,855 - agent.tools - INFO - Generating TTS for segment 2: 143 chars
+2026-03-05 15:46:11,855 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'A close-up revealed Lara, a survivor with haunted eyes. “I have to find it… before it finds me,” she whispered, urgency trembling in her voice....'
+2026-03-05 15:46:13,032 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:46:15,463 - agent.tools - INFO - Generating TTS for segment 3: 120 chars
+2026-03-05 15:46:15,464 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'She stepped cautiously into the abandoned building, shadows flickering, a low growl reverberating. Her breath quickened....'
+2026-03-05 15:46:16,890 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:46:18,383 - agent.tools - INFO - Generating TTS for segment 4: 114 chars
+2026-03-05 15:46:18,383 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Navigating wreckage, papers fluttered like lost souls, distant screams echoing. A decaying journal caught her eye....'
+2026-03-05 15:46:19,105 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:46:19,821 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:46:21,532 - agent.tools - INFO - Generating TTS for segment 5: 178 chars
+2026-03-05 15:46:21,532 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: '“It feeds on fear… it knows my name,” she recalled, memories flashing through her mind—The Wretcher, born from humanity’s ashes, its presence hinted a...'
+2026-03-05 15:46:22,548 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:46:23,702 - agent.tools - INFO - Generating TTS for segment 6: 108 chars
+2026-03-05 15:46:23,703 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'In cracked mirrors, she faced her insecurities, glimpses of The Wretcher lurking just behind her reflection....'
+2026-03-05 15:46:24,593 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:46:25,691 - agent.tools - INFO - Generating TTS for segment 7: 118 chars
+2026-03-05 15:46:25,691 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Steeling herself, Lara stepped into a dark room. Silence enveloped her. The Wretcher loomed, oppressive and monstrous....'
+2026-03-05 15:46:26,367 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:46:26,967 - agent.tools - INFO - Generating TTS for segment 8: 138 chars
+2026-03-05 15:46:26,968 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: '“I won’t be your prey,” she breathed, determination flickering. The screen cut to black, a chilling whisper echoed, “You’re already mine…”...'
+2026-03-05 15:46:27,651 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:46:34,692 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:46:39,856 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:46:39,866 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'asasd565656')
+2026-03-05 15:46:39,866 - agent.graph - INFO - [GRAPH] Validation result: is_valid=False, project_slug='asasd565656'
+2026-03-05 15:46:39,866 - agent.graph - INFO - [GRAPH] Validation failed, skipping script save
+2026-03-05 15:46:45,361 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-05 15:46:45,367 - agent.graph - INFO - [GRAPH] Entering validate_node (project_slug: 'asasd565656')
+2026-03-05 15:46:45,367 - agent.graph - INFO - [GRAPH] Validation result: is_valid=True, project_slug='asasd565656'
+2026-03-05 15:46:45,368 - agent.graph - INFO - [GRAPH] Validation passed, saving script to file...
+2026-03-05 15:46:45,369 - agent.tools - INFO - Saved script to: projects\asasd565656\script.txt (1079 chars)
+2026-03-05 15:46:45,369 - agent.graph - INFO - [GRAPH] ✓ Script saved: projects\asasd565656\script.txt
+2026-03-05 15:46:45,370 - agent.tools - INFO - Starting script segmentation (language: en, script length: 1079 chars)
+2026-03-05 15:46:53,826 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v2/chat "HTTP/1.1 200 OK"
+2026-03-05 15:46:53,829 - agent.tools - INFO - Segmentation successful: 8 segments created, 661 tokens used
+2026-03-05 15:46:53,830 - agent.tools - INFO - Saved segmented script to: projects\asasd565656\script_segmented.txt (8 segments)
+2026-03-05 15:46:53,831 - agent.tools - INFO - ========== GENERATE_TTS_TOOL CALLED ==========
+2026-03-05 15:46:53,831 - agent.tools - INFO - Project: asasd565656
+2026-03-05 15:46:53,831 - agent.tools - INFO - Total segments received: 8
+2026-03-05 15:46:53,831 - agent.tools - INFO - First 3 segments:
+2026-03-05 15:46:53,831 - agent.tools - INFO -   Segment 1: A desolate cityscape looms, shrouded in fog, flickering streetlights casting gho... (163 chars)
+2026-03-05 15:46:53,831 - agent.tools - INFO -   Segment 2: In the midst stands JAMES, a rugged survivor with haunted eyes and a makeshift w... (160 chars)
+2026-03-05 15:46:53,831 - agent.tools - INFO -   Segment 3: A shadow darts across the ruins; a sudden crash jolts him, igniting his anxiety.... (125 chars)
+2026-03-05 15:46:54,226 - agent.tools - INFO - Removing 8 old audio files from projects\asasd565656
+2026-03-05 15:46:54,228 - agent.tools - INFO - Generating TTS audio for 8 segments in: projects\asasd565656
+2026-03-05 15:46:54,229 - agent.tools - INFO - Generating TTS for segment 1: 163 chars
+2026-03-05 15:46:54,229 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'A desolate cityscape looms, shrouded in fog, flickering streetlights casting ghostly shadows. A low hum vibrates through the air, whispers echoing lik...'
+2026-03-05 15:46:55,487 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:46:56,995 - agent.tools - INFO - Generating TTS for segment 2: 160 chars
+2026-03-05 15:46:56,995 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'In the midst stands JAMES, a rugged survivor with haunted eyes and a makeshift weapon clutched tightly. “I must find it. The evil that took everything...'
+2026-03-05 15:46:57,984 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:47:00,466 - agent.tools - INFO - Generating TTS for segment 3: 125 chars
+2026-03-05 15:47:00,466 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'A shadow darts across the ruins; a sudden crash jolts him, igniting his anxiety. “It lurks in the depths, feeding on fear...”...'
+2026-03-05 15:47:01,655 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:47:03,182 - agent.tools - INFO - Generating TTS for segment 4: 171 chars
+2026-03-05 15:47:03,182 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Navigating dark alleys, JAMES is haunted by flashbacks—his family attacked. His heartbeat thunders, drowning in eerie silence. “I can’t escape my memo...'
+2026-03-05 15:47:03,945 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:47:06,022 - agent.tools - INFO - Generating TTS for segment 5: 114 chars
+2026-03-05 15:47:06,022 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Unsettling shadows flicker by, whispering, “Turn back... it’s your fault...” It knows him. “It’s my own darkness.”...'
+2026-03-05 15:47:06,799 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:47:08,226 - agent.tools - INFO - Generating TTS for segment 6: 148 chars
+2026-03-05 15:47:08,226 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'Finally confronting the shadow, it morphs into a grotesque reflection of himself. A cacophony of screams swells, then silence. “I am the monster...”...'
+2026-03-05 15:47:09,548 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:47:10,955 - agent.tools - INFO - Generating TTS for segment 7: 93 chars
+2026-03-05 15:47:10,955 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'He hesitates, weapon lowered, tears glistening. A soft whisper urges, “Embrace the darkness.”...'
+2026-03-05 15:47:12,202 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
+2026-03-05 15:47:12,888 - agent.tools - INFO - Generating TTS for segment 8: 84 chars
+2026-03-05 15:47:12,889 - agent.tools - INFO -   EXACT TEXT BEING SENT TO TTS: 'With resolve, JAMES steps into the void, swallowed whole. The true evil lies within....'
+2026-03-05 15:47:14,001 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"

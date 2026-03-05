@@ -1,0 +1,103 @@
+================================================================================
+SEGMENTED SCRIPT
+================================================================================
+
+Total segments: 8
+Generated: 2026-03-05T14:46:53.829969+00:00
+
+================================================================================
+FULL SCRIPT (ORIGINAL)
+================================================================================
+
+A desolate cityscape looms, shrouded in fog, flickering streetlights casting ghostly shadows. A low hum vibrates through the air, whispers echoing like lost souls. 
+
+In the midst stands JAMES, a rugged survivor with haunted eyes and a makeshift weapon clutched tightly. “I must find it. The evil that took everything from me.” 
+
+A shadow darts across the ruins; a sudden crash jolts him, igniting his anxiety. “It lurks in the depths, feeding on fear...” 
+
+Navigating dark alleys, JAMES is haunted by flashbacks—his family attacked. His heartbeat thunders, drowning in eerie silence. “I can’t escape my memories... the guilt...” 
+
+Unsettling shadows flicker by, whispering, “Turn back... it’s your fault...” It knows him. “It’s my own darkness.” 
+
+Finally confronting the shadow, it morphs into a grotesque reflection of himself. A cacophony of screams swells, then silence. “I am the monster...” 
+
+He hesitates, weapon lowered, tears glistening. A soft whisper urges, “Embrace the darkness.” 
+
+With resolve, JAMES steps into the void, swallowed whole. The true evil lies within.
+
+================================================================================
+SEGMENTS (8 total)
+================================================================================
+
+[Segment 1]
+--------------------------------------------------------------------------------
+A desolate cityscape looms, shrouded in fog, flickering streetlights casting ghostly shadows. A low hum vibrates through the air, whispers echoing like lost souls.
+
+Audio URL: N/A
+Character count: 163
+
+================================================================================
+
+[Segment 2]
+--------------------------------------------------------------------------------
+In the midst stands JAMES, a rugged survivor with haunted eyes and a makeshift weapon clutched tightly. “I must find it. The evil that took everything from me.”
+
+Audio URL: N/A
+Character count: 160
+
+================================================================================
+
+[Segment 3]
+--------------------------------------------------------------------------------
+A shadow darts across the ruins; a sudden crash jolts him, igniting his anxiety. “It lurks in the depths, feeding on fear...”
+
+Audio URL: N/A
+Character count: 125
+
+================================================================================
+
+[Segment 4]
+--------------------------------------------------------------------------------
+Navigating dark alleys, JAMES is haunted by flashbacks—his family attacked. His heartbeat thunders, drowning in eerie silence. “I can’t escape my memories... the guilt...”
+
+Audio URL: N/A
+Character count: 171
+
+================================================================================
+
+[Segment 5]
+--------------------------------------------------------------------------------
+Unsettling shadows flicker by, whispering, “Turn back... it’s your fault...” It knows him. “It’s my own darkness.”
+
+Audio URL: N/A
+Character count: 114
+
+================================================================================
+
+[Segment 6]
+--------------------------------------------------------------------------------
+Finally confronting the shadow, it morphs into a grotesque reflection of himself. A cacophony of screams swells, then silence. “I am the monster...”
+
+Audio URL: N/A
+Character count: 148
+
+================================================================================
+
+[Segment 7]
+--------------------------------------------------------------------------------
+He hesitates, weapon lowered, tears glistening. A soft whisper urges, “Embrace the darkness.”
+
+Audio URL: N/A
+Character count: 93
+
+================================================================================
+
+[Segment 8]
+--------------------------------------------------------------------------------
+With resolve, JAMES steps into the void, swallowed whole. The true evil lies within.
+
+Audio URL: N/A
+Character count: 84
+
+================================================================================
+

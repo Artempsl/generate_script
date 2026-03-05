@@ -19,6 +19,7 @@ from datetime import datetime, timezone
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from fastapi.exceptions import RequestValidationError
 
 # Handle both module and standalone execution
@@ -27,8 +28,10 @@ try:
     from agent.models import (
         ScriptRequestItem,
         ScriptResponse,
+        SegmentedScriptResponse,
         create_initial_state,
-        state_to_response
+        state_to_response,
+        state_to_segmented_response
     )
     from agent.database import DatabaseManager, Execution
     from agent.graph import execute_agent
@@ -40,8 +43,10 @@ except ModuleNotFoundError:
     from agent.models import (
         ScriptRequestItem,
         ScriptResponse,
+        SegmentedScriptResponse,
         create_initial_state,
-        state_to_response
+        state_to_response,
+        state_to_segmented_response
     )
     from agent.database import DatabaseManager, Execution
     from agent.graph import execute_agent
@@ -67,6 +72,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount static files for project outputs (audio + text files)
+app.mount("/projects", StaticFiles(directory="projects"), name="projects")
 
 # Initialize database manager
 db_manager = DatabaseManager()
@@ -242,7 +250,7 @@ async def test_endpoint():
     }
 
 
-@app.post("/generate-script", response_model=ScriptResponse)
+@app.post("/generate-script", response_model=SegmentedScriptResponse)
 async def generate_script(request: Request):
     """
     Main endpoint for script generation.
@@ -339,11 +347,18 @@ async def generate_script(request: Request):
             print(f"{'=' * 80}\n")
             return response
         
+        # Detect audio base URL from request headers
+        host = request.headers.get("host", "localhost:8000")
+        scheme = "https" if request.headers.get("x-forwarded-proto") == "https" else "http"
+        audio_base_url = f"{scheme}://{host}"
+        
         # Create initial state
         print("→ Creating initial state...")
         initial_state = create_initial_state(request_item)
+        initial_state['audio_base_url'] = audio_base_url
         print(f"  Language detected: {initial_state['language']}")
         print(f"  Target characters: {initial_state['target_chars']:,}")
+        print(f"  Audio base URL: {audio_base_url}")
         
         # Execute agent graph with timeout wrapper
         print(f"→ Executing agent graph (timeout: {MAX_TIMEOUT_SECONDS}s)...")
@@ -398,8 +413,8 @@ async def generate_script(request: Request):
                 detail=f"Agent execution failed: {final_state['error']}"
             )
         
-        # Convert state to response
-        response = state_to_response(final_state)
+        # Convert state to segmented response
+        response = state_to_segmented_response(final_state)
         
         # Print execution summary
         print(f"✓ Script generated successfully")
@@ -408,6 +423,8 @@ async def generate_script(request: Request):
         print(f"  Tokens used: {final_state.get('tokens_used', 0):,}")
         print(f"  Sources: {final_state.get('retrieved_sources_count', 0)}")
         print(f"  Validation: {'✓ Passed' if final_state.get('validation_passed') else '✗ Failed'}")
+        print(f"  Segments: {final_state.get('segment_count', 0)}")
+        print(f"  Audio files: {final_state.get('audio_files_count', 0)}")
         
         # Save successful execution to database
         execution = Execution(
@@ -424,7 +441,9 @@ async def generate_script(request: Request):
             iteration_count=final_state.get('iteration', 0) + 1,
             tokens_used_total=final_state.get('tokens_used', 0),
             retrieved_sources_count=final_state.get('retrieved_sources_count', 0),
-            reasoning_trace=final_state.get('reasoning_trace', [])
+            reasoning_trace=final_state.get('reasoning_trace', []),
+            segments=final_state.get('segments', []),
+            audio_files_count=final_state.get('audio_files_count', 0)
         )
         
         await db_manager.save_execution(execution)

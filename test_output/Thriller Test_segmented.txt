@@ -1,0 +1,90 @@
+================================================================================
+SEGMENTED SCRIPT TEST RESULTS
+================================================================================
+
+Project: Thriller Test
+Genre: thriller
+Duration: 1 min
+Language: en
+Request ID: test-segments-pipeline-thriller
+Status: success
+
+Story Idea:
+A cybersecurity expert discovers a hidden backdoor in government systems that leads to a conspiracy at the highest levels.
+
+================================================================================
+FULL SCRIPT
+================================================================================
+
+ALEX stared in disbelief at the screen, eyes wide as alarming alerts flooded in. “What have I stumbled upon?” they whispered, heart racing. Fingers flew across the keyboard, documents revealing a hidden backdoor in the government’s security system. Flashing visuals of logos and encrypted messages hinted at a sinister plot. 
+
+Suddenly, a faint sound behind them sent a chill down their spine. “Trust no one. Not even those closest,” echoed in their mind as evidence of high-level corruption materialized. Just then, a threatening message blinked onto the screen: “Stop digging.” 
+
+The lights flickered ominously; a shadow moved outside the window. 
+
+A phone call interrupted—an unidentified number. Hesitating, Alex answered. The cold, menacing voice promised dire consequences for continuing. 
+
+As Alex hung up, the shadow stepped inside, revealing a trusted ally, now an antagonist. “What have I done?” Alex gasped, breath quickening. The screen cut to black, heavy breathing suffocating the air, leaving the audience suspended in fear and uncertainty.
+
+================================================================================
+SEGMENTED SCRIPT (5 segments)
+================================================================================
+
+[Segment 1]
+--------------------------------------------------------------------------------
+ALEX stared in disbelief at the screen, eyes wide as alarming alerts flooded in. “What have I stumbled upon?” they whispered, heart racing. Fingers flew across the keyboard, documents revealing a hidden backdoor in the government’s security system. Flashing visuals of logos and encrypted messages hinted at a sinister plot.
+
+Audio URL: http://localhost:8000/projects/Thriller_Test/0001.mp3
+Character count: 324
+
+================================================================================
+
+[Segment 2]
+--------------------------------------------------------------------------------
+Suddenly, a faint sound behind them sent a chill down their spine. “Trust no one. Not even those closest,” echoed in their mind as evidence of high-level corruption materialized. Just then, a threatening message blinked onto the screen: “Stop digging.”
+
+Audio URL: http://localhost:8000/projects/Thriller_Test/0002.mp3
+Character count: 252
+
+================================================================================
+
+[Segment 3]
+--------------------------------------------------------------------------------
+The lights flickered ominously; a shadow moved outside the window.
+
+Audio URL: http://localhost:8000/projects/Thriller_Test/0003.mp3
+Character count: 66
+
+================================================================================
+
+[Segment 4]
+--------------------------------------------------------------------------------
+A phone call interrupted—an unidentified number. Hesitating, Alex answered. The cold, menacing voice promised dire consequences for continuing.
+
+Audio URL: http://localhost:8000/projects/Thriller_Test/0004.mp3
+Character count: 143
+
+================================================================================
+
+[Segment 5]
+--------------------------------------------------------------------------------
+As Alex hung up, the shadow stepped inside, revealing a trusted ally, now an antagonist. “What have I done?” Alex gasped, breath quickening. The screen cut to black, heavy breathing suffocating the air, leaving the audience suspended in fear and uncertainty.
+
+Audio URL: http://localhost:8000/projects/Thriller_Test/0005.mp3
+Character count: 258
+
+================================================================================
+
+
+================================================================================
+EXECUTION STATISTICS
+================================================================================
+
+Total characters: 1,055
+Target characters: 1,000
+Segments count: 5
+Audio files count: 5
+Iterations: 3
+Tokens used: 17,852
+Retrieved sources: 5
+Validation passed: True

@@ -25,6 +25,10 @@ Edges:
 from typing import Dict, Any, Literal, Annotated, TypedDict
 from datetime import datetime, timezone
 import operator
+import logging
+
+# Initialize logger for graph execution
+logger = logging.getLogger(__name__)
 
 # Handle both module and standalone execution
 try:
@@ -38,6 +42,12 @@ try:
         generate_script_tool,
         validate_tool,
         regenerate_tool,
+        segment_script_tool,
+        generate_tts_tool,
+        create_project_directory,
+        save_script_to_file,
+        save_segments_to_file,
+        create_project_slug,
     )
 except ModuleNotFoundError:
     import sys
@@ -53,6 +63,12 @@ except ModuleNotFoundError:
         generate_script_tool,
         validate_tool,
         regenerate_tool,
+        segment_script_tool,
+        generate_tts_tool,
+        create_project_directory,
+        save_script_to_file,
+        save_segments_to_file,
+        create_project_slug,
     )
 
 from langgraph.graph import StateGraph, END
@@ -70,6 +86,8 @@ class GraphState(TypedDict):
     # Input fields
     request_id: str
     project_name: str
+    project_slug: str  # URL-safe project name
+    project_dir: str   # Path to project directory
     genre: str
     idea: str
     duration: int
@@ -106,6 +124,13 @@ class GraphState(TypedDict):
     reasoning_trace: Annotated[list, operator.add]
     tokens_used: int
     
+    # Segmentation and audio fields (NEW)
+    segments: list
+    segment_count: int
+    audio_files: list
+    audio_base_url: str
+    audio_files_count: int
+    
     # Error handling
     error: str
 
@@ -113,6 +138,45 @@ class GraphState(TypedDict):
 # =============================================================================
 # NODE IMPLEMENTATIONS
 # =============================================================================
+
+def create_project_node(state: AgentState) -> AgentState:
+    """
+    Node: Create project directory structure at the start.
+    
+    Updates state:
+        - project_slug
+        - project_dir
+        - reasoning_trace
+    """
+    print(f"  [GRAPH] Entering create_project_node...")
+    
+    result = create_project_directory(state['project_name'])
+    
+    if result['success']:
+        print(f"  [GRAPH] Project directory created: {result['project_dir']}")
+    else:
+        print(f"  [GRAPH] WARNING: Failed to create project directory: {result['error']}")
+    
+    # Add reasoning trace
+    trace_step = ReasoningStep(
+        step=f"create_project (iteration {state['iteration']})",
+        action="create_project_directory",
+        observation=f"Directory: {result['project_dir']}" if result['success'] else f"Error: {result['error']}",
+        thought=f"Created project directory for '{state['project_name']}'"
+    )
+    
+    print(f"  [GRAPH] Exiting create_project_node (slug: '{result['project_slug']}')")
+    print(f"  [GRAPH] Returning: project_slug={result['project_slug']}, project_dir={result['project_dir']}")
+    logger.info(f"[GRAPH] create_project_node returning: project_slug='{result['project_slug']}', project_dir='{result['project_dir']}'")
+    
+    # MUST return ALL updates including project_slug and project_dir
+    # These are regular fields (not operator.add) so they'll be merged normally
+    return {
+        "project_slug": result['project_slug'],
+        "project_dir": result['project_dir'],
+        "reasoning_trace": [trace_step]
+    }
+
 
 def retrieve_node(state: AgentState) -> AgentState:
     """
@@ -376,6 +440,9 @@ def validate_node(state: AgentState) -> AgentState:
         - validation_message
         - reasoning_trace
     """
+    logger.info(f"[GRAPH] Entering validate_node (project_slug: '{state.get('project_slug', 'NOT SET')}')")
+    print(f"  [GRAPH] Entering validate_node (project_slug: '{state.get('project_slug', 'NOT SET')}')")
+    
     result = validate_tool(
         script=state['script'],
         target_chars=state['target_chars']
@@ -385,6 +452,29 @@ def validate_node(state: AgentState) -> AgentState:
     state['validation_passed'] = result['is_valid']
     state['validation_ratio'] = result['ratio']
     state['validation_message'] = result['message']
+    
+    # Save script to file if validation passes
+    project_slug = state.get('project_slug')
+    logger.info(f"[GRAPH] Validation result: is_valid={result['is_valid']}, project_slug='{project_slug}'")
+    print(f"  [GRAPH] Validation result: is_valid={result['is_valid']}, project_slug='{project_slug}'")
+    
+    if result['is_valid'] and project_slug:
+        logger.info(f"[GRAPH] Validation passed, saving script to file...")
+        print(f"  [GRAPH] Validation passed, saving script to file...")
+        save_result = save_script_to_file(state['script'], project_slug)
+        if save_result['success']:
+            logger.info(f"[GRAPH] ✓ Script saved: {save_result['file_path']}")
+            print(f"  [GRAPH] ✓ Script saved: {save_result['file_path']}")
+        else:
+            logger.error(f"[GRAPH] ✗ WARNING: Failed to save script: {save_result['error']}")
+            print(f"  [GRAPH] ✗ WARNING: Failed to save script: {save_result['error']}")
+    else:
+        if not result['is_valid']:
+            logger.info(f"[GRAPH] Validation failed, skipping script save")
+            print(f"  [GRAPH] Validation failed, skipping script save")
+        if not project_slug:
+            logger.error(f"[GRAPH] ✗ ERROR: project_slug is empty, cannot save script!")
+            print(f"  [GRAPH] ✗ ERROR: project_slug is empty, cannot save script!")
     
     # Add reasoning step
     step = {
@@ -447,13 +537,113 @@ def regenerate_node(state: AgentState) -> AgentState:
     return state
 
 
+def segment_script_node(state: AgentState) -> AgentState:
+    """
+    Node: Segment script into visual moments (2-6 sentences each).
+    
+    Updates state:
+        - segments
+        - segment_count
+        - tokens_used (incremental)
+        - reasoning_trace
+    """
+    print(f"  [GRAPH] Entering segment_script_node (project_slug: '{state.get('project_slug', 'NOT SET')}')")
+    
+    result = segment_script_tool(
+        script=state['script'],
+        language=state['language']
+    )
+    
+    # Update state
+    if result['success']:
+        state['segments'] = result['segments']
+        state['segment_count'] = result['segment_count']
+        state['tokens_used'] += result.get('tokens_used', 0)
+        
+        # Save segments to file
+        project_slug = state.get('project_slug')
+        script = state.get('script')
+        print(f"  [GRAPH] Segmentation result: success=True, segments={len(result['segments'])}, project_slug='{project_slug}'")
+        
+        if project_slug and script:
+            print(f"  [GRAPH] Segmentation successful, saving segments to file...")
+            save_result = save_segments_to_file(
+                segments=result['segments'],
+                script=script,
+                project_slug=project_slug
+            )
+            if save_result['success']:
+                print(f"  [GRAPH] ✓ Segments saved: {save_result['file_path']}")
+            else:
+                print(f"  [GRAPH] ✗ WARNING: Failed to save segments: {save_result['error']}")
+        else:
+            if not project_slug:
+                print(f"  [GRAPH] ✗ ERROR: project_slug is empty, cannot save segments!")
+            if not script:
+                print(f"  [GRAPH] ✗ ERROR: script is empty, cannot save segments!")
+    else:
+        # Fallback was used or failed completely
+        state['error'] = f"Segmentation failed: {result.get('error', 'Unknown error')}"
+    
+    # Add reasoning step
+    step = {
+        "step": len(state['reasoning_trace']) + 1,
+        "action": "segment_script",
+        "result": f"Created {result.get('segment_count', 0)} segments" + (f" (fallback used)" if result.get('error') else ""),
+        "tokens_used": result.get('tokens_used', 0),
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    }
+    state['reasoning_trace'].append(step)
+    
+    return state
+
+
+def generate_audio_node(state: AgentState) -> AgentState:
+    """
+    Node: Generate TTS audio files for each segment.
+    
+    Updates state:
+        - segments (with audio_url field)
+        - audio_files
+        - audio_files_count
+        - reasoning_trace
+    """
+    result = generate_tts_tool(
+        segments=state['segments'],
+        project_name=state['project_name'],
+        audio_base_url=state['audio_base_url'],
+        voice="alloy"
+    )
+    
+    # Update state
+    if result['success']:
+        state['segments'] = result['segments']  # Now with audio_url fields
+        state['audio_files'] = result['audio_files']
+        state['audio_files_count'] = result['audio_files_count']
+    else:
+        # Partial or complete failure
+        state['error'] = f"Audio generation failed: {result.get('error', 'Unknown error')}"
+    
+    # Add reasoning step
+    step = {
+        "step": len(state['reasoning_trace']) + 1,
+        "action": "generate_audio",
+        "result": f"Generated {result.get('audio_files_count', 0)} audio files",
+        "tokens_used": 0,  # TTS doesn't use tokens
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    }
+    state['reasoning_trace'].append(step)
+    
+    return state
+
+
 # =============================================================================
 # CONDITIONAL EDGES
 # =============================================================================
 
-def should_regenerate(state: AgentState) -> Literal["regenerate", "end"]:
+def should_regenerate(state: AgentState) -> Literal["regenerate", "segment_script"]:
     """
-    Conditional edge: Decide whether to regenerate or end.
+    Conditional edge: Decide whether to regenerate or proceed to segmentation.
     
     Regenerate if:
         - Validation failed
@@ -461,24 +651,24 @@ def should_regenerate(state: AgentState) -> Literal["regenerate", "end"]:
         - Tokens < MAX_TOTAL_TOKENS
         - No errors
     
-    Otherwise END.
+    Otherwise proceed to segment_script.
     """
     # Check if validation passed
     if state.get('validation_passed'):
-        return "end"
+        return "segment_script"
     
     # Check if error occurred
     if state.get('error'):
-        return "end"
+        return "segment_script"  # Still segment even if there's an error
     
     # Check iteration limit
     if state['iteration'] >= state['max_iterations']:
-        return "end"
+        return "segment_script"  # Still segment even if iterations exceeded
     
     # Check token budget
     if state['tokens_used'] >= MAX_TOTAL_TOKENS:
         state['error'] = f"Token budget exceeded: {state['tokens_used']}/{MAX_TOTAL_TOKENS}"
-        return "end"
+        return "segment_script"  # Still segment even if budget exceeded
     
     return "regenerate"
 
@@ -498,6 +688,7 @@ def create_agent_graph():
     workflow = StateGraph(GraphState)
     
     # Add nodes
+    workflow.add_node("create_project", create_project_node)  # NEW: Create project directory (first!)
     workflow.add_node("retrieve", retrieve_node)
     workflow.add_node("web_search", web_search_node)
     workflow.add_node("synthesize", synthesize_node)
@@ -506,11 +697,14 @@ def create_agent_graph():
     workflow.add_node("generate_script", generate_script_node)
     workflow.add_node("validate", validate_node)
     workflow.add_node("regenerate", regenerate_node)
+    workflow.add_node("segment_script", segment_script_node)  # NEW: Script segmentation
+    workflow.add_node("generate_audio", generate_audio_node)  # NEW: Audio generation
     
-    # Set entry point
-    workflow.set_entry_point("retrieve")
+    # Set entry point (create project directory first!)
+    workflow.set_entry_point("create_project")
     
     # Add sequential edges (main flow)
+    workflow.add_edge("create_project", "retrieve")  # NEW: create_project -> retrieve
     workflow.add_edge("retrieve", "web_search")
     workflow.add_edge("web_search", "synthesize")
     workflow.add_edge("synthesize", "reasoning")  # NEW: reasoning after synthesis
@@ -518,18 +712,22 @@ def create_agent_graph():
     workflow.add_edge("generate_outline", "generate_script")
     workflow.add_edge("generate_script", "validate")
     
-    # Add conditional edge (validation → regenerate or END)
+    # Add conditional edge (validation → regenerate or segment_script)
     workflow.add_conditional_edges(
         "validate",
         should_regenerate,
         {
             "regenerate": "regenerate",
-            "end": END
+            "segment_script": "segment_script"
         }
     )
     
     # Regenerate loops back to validate
     workflow.add_edge("regenerate", "validate")
+    
+    # NEW: Segmentation and audio pipeline
+    workflow.add_edge("segment_script", "generate_audio")
+    workflow.add_edge("generate_audio", END)
     
     # Compile graph
     return workflow.compile()

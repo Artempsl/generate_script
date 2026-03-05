@@ -189,6 +189,115 @@ class ScriptResponse(BaseModel):
 
 
 # =============================================================================
+# SEGMENTED RESPONSE MODELS (NEW - Phase 2 Extension)
+# =============================================================================
+
+class SegmentObject(BaseModel):
+    """
+    Single script segment with generated audio.
+    
+    Each segment represents a 2-6 sentence narrative moment 
+    suitable for visual representation.
+    """
+    
+    segment_index: int = Field(
+        ...,
+        ge=1,
+        description="Sequential segment number (1-indexed)"
+    )
+    
+    text: str = Field(
+        ...,
+        min_length=10,
+        description="Segment text content (2-6 sentences)"
+    )
+    
+    audio_url: str = Field(
+        ...,
+        description="Public URL to generated MP3 audio file"
+    )
+
+
+class SegmentedScriptResponse(BaseModel):
+    """
+    Extended response with segmented script and audio URLs.
+    
+    This is the PRIMARY response format for n8n integration (Phase 2).
+    Replaces ScriptResponse with segment-based structure.
+    """
+    
+    request_id: str = Field(
+        ...,
+        description="Unique request identifier"
+    )
+    
+    status: str = Field(
+        ...,
+        description="Execution status: 'success', 'error', or 'partial_success'"
+    )
+    
+    project_name: str = Field(
+        ...,
+        description="Project name from request"
+    )
+    
+    genre: str = Field(
+        ...,
+        description="Story genre"
+    )
+    
+    language: str = Field(
+        ...,
+        description="Detected language (en/ru)"
+    )
+    
+    segments: List[SegmentObject] = Field(
+        default_factory=list,
+        description="List of script segments with audio URLs"
+    )
+    
+    audio_files_count: Optional[int] = Field(
+        default=None,
+        description="Number of audio files generated"
+    )
+    
+    char_count: Optional[int] = Field(
+        default=None,
+        description="Total character count of full script"
+    )
+    
+    duration_target: Optional[int] = Field(
+        default=None,
+        description="Target duration in minutes"
+    )
+    
+    iteration_count: Optional[int] = Field(
+        default=None,
+        description="Number of generation iterations"
+    )
+    
+    tokens_used_total: Optional[int] = Field(
+        default=None,
+        description="Total tokens consumed (including segmentation)"
+    )
+    
+    retrieved_sources_count: Optional[int] = Field(
+        default=None,
+        description="Number of Pinecone sources retrieved"
+    )
+    
+    reasoning_trace: Optional[str] = Field(
+        default=None,
+        description="Summary of reasoning steps (full trace in database)"
+    )
+    
+    error_message: Optional[str] = Field(
+        default=None,
+        description="Error message if status is 'error' or 'partial_success'"
+    )
+
+
+# =============================================================================
 # LANGGRAPH STATE (TypedDict)
 # =============================================================================
 
@@ -213,6 +322,8 @@ class AgentState(TypedDict, total=False):
     # Input fields (from request)
     request_id: str
     project_name: str
+    project_slug: str  # URL-safe project name (set by create_project_node)
+    project_dir: str   # Project directory path (set by create_project_node)
     genre: str
     idea: str
     duration: int
@@ -250,6 +361,15 @@ class AgentState(TypedDict, total=False):
     # Tracking
     reasoning_trace: List[ReasoningStep]
     tokens_used: int
+    
+    # NEW: Segmentation fields (Phase 2)
+    segments: List[Dict[str, Any]]  # Segmented script
+    segment_count: int  # Total segments
+    
+    # NEW: Audio generation fields (Phase 2)
+    audio_files: List[str]  # Local file paths
+    audio_base_url: str  # Detected from request headers
+    audio_files_count: int
     
     # Error handling
     error: Optional[str]
@@ -297,6 +417,8 @@ def create_initial_state(request: ScriptRequestItem) -> AgentState:
     return {
         "request_id": request.request_id or str(uuid4()),
         "project_name": project_name,
+        "project_slug": "",  # Will be set by create_project_node
+        "project_dir": "",   # Will be set by create_project_node
         "genre": request.genre,
         "idea": story_idea,
         "duration": request.duration,
@@ -321,36 +443,12 @@ def create_initial_state(request: ScriptRequestItem) -> AgentState:
         "reasoning_trace": [],
         "tokens_used": 0,
         "error": None,
-    }
-    
-    # Return dict instead of AgentState() for LangGraph compatibility
-    return {
-        "request_id": request.request_id or str(uuid4()),
-        "project_name": request.projectName,
-        "genre": request.genre,
-        "idea": request.storyIdea,
-        "duration": request.duration,
-        "language": language,
-        "target_chars": target_chars,
-        "retrieved_context": "",
-        "web_context": "",
-        "synthesized_context": "",
-        "retrieved_sources_count": 0,
-        "reasoning": "",  # NEW: ReAct reasoning
-        "reasoning_strategy": {},  # NEW: Strategic decisions
-        "outline": "",
-        "script": "",
-        "char_count": 0,
-        "validation_passed": False,
-        "validation_ratio": 0.0,
-        "validation_message": "",
-        "iteration": 0,
-        "max_iterations": 3,
-        "web_search_enabled": request.duration > 10,
-        "should_regenerate": False,
-        "reasoning_trace": [],
-        "tokens_used": 0,
-        "error": None,
+        # NEW: Phase 2 fields
+        "segments": [],
+        "segment_count": 0,
+        "audio_files": [],
+        "audio_base_url": "",  # Will be set by API endpoint
+        "audio_files_count": 0,
     }
 
 
@@ -378,6 +476,66 @@ def state_to_response(state: AgentState) -> ScriptResponse:
         status=status,
         script=state.get("script"),
         outline=state.get("outline"),
+        char_count=state.get("char_count"),
+        duration_target=state.get("duration"),
+        reasoning_trace=reasoning_summary,
+        iteration_count=state.get("iteration", 0),
+        tokens_used_total=state.get("tokens_used", 0),
+        retrieved_sources_count=state.get("retrieved_sources_count", 0),
+        error_message=state.get("error"),
+    )
+
+
+def state_to_segmented_response(state: AgentState) -> SegmentedScriptResponse:
+    """
+    Convert agent state to segmented API response (Phase 2).
+    
+    This is the NEW primary response format with segments and audio URLs.
+    
+    Args:
+        state: Final agent state after execution (including segments and audio)
+        
+    Returns:
+        SegmentedScriptResponse for n8n
+    """
+    # Determine status
+    segments = state.get("segments", [])
+    has_script = bool(state.get("script"))
+    has_error = bool(state.get("error"))
+    has_segments = len(segments) > 0
+    
+    if has_script and has_segments and not has_error:
+        status = "success"
+    elif has_script and not has_segments:
+        status = "partial_success"  # Script generated but segmentation failed
+    else:
+        status = "error"
+    
+    # Create reasoning summary (not full trace)
+    reasoning_summary = f"{len(state.get('reasoning_trace', []))} steps completed"
+    
+    # Ensure request_id is never None
+    request_id = state.get("request_id") or str(uuid4())
+    project_name = state.get("project_name", "unknown")
+    
+    # Convert segments to SegmentObject models
+    segment_objects = []
+    for seg in segments:
+        try:
+            segment_objects.append(SegmentObject(**seg))
+        except Exception as e:
+            # Skip invalid segments
+            print(f"  ⚠️  Invalid segment {seg.get('segment_index', '?')}: {e}")
+            continue
+    
+    return SegmentedScriptResponse(
+        request_id=request_id,
+        status=status,
+        project_name=project_name,
+        genre=state.get("genre", "unknown"),
+        language=state.get("language", "en"),
+        segments=segment_objects,
+        audio_files_count=state.get("audio_files_count", 0),
         char_count=state.get("char_count"),
         duration_target=state.get("duration"),
         reasoning_trace=reasoning_summary,

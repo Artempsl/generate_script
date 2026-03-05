@@ -1,0 +1,99 @@
+================================================================================
+SEGMENTED SCRIPT TEST RESULTS
+================================================================================
+
+Project: Comedy Test
+Genre: comedy
+Duration: 1 min
+Language: en
+Request ID: test-segments-pipeline-003
+Status: success
+
+Story Idea:
+A clumsy office worker accidentally sends a personal email to the entire company and tries desperately to fix the situation.
+
+================================================================================
+FULL SCRIPT
+================================================================================
+
+In a bustling office, JESS, juggling a coffee cup, stares at her screen with determination. “If I can just impress the boss today,” she mutters, fingers trembling over the keyboard. But in a split second, she clicks "Reply All," sending an accidental love confession to the entire company. A loud “ding!” echoes as JESS freezes, horror washing over her face. 
+
+Across the room, laughter erupts. A SNARKY COWORKER grins, “Looks like someone’s got a crush!” As JESS panics, she fumbles her coffee, spilling it everywhere. “This is not happening…” 
+
+Desperately, she types an apology but mistakenly sends, “I really need to stop sending these!” In her frenzy, she knocks over the water cooler, creating chaos. 
+
+Soaked and disheveled, JESS faces her amused coworkers. “Well, at least I made everyone’s day a little brighter!” A SYMPATHETIC COWORKER laughs, “We’ve all been there!” 
+
+As the laughter continues, JESS realizes her blunder forged unexpected friendships. The SNARKY COWORKER quips, “Next time, just stick to work emails!”
+
+================================================================================
+SEGMENTED SCRIPT (6 segments)
+================================================================================
+
+[Segment 1]
+--------------------------------------------------------------------------------
+In a bustling office, JESS, juggling a coffee cup, stares at her screen with determination. “If I can just impress the boss today,” she mutters, fingers trembling over the keyboard.
+
+Audio URL: http://localhost:8000/projects/Comedy_Test/0001.mp3
+Character count: 181
+
+================================================================================
+
+[Segment 2]
+--------------------------------------------------------------------------------
+But in a split second, she clicks "Reply All," sending an accidental love confession to the entire company. A loud “ding!” echoes as JESS freezes, horror washing over her face.
+
+Audio URL: http://localhost:8000/projects/Comedy_Test/0002.mp3
+Character count: 176
+
+================================================================================
+
+[Segment 3]
+--------------------------------------------------------------------------------
+Across the room, laughter erupts. A SNARKY COWORKER grins, “Looks like someone’s got a crush!” As JESS panics, she fumbles her coffee, spilling it everywhere. “This is not happening…”
+
+Audio URL: http://localhost:8000/projects/Comedy_Test/0003.mp3
+Character count: 183
+
+================================================================================
+
+[Segment 4]
+--------------------------------------------------------------------------------
+Desperately, she types an apology but mistakenly sends, “I really need to stop sending these!” In her frenzy, she knocks over the water cooler, creating chaos.
+
+Audio URL: http://localhost:8000/projects/Comedy_Test/0004.mp3
+Character count: 159
+
+================================================================================
+
+[Segment 5]
+--------------------------------------------------------------------------------
+Soaked and disheveled, JESS faces her amused coworkers. “Well, at least I made everyone’s day a little brighter!” A SYMPATHETIC COWORKER laughs, “We’ve all been there!”
+
+Audio URL: http://localhost:8000/projects/Comedy_Test/0005.mp3
+Character count: 168
+
+================================================================================
+
+[Segment 6]
+--------------------------------------------------------------------------------
+As the laughter continues, JESS realizes her blunder forged unexpected friendships. The SNARKY COWORKER quips, “Next time, just stick to work emails!”
+
+Audio URL: http://localhost:8000/projects/Comedy_Test/0006.mp3
+Character count: 150
+
+================================================================================
+
+
+================================================================================
+EXECUTION STATISTICS
+================================================================================
+
+Total characters: 1,030
+Target characters: 1,000
+Segments count: 6
+Audio files count: 6
+Iterations: 1
+Tokens used: 15,637
+Retrieved sources: 5
+Validation passed: True

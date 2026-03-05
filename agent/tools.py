@@ -16,8 +16,201 @@ Each tool returns structured output for the agent state.
 
 import os
 import json
+import re
+import logging
 from typing import Dict, Any, Optional, List
 from datetime import datetime, timezone
+from pathlib import Path
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('agent.log'),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
+
+
+def create_project_slug(project_name: str) -> str:
+    """Convert project name to URL-safe slug.
+    
+    Examples:
+        "Horror Test" -> "Horror_Test"
+        "My Amazing Project" -> "My_Amazing_Project"
+    """
+    # Replace spaces with underscores
+    slug = project_name.replace(" ", "_")
+    # Remove any characters that aren't alphanumeric, underscore, or hyphen
+    slug = re.sub(r'[^\w\-]', '', slug)
+    return slug
+
+
+def create_project_directory(project_name: str) -> Dict[str, Any]:
+    """Create project directory structure at the start of pipeline.
+    
+    Creates: projects/{project_slug}/
+    
+    Args:
+        project_name: Original project name
+        
+    Returns:
+        {
+            "success": bool,
+            "project_dir": str,  # Path to project directory
+            "project_slug": str,
+            "error": Optional[str]
+        }
+    """
+    try:
+        project_slug = create_project_slug(project_name)
+        project_dir = Path("projects") / project_slug
+        
+        # Create directory
+        project_dir.mkdir(parents=True, exist_ok=True)
+        
+        logger.info(f"Created project directory: {project_dir}")
+        
+        return {
+            "success": True,
+            "project_dir": str(project_dir),
+            "project_slug": project_slug,
+            "error": None
+        }
+        
+    except Exception as e:
+        error_msg = f"Failed to create project directory: {str(e)}"
+        logger.error(error_msg)
+        return {
+            "success": False,
+            "project_dir": "",
+            "project_slug": "",
+            "error": error_msg
+        }
+
+
+def save_script_to_file(script: str, project_slug: str) -> Dict[str, Any]:
+    """Save validated script to text file.
+    
+    Creates: projects/{project_slug}/script.txt
+    
+    Args:
+        script: Generated and validated script text
+        project_slug: URL-safe project slug
+        
+    Returns:
+        {
+            "success": bool,
+            "file_path": str,
+            "error": Optional[str]
+        }
+    """
+    try:
+        project_dir = Path("projects") / project_slug
+        project_dir.mkdir(parents=True, exist_ok=True)
+        
+        file_path = project_dir / "script.txt"
+        
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write("=" * 80 + "\n")
+            f.write("ORIGINAL SCRIPT\n")
+            f.write("=" * 80 + "\n\n")
+            f.write(script)
+            f.write("\n\n")
+            f.write("=" * 80 + "\n")
+            f.write(f"Generated: {datetime.now(timezone.utc).isoformat()}\n")
+            f.write(f"Length: {len(script)} characters\n")
+        
+        logger.info(f"Saved script to: {file_path} ({len(script)} chars)")
+        
+        return {
+            "success": True,
+            "file_path": str(file_path),
+            "error": None
+        }
+        
+    except Exception as e:
+        error_msg = f"Failed to save script: {str(e)}"
+        logger.error(error_msg)
+        return {
+            "success": False,
+            "file_path": "",
+            "error": error_msg
+        }
+
+
+def save_segments_to_file(segments: List[Dict], script: str, project_slug: str) -> Dict[str, Any]:
+    """Save segmented script to text file.
+    
+    Creates: projects/{project_slug}/script_segmented.txt
+    
+    Args:
+        segments: List of segment dicts with segment_index, text, audio_url
+        script: Original full script for comparison
+        project_slug: URL-safe project slug
+        
+    Returns:
+        {
+            "success": bool,
+            "file_path": str,
+            "error": Optional[str]
+        }
+    """
+    try:
+        project_dir = Path("projects") / project_slug
+        project_dir.mkdir(parents=True, exist_ok=True)
+        
+        file_path = project_dir / "script_segmented.txt"
+        
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write("=" * 80 + "\n")
+            f.write("SEGMENTED SCRIPT\n")
+            f.write("=" * 80 + "\n\n")
+            
+            f.write(f"Total segments: {len(segments)}\n")
+            f.write(f"Generated: {datetime.now(timezone.utc).isoformat()}\n\n")
+            
+            f.write("=" * 80 + "\n")
+            f.write("FULL SCRIPT (ORIGINAL)\n")
+            f.write("=" * 80 + "\n\n")
+            f.write(script)
+            f.write("\n\n")
+            
+            f.write("=" * 80 + "\n")
+            f.write(f"SEGMENTS ({len(segments)} total)\n")
+            f.write("=" * 80 + "\n\n")
+            
+            for seg in segments:
+                segment_index = seg.get('segment_index', 0)
+                text = seg.get('text', '')
+                audio_url = seg.get('audio_url', 'N/A')
+                
+                f.write(f"[Segment {segment_index}]\n")
+                f.write("-" * 80 + "\n")
+                f.write(f"{text}\n\n")
+                f.write(f"Audio URL: {audio_url}\n")
+                f.write(f"Character count: {len(text)}\n")
+                f.write("\n" + "=" * 80 + "\n\n")
+        
+        logger.info(f"Saved segmented script to: {file_path} ({len(segments)} segments)")
+        
+        return {
+            "success": True,
+            "file_path": str(file_path),
+            "error": None
+        }
+        
+    except Exception as e:
+        error_msg = f"Failed to save segments: {str(e)}"
+        logger.error(error_msg)
+        return {
+            "success": False,
+            "file_path": "",
+            "error": error_msg
+        }
+
 
 # Handle both module and standalone execution
 try:
@@ -830,6 +1023,406 @@ TOOLS = {
     "validate": validate_tool,
     "regenerate": regenerate_tool,
 }
+
+
+# =============================================================================
+# TOOL 9: SEGMENT SCRIPT (NEW - Phase 2)
+# =============================================================================
+
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=2, max=10)
+)
+def segment_script_tool(
+    script: str,
+    language: str
+) -> Dict[str, Any]:
+    """
+    Segment script into 2-6 sentence visual moments using Cohere.
+    
+    Each segment should represent a distinct narrative moment that can be
+    illustrated with a single static image.
+    
+    Args:
+        script: Full generated script text
+        language: Detected language ("ru" or "en")
+        
+    Returns:
+        {
+            "success": bool,
+            "segments": List[Dict],  # [{"index": 1, "text": "..."}]
+            "segment_count": int,
+            "tokens_used": int,
+            "error": Optional[str]
+        }
+    """
+    try:
+        import cohere
+        
+        logger.info(f"Starting script segmentation (language: {language}, script length: {len(script)} chars)")
+        
+        # Initialize Cohere client
+        co = cohere.ClientV2(api_key=os.getenv("COHERE_API_KEY"))
+        
+        # Build segmentation prompt
+        if language == "ru":
+            system_prompt = """Ты эксперт по нарративу и визуальному сторителлингу.
+Твоя задача: разделить сценарий на семантические сегменты.
+
+Каждый сегмент должен:
+- Содержать 2-6 предложений
+- Представлять визуально различимый момент
+- Быть подходящим для иллюстрации одним статичным изображением
+- Сохранять нарративный поток
+
+КРИТИЧЕСКИ ВАЖНО: СОХРАНЯЙ ИСХОДНЫЙ ТЕКСТ ТОЧНО КАК ЕСТЬ.
+НЕ перефразируй, НЕ переписывай, НЕ меняй формулировки.
+Только разбей текст на сегменты, сохранив оригинальные слова и предложения.
+
+Верни JSON массив в формате:
+[
+  {"index": 1, "text": "текст первого сегмента (ТОЧНАЯ КОПИЯ из оригинала)"},
+  {"index": 2, "text": "текст второго сегмента (ТОЧНАЯ КОПИЯ из оригинала)"}
+]
+
+Важно: возвращай ТОЛЬКО валидный JSON, без дополнительных комментариев."""
+
+            user_prompt = f"Сегментируй следующий сценарий, СОХРАНЯЯ ТОЧНЫЙ ТЕКСТ:\n\n{script}"
+        else:
+            system_prompt = """You are an expert in narrative structure and visual storytelling.
+Your task: segment the script into semantic narrative moments.
+
+Each segment should:
+- Contain 2-6 sentences
+- Represent a visually distinct moment
+- Be suitable for illustration with a single static image
+- Maintain narrative flow
+
+CRITICALLY IMPORTANT: PRESERVE THE EXACT ORIGINAL TEXT.
+Do NOT rephrase, rewrite, or change any wording.
+Only split the text into segments while keeping the original words and sentences unchanged.
+
+Return JSON array in this format:
+[
+  {"index": 1, "text": "first segment text (EXACT COPY from original)"},
+  {"index": 2, "text": "second segment text (EXACT COPY from original)"}
+]
+
+Important: return ONLY valid JSON, no additional comments."""
+
+            user_prompt = f"Segment the following script while PRESERVING EXACT TEXT:\n\n{script}"
+        
+        # Call Cohere Chat API
+        response = co.chat(
+            model="command-r-08-2024",  # Current Command-R model for structured tasks
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            temperature=0.3,  # Lower temperature for structured output
+            max_tokens=4000  # Command-R-08-2024 max is 4096
+        )
+        
+        # Extract response text
+        response_text = response.message.content[0].text
+        
+        # Parse JSON response
+        # Remove markdown code blocks if present
+        response_text = response_text.strip()
+        if response_text.startswith("```json"):
+            response_text = response_text[7:]
+        if response_text.startswith("```"):
+            response_text = response_text[3:]
+        if response_text.endswith("```"):
+            response_text = response_text[:-3]
+        response_text = response_text.strip()
+        
+        segments = json.loads(response_text)
+        
+        # Validate structure
+        if not isinstance(segments, list):
+            raise ValueError("Cohere response is not a list")
+        
+        if len(segments) == 0:
+            raise ValueError("No segments returned")
+        
+        # Validate each segment
+        validated_segments = []
+        for seg in segments:
+            if not isinstance(seg, dict):
+                continue
+            if "index" not in seg or "text" not in seg:
+                continue
+            
+            # Normalize keys
+            validated_segments.append({
+                "segment_index": seg["index"],
+                "text": seg["text"].strip()
+            })
+        
+        if len(validated_segments) == 0:
+            raise ValueError("No valid segments after validation")
+        
+        # Estimate tokens used (input + output)
+        tokens_used = (len(script) + len(response_text)) // 4
+        
+        logger.info(f"Segmentation successful: {len(validated_segments)} segments created, {tokens_used} tokens used")
+        
+        return {
+            "success": True,
+            "segments": validated_segments,
+            "segment_count": len(validated_segments),
+            "tokens_used": tokens_used,
+            "error": None
+        }
+        
+    except json.JSONDecodeError as e:
+        # Fallback: Simple sentence-based segmentation
+        logger.warning(f"Cohere JSON parsing failed, using fallback: {e}")
+        print(f"  ⚠️  Cohere JSON parsing failed, using fallback: {e}")
+        return _fallback_sentence_segmentation(script)
+        
+    except Exception as e:
+        error_msg = f"Segmentation failed: {str(e)}"
+        logger.error(error_msg)
+        print(f"  ✗ {error_msg}")
+        
+        # Fallback to sentence splitting
+        return _fallback_sentence_segmentation(script)
+
+
+def _fallback_sentence_segmentation(script: str) -> Dict[str, Any]:
+    """
+    Fallback segmentation using simple sentence splitting.
+    
+    Used when Cohere API fails or returns invalid JSON.
+    
+    Args:
+        script: Full script text
+        
+    Returns:
+        Same format as segment_script_tool()
+    """
+    import re
+    
+    # Split by sentence endings
+    sentences = re.split(r'(?<=[.!?])\s+', script)
+    
+    # Group sentences into segments (4 sentences per segment)
+    segments = []
+    segment_index = 1
+    
+    for i in range(0, len(sentences), 4):
+        segment_text = " ".join(sentences[i:i+4])
+        if segment_text.strip():
+            segments.append({
+                "segment_index": segment_index,
+                "text": segment_text.strip()
+            })
+            segment_index += 1
+    
+    return {
+        "success": True,
+        "segments": segments,
+        "segment_count": len(segments),
+        "tokens_used": 0,  # Fallback doesn't use API tokens
+        "error": "Used fallback segmentation (Cohere unavailable)"
+    }
+
+
+# =============================================================================
+# TOOL 10: GENERATE AUDIO (NEW - Phase 2)
+# =============================================================================
+
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=2, max=10)
+)
+def generate_tts_tool(
+    segments: List[Dict[str, Any]],
+    project_name: str,
+    audio_base_url: str,
+    voice: str = "alloy"
+) -> Dict[str, Any]:
+    """
+    Generate TTS audio files for all segments using OpenAI.
+    
+    Creates audio files in: projects/{project_slug}/000X.mp3
+    Returns public URLs accessible via tunnel.
+    
+    Args:
+        segments: List of segment dicts with segment_index and text
+        project_name: Project name for directory creation
+        audio_base_url: Base URL detected from request (e.g., https://tunnel.com)
+        voice: OpenAI TTS voice (default: alloy)
+        
+    Returns:
+        {
+            "success": bool,
+            "segments": List[Dict],  # Updated with audio_url field
+            "audio_files": List[str],  # Local file paths
+            "audio_files_count": int,
+            "tokens_used": int,  # Always 0 for TTS
+            "error": Optional[str]
+        }
+    """
+    try:
+        from openai import OpenAI
+        from pathlib import Path
+        import glob
+        
+        # CRITICAL DEBUG: Log incoming segments
+        logger.info(f"========== GENERATE_TTS_TOOL CALLED ==========")
+        logger.info(f"Project: {project_name}")
+        logger.info(f"Total segments received: {len(segments)}")
+        logger.info(f"First 3 segments:")
+        for i, seg in enumerate(segments[:3], 1):
+            text = seg.get('text', '')
+            logger.info(f"  Segment {seg.get('segment_index', i)}: {text[:80]}... ({len(text)} chars)")
+        print(f"\n  [TTS DEBUG] Received {len(segments)} segments for '{project_name}'")
+        print(f"  [TTS DEBUG] First segment text: {segments[0].get('text', '')[:80] if segments else 'NONE'}...")
+        
+        # Initialize OpenAI client
+        client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        
+        # Create URL-safe project slug (replace spaces with underscores)
+        project_slug = create_project_slug(project_name)
+        
+        # Create project directory (audio files go directly in project folder)
+        project_dir = Path("projects") / project_slug
+        project_dir.mkdir(parents=True, exist_ok=True)
+        
+        # ⚠️ ВАЖНО: Удаляем ВСЕ старые MP3 файлы перед генерацией новых
+        # Это гарантирует что будут только те файлы которые соответствуют текущим сегментам
+        old_audio_files = list(project_dir.glob("*.mp3"))
+        if old_audio_files:
+            logger.info(f"Removing {len(old_audio_files)} old audio files from {project_dir}")
+            print(f"  [TTS] Cleaning up {len(old_audio_files)} old audio files...")
+            for old_file in old_audio_files:
+                try:
+                    old_file.unlink()
+                except Exception as e:
+                    logger.warning(f"Failed to remove {old_file}: {e}")
+        
+        logger.info(f"Generating TTS audio for {len(segments)} segments in: {project_dir}")
+        
+        # Generate audio for each segment
+        updated_segments = []
+        audio_files = []
+        failed_segments = []
+        
+        for seg in segments:
+            segment_index = seg.get("segment_index")
+            text = seg.get("text")
+            
+            if not text or not segment_index:
+                logger.warning(f"Skipping invalid segment: {seg}")
+                print(f"  ⚠️  Skipping invalid segment: {seg}")
+                continue
+            
+            # Generate filename: 0001.mp3, 0002.mp3, etc.
+            filename = f"{segment_index:04d}.mp3"
+            file_path = project_dir / filename
+            
+            # Check if file already exists (idempotency)
+            if file_path.exists():
+                logger.info(f"Audio file already exists: {filename}")
+                print(f"  ℹ  Audio file already exists: {filename}")
+                audio_url = f"{audio_base_url}/projects/{project_slug}/{filename}"
+                updated_segments.append({
+                    "segment_index": segment_index,
+                    "text": text,
+                    "audio_url": audio_url
+                })
+                audio_files.append(str(file_path))
+                continue
+            
+            try:
+                # Generate TTS audio
+                logger.info(f"Generating TTS for segment {segment_index}: {len(text)} chars")
+                logger.info(f"  EXACT TEXT BEING SENT TO TTS: '{text[:150]}...'")
+                print(f"  [TTS] Segment {segment_index}: Sending to OpenAI TTS: '{text[:60]}...' ({len(text)} chars)")
+                
+                response = client.audio.speech.create(
+                    model="tts-1",
+                    voice=voice,
+                    input=text,
+                    response_format="mp3"
+                )
+                
+                # Save audio file
+                response.stream_to_file(str(file_path))
+                
+                # Build public URL
+                audio_url = f"{audio_base_url}/projects/{project_slug}/{filename}"
+                
+                # Add to updated segments
+                updated_segments.append({
+                    "segment_index": segment_index,
+                    "text": text,
+                    "audio_url": audio_url
+                })
+                
+                audio_files.append(str(file_path))
+                print(f"  ✓ Generated: {filename} ({len(text)} chars)")
+                
+            except Exception as e:
+                print(f"  ✗ Failed to generate audio for segment {segment_index}: {e}")
+                failed_segments.append(segment_index)
+                
+                # Add segment without audio_url (partial failure)
+                updated_segments.append({
+                    "segment_index": segment_index,
+                    "text": text,
+                    "audio_url": ""  # Empty URL indicates failure
+                })
+        
+        # Determine overall success
+        total_segments = len(segments)
+        successful_audio = len(audio_files)
+        
+        if successful_audio == 0:
+            # Complete audio failure
+            return {
+                "success": False,
+                "segments": [],
+                "audio_files": [],
+                "audio_files_count": 0,
+                "tokens_used": 0,
+                "error": f"All audio generation failed ({total_segments} segments)"
+            }
+        
+        # Partial or full success
+        error_msg = None
+        if failed_segments:
+            error_msg = f"Partial success: {len(failed_segments)} segment(s) failed: {failed_segments}"
+        
+        return {
+            "success": successful_audio > 0,
+            "segments": updated_segments,
+            "audio_files": audio_files,
+            "audio_files_count": successful_audio,
+            "tokens_used": 0,  # TTS doesn't use completion tokens
+            "error": error_msg
+        }
+        
+    except Exception as e:
+        error_msg = f"Audio generation failed: {str(e)}"
+        print(f"  ✗ {error_msg}")
+        
+        return {
+            "success": False,
+            "segments": [],
+            "audio_files": [],
+            "audio_files_count": 0,
+            "tokens_used": 0,
+            "error": error_msg
+        }
+
+
+# Update TOOLS registry
+TOOLS["segment_script"] = segment_script_tool
+TOOLS["generate_audio"] = generate_tts_tool
 
 
 def get_tool(tool_name: str):

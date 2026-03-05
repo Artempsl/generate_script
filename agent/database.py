@@ -57,6 +57,8 @@ CREATE TABLE IF NOT EXISTS executions (
     tokens_used_total INTEGER,
     retrieved_sources_count INTEGER,
     reasoning_trace_json TEXT,
+    segments_json TEXT,
+    audio_files_count INTEGER,
     error_message TEXT,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL
@@ -95,6 +97,8 @@ class Execution:
         tokens_used_total: Optional[int] = None,
         retrieved_sources_count: Optional[int] = None,
         reasoning_trace: Optional[List[Dict[str, Any]]] = None,
+        segments: Optional[List[Dict[str, Any]]] = None,
+        audio_files_count: Optional[int] = None,
         error_message: Optional[str] = None,
         created_at: Optional[datetime] = None,
         updated_at: Optional[datetime] = None,
@@ -113,6 +117,8 @@ class Execution:
         self.tokens_used_total = tokens_used_total
         self.retrieved_sources_count = retrieved_sources_count
         self.reasoning_trace = reasoning_trace or []
+        self.segments = segments or []
+        self.audio_files_count = audio_files_count or 0
         self.error_message = error_message
         self.created_at = created_at or datetime.now(timezone.utc)
         self.updated_at = updated_at or datetime.now(timezone.utc)
@@ -134,6 +140,8 @@ class Execution:
             "tokens_used_total": self.tokens_used_total,
             "retrieved_sources_count": self.retrieved_sources_count,
             "reasoning_trace": self.reasoning_trace,
+            "segments": self.segments,
+            "audio_files_count": self.audio_files_count,
             "error_message": self.error_message,
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "updated_at": self.updated_at.isoformat() if self.updated_at else None,
@@ -152,14 +160,15 @@ class Execution:
         return {
             "request_id": request_id,
             "status": self.status,
-            "script": self.script,
-            "outline": self.outline,
+            "project_name": self.project_name,
+            "segments": self.segments,
             "char_count": self.char_count,
             "duration_target": self.duration,
             "reasoning_trace": reasoning_summary,
             "iteration_count": self.iteration_count,
             "tokens_used_total": self.tokens_used_total,
             "retrieved_sources_count": self.retrieved_sources_count,
+            "audio_files_count": self.audio_files_count,
             "error_message": self.error_message,
         }
     
@@ -181,9 +190,11 @@ class Execution:
             tokens_used_total=row[11],
             retrieved_sources_count=row[12],
             reasoning_trace=json.loads(row[13]) if row[13] else [],
-            error_message=row[14],
-            created_at=datetime.fromisoformat(row[15]) if row[15] else None,
-            updated_at=datetime.fromisoformat(row[16]) if row[16] else None,
+            segments=json.loads(row[14]) if row[14] else [],
+            audio_files_count=row[15] if row[15] is not None else 0,
+            error_message=row[16],
+            created_at=datetime.fromisoformat(row[17]) if row[17] else None,
+            updated_at=datetime.fromisoformat(row[18]) if row[18] else None,
         )
 
 
@@ -283,9 +294,9 @@ class DatabaseManager:
                     request_id, status, project_name, genre, duration, language,
                     outline, script, char_count, target_chars,
                     iteration_count, tokens_used_total, retrieved_sources_count,
-                    reasoning_trace_json, error_message,
-                    created_at, updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    reasoning_trace_json, segments_json, audio_files_count,
+                    error_message, created_at, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ON CONFLICT(request_id) DO UPDATE SET
                     status = excluded.status,
                     outline = excluded.outline,
@@ -296,6 +307,8 @@ class DatabaseManager:
                     tokens_used_total = excluded.tokens_used_total,
                     retrieved_sources_count = excluded.retrieved_sources_count,
                     reasoning_trace_json = excluded.reasoning_trace_json,
+                    segments_json = excluded.segments_json,
+                    audio_files_count = excluded.audio_files_count,
                     error_message = excluded.error_message,
                     updated_at = excluded.updated_at
                 """,
@@ -314,6 +327,8 @@ class DatabaseManager:
                     execution.tokens_used_total,
                     execution.retrieved_sources_count,
                     json.dumps(execution.reasoning_trace),
+                    json.dumps(execution.segments),
+                    execution.audio_files_count,
                     execution.error_message,
                     execution.created_at.isoformat(),
                     execution.updated_at.isoformat(),
