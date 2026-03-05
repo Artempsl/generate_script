@@ -644,6 +644,55 @@ http://localhost:8000/docs (Swagger UI)
 
 ---
 
+## 🚀 Multi-Server Setup (3+ серверов)
+
+Если вам нужно запустить **несколько FastAPI серверов** одновременно (например, для разных n8n workflows):
+
+### Автоматический запуск всех серверов
+
+```powershell
+# Запустить все серверы + туннели одной командой
+.\launch_all_servers.ps1
+```
+
+**Скрипт автоматически:**
+- ✅ Запустит 3 FastAPI сервера на портах 8000, 8001, 8002
+- ✅ Создаст cloudflared туннель для каждого
+- ✅ Проверит health check
+- ✅ Выведет все URL для n8n
+
+### Конфигурация дополнительных серверов
+
+Откройте `launch_all_servers.ps1` и настройте массив `$servers`:
+
+```powershell
+$servers = @(
+    @{
+        Name = "server_2"
+        Path = "C:\path\to\server2"      # ← Ваш путь
+        Port = 8001
+        Command = "python -m uvicorn main:app --host 0.0.0.0 --port 8001"
+        EnvVars = @{
+            OPENAI_API_KEY = [System.Environment]::GetEnvironmentVariable('OPENAI_API_KEY', 'User')
+        }
+    }
+    # ... добавьте больше серверов
+)
+```
+
+### Детальная документация
+
+📖 **См. полное руководство:** [MULTI_SERVER_SETUP.md](MULTI_SERVER_SETUP.md)
+
+Включает:
+- Конфигурация множественных серверов
+- Управление процессами
+- Архитектурная диаграмма
+- Troubleshooting для мульти-сервер среды
+
+---
+
 **Создано:** 2026-03-04  
-**Версия:** 1.0  
+**Обновлено:** 2026-03-05  
+**Версия:** 1.1  
 **Проект:** generate_script
