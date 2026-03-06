@@ -370,6 +370,8 @@ class AgentState(TypedDict, total=False):
     audio_files: List[str]  # Local file paths
     audio_base_url: str  # Detected from request headers
     audio_files_count: int
+    tts_characters: int  # Total characters sent to TTS API
+    tts_estimated_cost: float  # Estimated TTS cost in USD
     
     # Error handling
     error: Optional[str]

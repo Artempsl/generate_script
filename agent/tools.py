@@ -212,6 +212,258 @@ def save_segments_to_file(segments: List[Dict], script: str, project_slug: str) 
         }
 
 
+def save_execution_report(state: Dict[str, Any]) -> Dict[str, Any]:
+    """Save detailed execution report to project directory.
+    
+    Creates: projects/{project_slug}/execution_report.txt
+    
+    This report contains comprehensive information about the entire execution:
+    - Full reasoning trace with timestamps
+    - Token usage breakdown by step
+    - Pinecone retrieval statistics
+    - Error log (if any)
+    - Retry attempts
+    - Script validation results
+    - Segmentation and audio generation stats
+    - Performance metrics
+    
+    Args:
+        state: Complete AgentState after workflow execution
+        
+    Returns:
+        {
+            "success": bool,
+            "file_path": str,
+            "error": Optional[str]
+        }
+    """
+    try:
+        project_slug = state.get('project_slug', 'unknown_project')
+        project_dir = Path("projects") / project_slug
+        project_dir.mkdir(parents=True, exist_ok=True)
+        
+        file_path = project_dir / "execution_report.txt"
+        
+        # Extract data from state
+        request_id = state.get('request_id', 'N/A')
+        project_name = state.get('project_name', 'N/A')
+        genre = state.get('genre', 'N/A')
+        duration = state.get('duration', 0)
+        language = state.get('language', 'N/A')
+        target_chars = state.get('target_chars', 0)
+        
+        reasoning_trace = state.get('reasoning_trace', [])
+        total_tokens = state.get('tokens_used', 0)
+        
+        retrieved_sources_count = state.get('retrieved_sources_count', 0)
+        web_search_enabled = state.get('web_search_enabled', False)
+        
+        iteration = state.get('iteration', 0)
+        max_iterations = state.get('max_iterations', 3)
+        validation_passed = state.get('validation_passed', False)
+        validation_ratio = state.get('validation_ratio', 0.0)
+        validation_message = state.get('validation_message', 'N/A')
+        
+        char_count = state.get('char_count', 0)
+        segment_count = state.get('segment_count', 0)
+        audio_files_count = state.get('audio_files_count', 0)
+        tts_characters = state.get('tts_characters', 0)
+        tts_estimated_cost = state.get('tts_estimated_cost', 0.0)
+        
+        error = state.get('error', None)
+        
+        # Calculate metrics
+        total_steps = len(reasoning_trace)
+        regeneration_count = iteration - 1 if iteration > 1 else 0
+        
+        # Check if there were any retries (by looking for retry indicators in errors)
+        retry_count = 0
+        error_log = []
+        if error:
+            error_log.append(error)
+        
+        # Analyze reasoning trace for retries and errors
+        for step in reasoning_trace:
+            step_result = step.get('result', '')
+            if 'retry' in step_result.lower() or 'attempt' in step_result.lower():
+                retry_count += 1
+            if 'error' in step_result.lower() or 'failed' in step_result.lower():
+                error_log.append(f"Step {step.get('step')}: {step_result}")
+        
+        # Calculate expected vs actual duration
+        actual_duration_estimate = char_count / target_chars * duration if target_chars > 0 else 0
+        duration_match = abs(actual_duration_estimate - duration) <= 1.0  # Within 1 minute
+        
+        # Token breakdown by action
+        token_breakdown = {}
+        for step in reasoning_trace:
+            action = step.get('action', 'unknown')
+            tokens = step.get('tokens_used', 0)
+            if action not in token_breakdown:
+                token_breakdown[action] = 0
+            token_breakdown[action] += tokens
+        
+        # Write report
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write("=" * 80 + "\n")
+            f.write("PROJECT EXECUTION REPORT\n")
+            f.write("=" * 80 + "\n\n")
+            
+            f.write(f"Generated: {datetime.now(timezone.utc).isoformat()}\n")
+            f.write(f"Request ID: {request_id}\n")
+            f.write("\n")
+            
+            # === PROJECT INFORMATION ===
+            f.write("=" * 80 + "\n")
+            f.write("PROJECT INFORMATION\n")
+            f.write("=" * 80 + "\n\n")
+            
+            f.write(f"Project Name: {project_name}\n")
+            f.write(f"Project Slug: {project_slug}\n")
+            f.write(f"Genre: {genre}\n")
+            f.write(f"Language: {language}\n")
+            f.write(f"Target Duration: {duration} minutes\n")
+            f.write(f"Target Characters: {target_chars:,}\n")
+            f.write("\n")
+            
+            # === EXECUTION SUMMARY ===
+            f.write("=" * 80 + "\n")
+            f.write("EXECUTION SUMMARY\n")
+            f.write("=" * 80 + "\n\n")
+            
+            f.write(f"Total Steps: {total_steps}\n")
+            f.write(f"Total Iterations: {iteration}\n")
+            f.write(f"Regeneration Count: {regeneration_count}\n")
+            f.write(f"Retry Attempts: {retry_count}\n")
+            f.write(f"Status: {'✓ SUCCESS' if not error else '✗ ERROR'}\n")
+            f.write("\n")
+            
+            # === RESOURCE USAGE ===
+            f.write("=" * 80 + "\n")
+            f.write("RESOURCE USAGE\n")
+            f.write("=" * 80 + "\n\n")
+            
+            f.write(f"Total Tokens Used: {total_tokens:,}\n")
+            f.write(f"Pinecone Queries: {retrieved_sources_count}\n")
+            f.write(f"Web Search Enabled: {'Yes' if web_search_enabled else 'No'}\n")
+            f.write("\n")
+            
+            f.write("Token Breakdown by Action:\n")
+            for action, tokens in sorted(token_breakdown.items(), key=lambda x: x[1], reverse=True):
+                f.write(f"  - {action}: {tokens:,} tokens\n")
+            f.write("\n")
+            
+            # TTS cost (character-based pricing, not token-based)
+            if tts_characters > 0:
+                f.write("TTS API Usage (Character-Based Pricing):\n")
+                f.write(f"  - Characters Processed: {tts_characters:,}\n")
+                f.write(f"  - Estimated Cost: ${tts_estimated_cost:.4f} (at $0.015/1K chars)\n")
+                f.write("\n")
+            
+            # === SCRIPT VALIDATION ===
+            f.write("=" * 80 + "\n")
+            f.write("SCRIPT VALIDATION\n")
+            f.write("=" * 80 + "\n\n")
+            
+            f.write(f"Validation Status: {'✓ PASSED' if validation_passed else '✗ FAILED'}\n")
+            f.write(f"Script Length: {char_count:,} characters\n")
+            f.write(f"Target Length: {target_chars:,} characters\n")
+            f.write(f"Length Ratio: {validation_ratio:.1%}\n")
+            f.write(f"Validation Message: {validation_message}\n")
+            f.write("\n")
+            
+            f.write(f"Estimated Duration: {actual_duration_estimate:.1f} minutes\n")
+            f.write(f"Target Duration: {duration} minutes\n")
+            f.write(f"Duration Match: {'✓ YES' if duration_match else '✗ NO'}\n")
+            f.write("\n")
+            
+            # === SEGMENTATION & AUDIO ===
+            f.write("=" * 80 + "\n")
+            f.write("SEGMENTATION & AUDIO GENERATION\n")
+            f.write("=" * 80 + "\n\n")
+            
+            f.write(f"Script Segments Created: {segment_count}\n")
+            f.write(f"Audio Files Generated: {audio_files_count}\n")
+            f.write(f"TTS Characters Processed: {tts_characters:,}\n")
+            f.write(f"TTS Estimated Cost: ${tts_estimated_cost:.4f}\n")
+            f.write(f"Segmentation Success: {'✓ YES' if segment_count > 0 else '✗ NO'}\n")
+            f.write(f"Audio Generation Success: {'✓ YES' if audio_files_count > 0 else '✗ NO'}\n")
+            f.write("\n")
+            
+            # === ERROR LOG ===
+            if error_log:
+                f.write("=" * 80 + "\n")
+                f.write("ERROR LOG\n")
+                f.write("=" * 80 + "\n\n")
+                
+                for i, err in enumerate(error_log, 1):
+                    f.write(f"{i}. {err}\n")
+                f.write("\n")
+            
+            # === FULL REASONING TRACE ===
+            f.write("=" * 80 + "\n")
+            f.write("FULL REASONING TRACE\n")
+            f.write("=" * 80 + "\n\n")
+            
+            if reasoning_trace:
+                for step in reasoning_trace:
+                    step_num = step.get('step', 0)
+                    action = step.get('action', 'unknown')
+                    result = step.get('result', 'N/A')
+                    tokens = step.get('tokens_used', 0)
+                    timestamp = step.get('timestamp', 'N/A')
+                    
+                    f.write(f"[Step {step_num}] {action}\n")
+                    f.write(f"  Timestamp: {timestamp}\n")
+                    f.write(f"  Result: {result}\n")
+                    f.write(f"  Tokens Used: {tokens:,}\n")
+                    f.write("\n")
+            else:
+                f.write("No reasoning trace available.\n\n")
+            
+            # === PERFORMANCE METRICS ===
+            f.write("=" * 80 + "\n")
+            f.write("PERFORMANCE METRICS\n")
+            f.write("=" * 80 + "\n\n")
+            
+            if reasoning_trace and len(reasoning_trace) > 1:
+                # Calculate execution time (first to last timestamp)
+                try:
+                    first_time = datetime.fromisoformat(reasoning_trace[0].get('timestamp', ''))
+                    last_time = datetime.fromisoformat(reasoning_trace[-1].get('timestamp', ''))
+                    execution_time = (last_time - first_time).total_seconds()
+                    
+                    f.write(f"Total Execution Time: {execution_time:.1f} seconds ({execution_time/60:.1f} minutes)\n")
+                    f.write(f"Average Time per Step: {execution_time/total_steps:.1f} seconds\n")
+                    f.write(f"Tokens per Second: {total_tokens/execution_time:.1f}\n")
+                except:
+                    f.write("Execution time calculation unavailable.\n")
+            else:
+                f.write("Insufficient data for performance metrics.\n")
+            
+            f.write("\n")
+            f.write("=" * 80 + "\n")
+            f.write("END OF REPORT\n")
+            f.write("=" * 80 + "\n")
+        
+        logger.info(f"Saved execution report to: {file_path}")
+        
+        return {
+            "success": True,
+            "file_path": str(file_path),
+            "error": None
+        }
+        
+    except Exception as e:
+        error_msg = f"Failed to save execution report: {str(e)}"
+        logger.error(error_msg)
+        return {
+            "success": False,
+            "file_path": "",
+            "error": error_msg
+        }
+
+
 # Handle both module and standalone execution
 try:
     from agent.config import (
@@ -1172,6 +1424,19 @@ def segment_script_tool(
 8. Избегайте слишком маленьких фрагментов
 Не делите на отдельные фразы, если это не необходимо для визуальной ясности.
 
+9. Избегайте абстрактных или невизуальных предложений как отдельных сегментов
+Если предложение описывает только эмоцию, атмосферу или нарратив, объедините его с ближайшим визуальным моментом.
+
+10. Избегайте сегментов короче 50 символов
+Предпочитайте объединение очень маленьких фрагментов (менее 50 символов) с предыдущим визуальным моментом, если это не абсолютно необходимо.
+
+ПЕРЕД ФИНАЛИЗАЦИЕЙ СЕГМЕНТАЦИИ ПРОВЕРЬ:
+
+1. Каждый сегмент представляет один визуальный момент.
+2. Каждый сегмент реально можно проиллюстрировать как одно статичное изображение.
+3. Ни один сегмент не содержит несколько различных действий.
+4. Ни один сегмент не является чисто абстрактным повествованием.
+
 Определяйте подходящее количество сегментов исходя из структуры и длины текста.
 
 КРИТИЧЕСКИ ВАЖНЫЕ ПРАВИЛА КОПИРОВАНИЯ ТЕКСТА:
@@ -1311,6 +1576,19 @@ Segments must follow the original narrative sequence.
 
 8. Avoid extremely tiny fragments
 Do not split into single clauses unless necessary for visual clarity.
+
+9. Avoid abstract or non-visual sentences as standalone segments
+If a sentence describes only emotion, atmosphere, or narration, merge it with a nearby visual moment.
+
+10. Avoid segments shorter than 50 characters
+Prefer merging very small fragments (less than 50 characters) with the previous visual moment unless absolutely necessary.
+
+BEFORE FINALIZING THE SEGMENTATION, VERIFY:
+
+1. Each segment represents a single visual moment.
+2. Each segment could realistically be illustrated as a single static image.
+3. No segment contains multiple distinct actions.
+4. No segment is purely abstract narration.
 
 Determine the appropriate number of segments based on the structure and length of the script.
 
@@ -1520,6 +1798,8 @@ def generate_tts_tool(
             "audio_files": List[str],  # Local file paths
             "audio_files_count": int,
             "tokens_used": int,  # Always 0 for TTS
+            "tts_characters": int,  # Total characters sent to TTS API
+            "tts_estimated_cost": float,  # Estimated cost in USD
             "error": Optional[str]
         }
     """
@@ -1567,6 +1847,7 @@ def generate_tts_tool(
         updated_segments = []
         audio_files = []
         failed_segments = []
+        total_tts_characters = 0  # Track total characters sent to TTS
         
         for seg in segments:
             segment_index = seg.get("segment_index")
@@ -1610,6 +1891,9 @@ def generate_tts_tool(
                 # Save audio file
                 response.stream_to_file(str(file_path))
                 
+                # Track TTS characters
+                total_tts_characters += len(text)
+                
                 # Build public URL
                 audio_url = f"{audio_base_url}/projects/{project_slug}/{filename}"
                 
@@ -1638,6 +1922,9 @@ def generate_tts_tool(
         total_segments = len(segments)
         successful_audio = len(audio_files)
         
+        # Calculate estimated TTS cost (OpenAI TTS-1: $0.015 per 1,000 characters)
+        tts_cost = (total_tts_characters / 1000) * 0.015
+        
         if successful_audio == 0:
             # Complete audio failure
             return {
@@ -1646,6 +1933,8 @@ def generate_tts_tool(
                 "audio_files": [],
                 "audio_files_count": 0,
                 "tokens_used": 0,
+                "tts_characters": 0,
+                "tts_estimated_cost": 0.0,
                 "error": f"All audio generation failed ({total_segments} segments)"
             }
         
@@ -1654,12 +1943,16 @@ def generate_tts_tool(
         if failed_segments:
             error_msg = f"Partial success: {len(failed_segments)} segment(s) failed: {failed_segments}"
         
+        logger.info(f"TTS generation complete: {successful_audio}/{total_segments} segments, {total_tts_characters:,} characters, estimated cost: ${tts_cost:.4f}")
+        
         return {
             "success": successful_audio > 0,
             "segments": updated_segments,
             "audio_files": audio_files,
             "audio_files_count": successful_audio,
             "tokens_used": 0,  # TTS doesn't use completion tokens
+            "tts_characters": total_tts_characters,
+            "tts_estimated_cost": round(tts_cost, 4),
             "error": error_msg
         }
         
@@ -1673,6 +1966,8 @@ def generate_tts_tool(
             "audio_files": [],
             "audio_files_count": 0,
             "tokens_used": 0,
+            "tts_characters": 0,
+            "tts_estimated_cost": 0.0,
             "error": error_msg
         }
 

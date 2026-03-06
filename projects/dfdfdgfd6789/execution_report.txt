@@ -1,0 +1,140 @@
+================================================================================
+PROJECT EXECUTION REPORT
+================================================================================
+
+Generated: 2026-03-06T10:14:22.768771+00:00
+Request ID: 400b58d6-ee80-4c37-a00a-f08a14cea3c1
+
+================================================================================
+PROJECT INFORMATION
+================================================================================
+
+Project Name: dfdfdgfd6789
+Project Slug: dfdfdgfd6789
+Genre: horror
+Language: en
+Target Duration: 1 minutes
+Target Characters: 1,000
+
+================================================================================
+EXECUTION SUMMARY
+================================================================================
+
+Total Steps: 10
+Total Iterations: 0
+Regeneration Count: 0
+Retry Attempts: 0
+Status: ✓ SUCCESS
+
+================================================================================
+RESOURCE USAGE
+================================================================================
+
+Total Tokens Used: 15,655
+Pinecone Queries: 5
+Web Search Enabled: No
+
+Token Breakdown by Action:
+  - synthesize_context: 5,242 tokens
+  - retrieve_pinecone: 4,033 tokens
+  - generate_outline: 2,831 tokens
+  - react_reasoning: 1,453 tokens
+  - generate_script (iteration 1): 1,429 tokens
+  - segment_script: 667 tokens
+  - create_project_directory: 0 tokens
+  - web_search (skipped): 0 tokens
+  - validate_length: 0 tokens
+  - generate_audio: 0 tokens
+
+TTS API Usage (Character-Based Pricing):
+  - Characters Processed: 1,050
+  - Estimated Cost: $0.0158 (at $0.015/1K chars)
+
+================================================================================
+SCRIPT VALIDATION
+================================================================================
+
+Validation Status: ✓ PASSED
+Script Length: 1,061 characters
+Target Length: 1,000 characters
+Length Ratio: 106.1%
+Validation Message: ✓ Length valid (106.1%)
+
+Estimated Duration: 1.1 minutes
+Target Duration: 1 minutes
+Duration Match: ✓ YES
+
+================================================================================
+SEGMENTATION & AUDIO GENERATION
+================================================================================
+
+Script Segments Created: 10
+Audio Files Generated: 10
+TTS Characters Processed: 1,050
+TTS Estimated Cost: $0.0158
+Segmentation Success: ✓ YES
+Audio Generation Success: ✓ YES
+
+================================================================================
+FULL REASONING TRACE
+================================================================================
+
+[Step create_project (iteration 0)] create_project_directory
+  Timestamp: N/A
+  Result: N/A
+  Tokens Used: 0
+
+[Step 2] retrieve_pinecone
+  Timestamp: 2026-03-06T10:12:31.052030+00:00
+  Result: Retrieved 5 sources (16133 chars)
+  Tokens Used: 4,033
+
+[Step 3] web_search (skipped)
+  Timestamp: 2026-03-06T10:12:31.053269+00:00
+  Result: Skipped (None)
+  Tokens Used: 0
+
+[Step 4] synthesize_context
+  Timestamp: 2026-03-06T10:13:20.752739+00:00
+  Result: Generated 4345 chars of insights
+  Tokens Used: 5,242
+
+[Step 5] react_reasoning
+  Timestamp: 2026-03-06T10:13:32.341347+00:00
+  Result: Strategy: {'tone': 'atmospheric', 'pacing': 'fast-paced', 'emphasis': 'character', 'key_techniques': ['tension-building', 'plot-twists', 'psychological-depth']} (3031 chars reasoning)
+  Tokens Used: 1,453
+
+[Step 6] generate_outline
+  Timestamp: 2026-03-06T10:13:46.741375+00:00
+  Result: Generated outline (3493 chars)
+  Tokens Used: 2,831
+
+[Step 7] generate_script (iteration 1)
+  Timestamp: 2026-03-06T10:13:50.976036+00:00
+  Result: Generated 1,061 chars
+  Tokens Used: 1,429
+
+[Step 8] validate_length
+  Timestamp: 2026-03-06T10:13:50.978713+00:00
+  Result: ✓ Length valid (106.1%)
+  Tokens Used: 0
+
+[Step 9] segment_script
+  Timestamp: 2026-03-06T10:13:59.191228+00:00
+  Result: Created 10 segments
+  Tokens Used: 667
+
+[Step 10] generate_audio
+  Timestamp: 2026-03-06T10:14:22.767382+00:00
+  Result: Generated 10 audio files (1,050 characters, ~$0.0158)
+  Tokens Used: 0
+
+================================================================================
+PERFORMANCE METRICS
+================================================================================
+
+Execution time calculation unavailable.
+
+================================================================================
+END OF REPORT
+================================================================================

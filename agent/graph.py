@@ -47,6 +47,7 @@ try:
         create_project_directory,
         save_script_to_file,
         save_segments_to_file,
+        save_execution_report,
         create_project_slug,
     )
 except ModuleNotFoundError:
@@ -68,6 +69,7 @@ except ModuleNotFoundError:
         create_project_directory,
         save_script_to_file,
         save_segments_to_file,
+        save_execution_report,
         create_project_slug,
     )
 
@@ -199,11 +201,6 @@ def retrieve_node(state: AgentState) -> AgentState:
     )
     print(f"  [GRAPH] retrieve_tool returned: success={result['success']}, sources={result['sources_count']}")
     
-    # Update state
-    state['retrieved_context'] = result['context']
-    state['retrieved_sources_count'] = result['sources_count']
-    state['tokens_used'] += result['tokens_used']
-    
     # Add reasoning step
     step = {
         "step": len(state['reasoning_trace']) + 1,
@@ -212,13 +209,21 @@ def retrieve_node(state: AgentState) -> AgentState:
         "tokens_used": result['tokens_used'],
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
-    state['reasoning_trace'].append(step)
-    
-    if result.get('error'):
-        state['error'] = f"Retrieve failed: {result['error']}"
     
     print(f"  [GRAPH] Exiting retrieve_node")
-    return state
+    
+    # Return only updates (operator.add will merge them)
+    updates = {
+        "retrieved_context": result['context'],
+        "retrieved_sources_count": result['sources_count'],
+        "tokens_used": state['tokens_used'] + result['tokens_used'],
+        "reasoning_trace": [step]
+    }
+    
+    if result.get('error'):
+        updates['error'] = f"Retrieve failed: {result['error']}"
+    
+    return updates
 
 
 def web_search_node(state: AgentState) -> AgentState:
@@ -242,9 +247,6 @@ def web_search_node(state: AgentState) -> AgentState:
     )
     print(f"  [GRAPH] web_search_tool returned: skipped={result.get('skipped', False)}")
     
-    # Update state
-    state['web_context'] = result['context']
-    
     # Add reasoning step
     action_desc = "web_search (skipped)" if result.get('skipped') else "web_search"
     result_desc = result.get('error') if result.get('error') else \
@@ -258,10 +260,14 @@ def web_search_node(state: AgentState) -> AgentState:
         "tokens_used": 0,
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
-    state['reasoning_trace'].append(step)
     
     print(f"  [GRAPH] Exiting web_search_node")
-    return state
+    
+    # Return only updates (operator.add will merge them)
+    return {
+        "web_context": result['context'],
+        "reasoning_trace": [step]
+    }
 
 
 def synthesize_node(state: AgentState) -> AgentState:
@@ -282,10 +288,6 @@ def synthesize_node(state: AgentState) -> AgentState:
         language=state['language']
     )
     
-    # Update state
-    state['synthesized_context'] = result.get('synthesized_context', '')
-    state['tokens_used'] += result.get('tokens_used', 0)
-    
     # Add reasoning step
     step = {
         "step": len(state['reasoning_trace']) + 1,
@@ -294,13 +296,20 @@ def synthesize_node(state: AgentState) -> AgentState:
         "tokens_used": result.get('tokens_used', 0),
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
-    state['reasoning_trace'].append(step)
-    
-    if result.get('error'):
-        state['error'] = f"Synthesis failed: {result['error']}"
     
     print(f"  [GRAPH] Exiting synthesize_node")
-    return state
+    
+    # Return only updates (operator.add will merge them)
+    updates = {
+        "synthesized_context": result.get('synthesized_context', ''),
+        "tokens_used": state['tokens_used'] + result.get('tokens_used', 0),
+        "reasoning_trace": [step]
+    }
+    
+    if result.get('error'):
+        updates['error'] = f"Synthesis failed: {result['error']}"
+    
+    return updates
 
 
 def reasoning_node(state: AgentState) -> AgentState:
@@ -324,11 +333,6 @@ def reasoning_node(state: AgentState) -> AgentState:
         language=state['language']
     )
     
-    # Update state
-    state['reasoning'] = result.get('reasoning', '')
-    state['reasoning_strategy'] = result.get('strategy', {})
-    state['tokens_used'] += result.get('tokens_used', 0)
-    
     # Add reasoning step
     step = {
         "step": len(state['reasoning_trace']) + 1,
@@ -337,13 +341,21 @@ def reasoning_node(state: AgentState) -> AgentState:
         "tokens_used": result.get('tokens_used', 0),
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
-    state['reasoning_trace'].append(step)
+    
+    print(f"  [GRAPH] Exiting reasoning_node (strategy: {result.get('strategy', {}).get('tone', 'N/A')})")
+    
+    # Return only updates (operator.add will merge them)
+    updates = {
+        "reasoning": result.get('reasoning', ''),
+        "reasoning_strategy": result.get('strategy', {}),
+        "tokens_used": state['tokens_used'] + result.get('tokens_used', 0),
+        "reasoning_trace": [step]
+    }
     
     if result.get('error'):
-        state['error'] = f"Reasoning failed: {result['error']}"
+        updates['error'] = f"Reasoning failed: {result['error']}"
     
-    print(f"  [GRAPH] Exiting reasoning_node (strategy: {state['reasoning_strategy'].get('tone', 'N/A')})")
-    return state
+    return updates
 
 
 def generate_outline_node(state: AgentState) -> AgentState:
@@ -366,10 +378,6 @@ def generate_outline_node(state: AgentState) -> AgentState:
         reasoning_strategy=state.get('reasoning', '')  # Pass reasoning to guide outline
     )
     
-    # Update state
-    state['outline'] = result.get('outline', '')
-    state['tokens_used'] += result.get('tokens_used', 0)
-    
     # Add reasoning step
     step = {
         "step": len(state['reasoning_trace']) + 1,
@@ -378,13 +386,20 @@ def generate_outline_node(state: AgentState) -> AgentState:
         "tokens_used": result['tokens_used'],
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
-    state['reasoning_trace'].append(step)
-    
-    if result.get('error'):
-        state['error'] = f"Outline generation failed: {result['error']}"
     
     print(f"  [GRAPH] Exiting generate_outline_node")
-    return state
+    
+    # Return only updates (operator.add will merge them)
+    updates = {
+        "outline": result.get('outline', ''),
+        "tokens_used": state['tokens_used'] + result.get('tokens_used', 0),
+        "reasoning_trace": [step]
+    }
+    
+    if result.get('error'):
+        updates['error'] = f"Outline generation failed: {result['error']}"
+    
+    return updates
 
 
 def generate_script_node(state: AgentState) -> AgentState:
@@ -408,11 +423,6 @@ def generate_script_node(state: AgentState) -> AgentState:
         iteration=state['iteration']
     )
     
-    # Update state
-    state['script'] = result.get('script', '')
-    state['char_count'] = result.get('char_count', 0)
-    state['tokens_used'] += result.get('tokens_used', 0)
-    
     # Add reasoning step
     step = {
         "step": len(state['reasoning_trace']) + 1,
@@ -421,13 +431,21 @@ def generate_script_node(state: AgentState) -> AgentState:
         "tokens_used": result.get('tokens_used', 0),
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
-    state['reasoning_trace'].append(step)
-    
-    if result.get('error'):
-        state['error'] = f"Script generation failed: {result['error']}"
     
     print(f"  [GRAPH] Exiting generate_script_node (generated {result.get('char_count', 0)} chars)")
-    return state
+    
+    # Return only updates (operator.add will merge them)
+    updates = {
+        "script": result.get('script', ''),
+        "char_count": result.get('char_count', 0),
+        "tokens_used": state['tokens_used'] + result.get('tokens_used', 0),
+        "reasoning_trace": [step]
+    }
+    
+    if result.get('error'):
+        updates['error'] = f"Script generation failed: {result['error']}"
+    
+    return updates
 
 
 def validate_node(state: AgentState) -> AgentState:
@@ -447,11 +465,6 @@ def validate_node(state: AgentState) -> AgentState:
         script=state['script'],
         target_chars=state['target_chars']
     )
-    
-    # Update state
-    state['validation_passed'] = result['is_valid']
-    state['validation_ratio'] = result['ratio']
-    state['validation_message'] = result['message']
     
     # Save script to file if validation passes
     project_slug = state.get('project_slug')
@@ -484,9 +497,14 @@ def validate_node(state: AgentState) -> AgentState:
         "tokens_used": 0,
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
-    state['reasoning_trace'].append(step)
     
-    return state
+    # Return only updates (operator.add will merge them)
+    return {
+        "validation_passed": result['is_valid'],
+        "validation_ratio": result['ratio'],
+        "validation_message": result['message'],
+        "reasoning_trace": [step]
+    }
 
 
 def regenerate_node(state: AgentState) -> AgentState:
@@ -503,7 +521,7 @@ def regenerate_node(state: AgentState) -> AgentState:
         - reasoning_trace
     """
     # Increment iteration
-    state['iteration'] += 1
+    new_iteration = state['iteration'] + 1
     
     result = regenerate_tool(
         outline=state['outline'],
@@ -513,28 +531,31 @@ def regenerate_node(state: AgentState) -> AgentState:
         language=state['language'],
         target_chars=state['target_chars'],
         actual_chars=state['char_count'],
-        iteration=state['iteration']
+        iteration=new_iteration
     )
-    
-    # Update state
-    state['script'] = result.get('script', '')
-    state['char_count'] = result.get('char_count', 0)
-    state['tokens_used'] += result.get('tokens_used', 0)
     
     # Add reasoning step
     step = {
         "step": len(state['reasoning_trace']) + 1,
-        "action": f"regenerate_script (iteration {state['iteration'] + 1})",
+        "action": f"regenerate_script (iteration {new_iteration + 1})",
         "result": f"Regenerated: {result.get('char_count', 0):,} chars" if result['success'] else f"Error: {result.get('error')}",
         "tokens_used": result.get('tokens_used', 0),
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
-    state['reasoning_trace'].append(step)
+    
+    # Return only updates (operator.add will merge them)
+    updates = {
+        "iteration": new_iteration,
+        "script": result.get('script', ''),
+        "char_count": result.get('char_count', 0),
+        "tokens_used": state['tokens_used'] + result.get('tokens_used', 0),
+        "reasoning_trace": [step]
+    }
     
     if result.get('error'):
-        state['error'] = f"Regeneration failed: {result['error']}"
+        updates['error'] = f"Regeneration failed: {result['error']}"
     
-    return state
+    return updates
 
 
 def segment_script_node(state: AgentState) -> AgentState:
@@ -554,13 +575,8 @@ def segment_script_node(state: AgentState) -> AgentState:
         language=state['language']
     )
     
-    # Update state
+    # Save segments to file if successful
     if result['success']:
-        state['segments'] = result['segments']
-        state['segment_count'] = result['segment_count']
-        state['tokens_used'] += result.get('tokens_used', 0)
-        
-        # Save segments to file
         project_slug = state.get('project_slug')
         script = state.get('script')
         print(f"  [GRAPH] Segmentation result: success=True, segments={len(result['segments'])}, project_slug='{project_slug}'")
@@ -581,9 +597,6 @@ def segment_script_node(state: AgentState) -> AgentState:
                 print(f"  [GRAPH] ✗ ERROR: project_slug is empty, cannot save segments!")
             if not script:
                 print(f"  [GRAPH] ✗ ERROR: script is empty, cannot save segments!")
-    else:
-        # Fallback was used or failed completely
-        state['error'] = f"Segmentation failed: {result.get('error', 'Unknown error')}"
     
     # Add reasoning step
     step = {
@@ -593,9 +606,19 @@ def segment_script_node(state: AgentState) -> AgentState:
         "tokens_used": result.get('tokens_used', 0),
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
-    state['reasoning_trace'].append(step)
     
-    return state
+    # Return only updates (operator.add will merge them)
+    updates = {
+        "segments": result['segments'],
+        "segment_count": result['segment_count'],
+        "tokens_used": state['tokens_used'] + result.get('tokens_used', 0),
+        "reasoning_trace": [step]
+    }
+    
+    if not result['success']:
+        updates['error'] = f"Segmentation failed: {result.get('error', 'Unknown error')}"
+    
+    return updates
 
 
 def generate_audio_node(state: AgentState) -> AgentState:
@@ -606,6 +629,8 @@ def generate_audio_node(state: AgentState) -> AgentState:
         - segments (with audio_url field)
         - audio_files
         - audio_files_count
+        - tts_characters
+        - tts_estimated_cost
         - reasoning_trace
     """
     result = generate_tts_tool(
@@ -615,26 +640,65 @@ def generate_audio_node(state: AgentState) -> AgentState:
         voice="alloy"
     )
     
-    # Update state
-    if result['success']:
-        state['segments'] = result['segments']  # Now with audio_url fields
-        state['audio_files'] = result['audio_files']
-        state['audio_files_count'] = result['audio_files_count']
-    else:
-        # Partial or complete failure
-        state['error'] = f"Audio generation failed: {result.get('error', 'Unknown error')}"
+    # Add reasoning step with TTS statistics
+    tts_chars = result.get('tts_characters', 0)
+    tts_cost = result.get('tts_estimated_cost', 0.0)
+    result_text = f"Generated {result.get('audio_files_count', 0)} audio files ({tts_chars:,} characters, ~${tts_cost:.4f})"
+    
+    step = {
+        "step": len(state['reasoning_trace']) + 1,
+        "action": "generate_audio",
+        "result": result_text,
+        "tokens_used": 0,  # TTS doesn't use tokens
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    }
+    
+    # Return only updates (operator.add will merge them)
+    updates = {
+        "segments": result['segments'],  # Now with audio_url fields
+        "audio_files": result['audio_files'],
+        "audio_files_count": result['audio_files_count'],
+        "tts_characters": result.get('tts_characters', 0),
+        "tts_estimated_cost": result.get('tts_estimated_cost', 0.0),
+        "reasoning_trace": [step]
+    }
+    
+    if not result['success']:
+        updates['error'] = f"Audio generation failed: {result.get('error', 'Unknown error')}"
+    
+    return updates
+
+
+def save_execution_report_node(state: AgentState) -> AgentState:
+    """
+    Node: Save detailed execution report to project directory.
+    
+    This is the FINAL node before END - saves comprehensive report
+    about the entire execution process including:
+    - Full reasoning trace
+    - Token usage breakdown
+    - Error log
+    - Validation results
+    - Performance metrics
+    
+    Updates state:
+        - reasoning_trace (adds final step)
+    """
+    result = save_execution_report(state)
     
     # Add reasoning step
     step = {
         "step": len(state['reasoning_trace']) + 1,
-        "action": "generate_audio",
-        "result": f"Generated {result.get('audio_files_count', 0)} audio files",
-        "tokens_used": 0,  # TTS doesn't use tokens
+        "action": "save_execution_report",
+        "result": f"Saved execution report to: {result.get('file_path', 'N/A')}" if result['success'] else f"Failed to save report: {result.get('error', 'Unknown')}",
+        "tokens_used": 0,
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
-    state['reasoning_trace'].append(step)
     
-    return state
+    # Return only updates (operator.add will merge them)
+    return {
+        "reasoning_trace": [step]
+    }
 
 
 # =============================================================================
@@ -699,6 +763,7 @@ def create_agent_graph():
     workflow.add_node("regenerate", regenerate_node)
     workflow.add_node("segment_script", segment_script_node)  # NEW: Script segmentation
     workflow.add_node("generate_audio", generate_audio_node)  # NEW: Audio generation
+    workflow.add_node("save_execution_report", save_execution_report_node)  # NEW: Save execution report (final step!)
     
     # Set entry point (create project directory first!)
     workflow.set_entry_point("create_project")
@@ -725,9 +790,10 @@ def create_agent_graph():
     # Regenerate loops back to validate
     workflow.add_edge("regenerate", "validate")
     
-    # NEW: Segmentation and audio pipeline
+    # NEW: Segmentation, audio, and report pipeline
     workflow.add_edge("segment_script", "generate_audio")
-    workflow.add_edge("generate_audio", END)
+    workflow.add_edge("generate_audio", "save_execution_report")  # NEW: report after audio
+    workflow.add_edge("save_execution_report", END)  # NEW: report is final step
     
     # Compile graph
     return workflow.compile()
