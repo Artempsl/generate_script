@@ -1,0 +1,146 @@
+================================================================================
+PROJECT EXECUTION REPORT
+================================================================================
+
+Generated: 2026-03-22T10:12:46.193205+00:00
+Request ID: d20737b4-37f3-4cd5-9cac-b8df87b56160
+
+================================================================================
+PROJECT INFORMATION
+================================================================================
+
+Project Name: dfdffgdgfd54645453
+Project Slug: dfdffgdgfd54645453
+Genre: horror
+Language: en
+Target Duration: 1 minutes
+Target Characters: 1,000
+
+================================================================================
+EXECUTION SUMMARY
+================================================================================
+
+Total Steps: 11
+Total Iterations: 0
+Regeneration Count: 0
+Retry Attempts: 0
+Status: ✓ SUCCESS
+
+================================================================================
+RESOURCE USAGE
+================================================================================
+
+Total Tokens Used: 15,546
+Pinecone Queries: 5
+Web Search Enabled: No
+
+Token Breakdown by Action:
+  - synthesize_context: 5,275 tokens
+  - retrieve_pinecone: 4,033 tokens
+  - generate_outline: 2,792 tokens
+  - react_reasoning: 1,429 tokens
+  - generate_script (iteration 1): 1,386 tokens
+  - segment_script: 631 tokens
+  - create_project_directory: 0 tokens
+  - web_search (skipped): 0 tokens
+  - validate_length: 0 tokens
+  - generate_audio: 0 tokens
+  - extract_entities: 0 tokens
+
+TTS API Usage (Character-Based Pricing):
+  - Characters Processed: 1,063
+  - Estimated Cost: $0.0159 (at $0.015/1K chars)
+
+================================================================================
+SCRIPT VALIDATION
+================================================================================
+
+Validation Status: ✓ PASSED
+Script Length: 1,073 characters
+Target Length: 1,000 characters
+Length Ratio: 107.3%
+Validation Message: ✓ Length valid (107.3%)
+
+Estimated Duration: 1.1 minutes
+Target Duration: 1 minutes
+Duration Match: ✓ YES
+
+================================================================================
+SEGMENTATION & AUDIO GENERATION
+================================================================================
+
+Script Segments Created: 7
+Audio Files Generated: 7
+TTS Characters Processed: 1,063
+TTS Estimated Cost: $0.0159
+Segmentation Success: ✓ YES
+Audio Generation Success: ✓ YES
+
+================================================================================
+FULL REASONING TRACE
+================================================================================
+
+[Step create_project (iteration 0)] create_project_directory
+  Timestamp: N/A
+  Result: N/A
+  Tokens Used: 0
+
+[Step 2] retrieve_pinecone
+  Timestamp: 2026-03-22T10:11:32.705273+00:00
+  Result: Retrieved 5 sources (16133 chars)
+  Tokens Used: 4,033
+
+[Step 3] web_search (skipped)
+  Timestamp: 2026-03-22T10:11:32.706660+00:00
+  Result: Skipped (None)
+  Tokens Used: 0
+
+[Step 4] synthesize_context
+  Timestamp: 2026-03-22T10:11:46.014344+00:00
+  Result: Generated 4472 chars of insights
+  Tokens Used: 5,275
+
+[Step 5] react_reasoning
+  Timestamp: 2026-03-22T10:11:54.760283+00:00
+  Result: Strategy: {'tone': 'atmospheric', 'pacing': 'fast-paced', 'emphasis': 'character', 'key_techniques': ['tension-building', 'plot-twists', 'psychological-depth']} (2932 chars reasoning)
+  Tokens Used: 1,429
+
+[Step 6] generate_outline
+  Timestamp: 2026-03-22T10:12:07.939749+00:00
+  Result: Generated outline (3309 chars)
+  Tokens Used: 2,792
+
+[Step 7] generate_script (iteration 1)
+  Timestamp: 2026-03-22T10:12:13.528313+00:00
+  Result: Generated 1,073 chars
+  Tokens Used: 1,386
+
+[Step 8] validate_length
+  Timestamp: 2026-03-22T10:12:13.534663+00:00
+  Result: ✓ Length valid (107.3%)
+  Tokens Used: 0
+
+[Step 9] segment_script
+  Timestamp: 2026-03-22T10:12:20.668559+00:00
+  Result: Created 7 segments
+  Tokens Used: 631
+
+[Step 10] generate_audio
+  Timestamp: 2026-03-22T10:12:40.049629+00:00
+  Result: Generated 7 audio files (1,063 characters, ~$0.0159)
+  Tokens Used: 0
+
+[Step 11] extract_entities
+  Timestamp: 2026-03-22T10:12:46.190655+00:00
+  Result: Extracted 1 characters, 1 animals, 2 objects → projects\dfdffgdgfd54645453\entities.json
+  Tokens Used: 0
+
+================================================================================
+PERFORMANCE METRICS
+================================================================================
+
+Execution time calculation unavailable.
+
+================================================================================
+END OF REPORT
+================================================================================

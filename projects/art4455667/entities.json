@@ -1,0 +1,40 @@
+{
+  "characters": [
+    {
+      "id": "char_1",
+      "name": "Jack",
+      "versions": [
+        {
+          "age": "30",
+          "base_prompt": "male, strong jawline, defined cheekbones, almond-shaped brown eyes, short dark hair, athletic build, light skin tone, stubble, wearing tactical gear",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "char_2",
+      "name": "Lila",
+      "versions": [
+        {
+          "age": "28",
+          "base_prompt": "female, soft jawline, high cheekbones, round green eyes, long wavy brown hair, slender build, light skin tone, wearing a simple dress",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "animals": [],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "weapon",
+      "base_prompt": "black semi-automatic pistol, compact frame, metallic texture, minimal scratches, modern design, highly detailed, cinematic lighting"
+    }
+  ]
+}

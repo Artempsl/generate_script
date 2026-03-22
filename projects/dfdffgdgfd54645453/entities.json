@@ -1,0 +1,47 @@
+{
+  "characters": [
+    {
+      "id": "char_1",
+      "name": "Sarah",
+      "versions": [
+        {
+          "age": "30s",
+          "base_prompt": "female, approximately 30 years old, oval face, soft jawline, high cheekbones, almond-shaped brown eyes, medium intensity, long straight brown hair, slender body type, fair skin tone, no distinctive features, casual clothing style",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "animals": [
+    {
+      "id": "animal_1",
+      "type": "cat",
+      "name": "Mocha",
+      "versions": [
+        {
+          "age": "adult",
+          "base_prompt": "tabby cat, medium size, distinct striped pattern, bright green eyes, short fur, agile body type, healthy condition",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "lamp",
+      "base_prompt": "tall standing lamp, metallic base, warm yellow shade, slightly tarnished, modern design, highly detailed, cinematic lighting"
+    },
+    {
+      "id": "obj_2",
+      "name": "mirror",
+      "base_prompt": "large ornate mirror, rectangular shape, wooden frame, dark finish, minor scratches, vintage design, highly detailed, cinematic lighting"
+    }
+  ]
+}

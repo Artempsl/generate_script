@@ -1,0 +1,36 @@
+{
+  "characters": [
+    {
+      "id": "char_1",
+      "name": "Jessica",
+      "versions": [
+        {
+          "age": "adult",
+          "base_prompt": "female, oval face, soft jawline, high cheekbones, almond-shaped eyes, brown color, medium intensity, long wavy brown hair, slender body type, fair skin tone, no distinctive features, casual clothing style",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "animals": [
+    {
+      "id": "animal_1",
+      "type": "dog",
+      "name": "Max",
+      "versions": [
+        {
+          "age": "adult",
+          "base_prompt": "golden retriever, medium size, fluffy coat, bright golden color, expressive eyes, strong build, healthy appearance",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "objects": []
+}

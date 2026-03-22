@@ -19,6 +19,9 @@ langchain-openai==0.2.0
 langchain-core==0.3.7
 langchain-community==0.3.2
 
+# LangSmith (evaluation pipeline)
+langsmith==0.7.11
+
 # AI/ML APIs
 openai==1.51.2
 cohere==5.9.4

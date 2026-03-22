@@ -1,0 +1,73 @@
+{
+  "experiments": [
+    {
+      "experiment": "gpt-4o-mini_t0.0",
+      "model": "gpt-4o-mini",
+      "temperature": 0.0,
+      "elapsed_seconds": 127.4,
+      "avg_scores": {
+        "structure_valid": 1.0,
+        "valid_segment_ratio": 1.0,
+        "length_score": 1.0,
+        "avg_sentences_per_segment": 1.0,
+        "segment_count_match": 0.385,
+        "exact_text_match": 0.0,
+        "boundary_similarity": 0.665,
+        "text_coverage": 1.0,
+        "judge_relevance": 1.0,
+        "judge_coherence": 0.88,
+        "judge_visualizability": 1.0,
+        "judge_completeness": 0.6,
+        "judge_overall": 0.87
+      },
+      "timestamp": "2026-03-22T12:17:44.677035+00:00"
+    },
+    {
+      "experiment": "gpt-4o_t0.0",
+      "model": "gpt-4o",
+      "temperature": 0.0,
+      "elapsed_seconds": 70.8,
+      "avg_scores": {
+        "structure_valid": 1.0,
+        "valid_segment_ratio": 1.0,
+        "length_score": 1.0,
+        "avg_sentences_per_segment": 1.0,
+        "segment_count_match": 0.385,
+        "exact_text_match": 0.0,
+        "boundary_similarity": 0.665,
+        "text_coverage": 1.0,
+        "judge_relevance": 1.0,
+        "judge_coherence": 0.92,
+        "judge_visualizability": 1.0,
+        "judge_completeness": 0.6,
+        "judge_overall": 0.88
+      },
+      "timestamp": "2026-03-22T12:18:57.818910+00:00"
+    },
+    {
+      "experiment": "gpt-5.4_t0.0",
+      "model": "gpt-5.4",
+      "temperature": 0.0,
+      "elapsed_seconds": 85.9,
+      "avg_scores": {
+        "structure_valid": 1.0,
+        "valid_segment_ratio": 1.0,
+        "length_score": 1.0,
+        "avg_sentences_per_segment": 2.36,
+        "segment_count_match": 0.909,
+        "exact_text_match": 0.3,
+        "boundary_similarity": 0.989,
+        "text_coverage": 1.0,
+        "judge_relevance": 1.0,
+        "judge_coherence": 1.0,
+        "judge_visualizability": 1.0,
+        "judge_completeness": 0.98,
+        "judge_overall": 0.995
+      },
+      "timestamp": "2026-03-22T12:20:26.261202+00:00"
+    }
+  ],
+  "generated_at": "2026-03-22T12:20:26.263362+00:00",
+  "dataset": "storytelling_segmentation_eval_v1",
+  "total_experiments": 3
+}

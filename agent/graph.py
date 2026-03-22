@@ -669,6 +669,64 @@ def generate_audio_node(state: AgentState) -> AgentState:
     return updates
 
 
+def extract_entities_node(state: AgentState) -> AgentState:
+    """
+    Node: Extract characters, animals, and objects from the generated script.
+
+    Calls the entity extraction LLM, saves entities.json and entities_report.md
+    to the project directory.
+
+    Updates state:
+        - entities
+        - entities_file
+        - entities_report
+        - reasoning_trace
+    """
+    from agent.entity.entity_extractor import extract_entities
+
+    print(f"  [GRAPH] Entering extract_entities_node...")
+
+    result = extract_entities(
+        script=state['script'],
+        project_dir=state['project_dir']
+    )
+
+    entities = result.get('entities', {})
+    n_chars = len(entities.get('characters', []))
+    n_animals = len(entities.get('animals', []))
+    n_objects = len(entities.get('objects', []))
+
+    if result.get('status') == 'completed':
+        result_text = (
+            f"Extracted {n_chars} characters, {n_animals} animals, {n_objects} objects → "
+            f"{result.get('entities_file', '')}"
+        )
+    else:
+        result_text = f"Entity extraction failed: {result.get('error', 'Unknown error')}"
+
+    step = {
+        "step": len(state['reasoning_trace']) + 1,
+        "action": "extract_entities",
+        "result": result_text,
+        "tokens_used": 0,
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    }
+
+    print(f"  [GRAPH] Exiting extract_entities_node ({result_text})")
+
+    updates = {
+        "entities": entities,
+        "entities_file": result.get('entities_file', ''),
+        "entities_report": result.get('entities_report', ''),
+        "reasoning_trace": [step]
+    }
+
+    if result.get('error'):
+        updates['error'] = f"Entity extraction failed: {result['error']}"
+
+    return updates
+
+
 def save_execution_report_node(state: AgentState) -> AgentState:
     """
     Node: Save detailed execution report to project directory.
@@ -763,6 +821,7 @@ def create_agent_graph():
     workflow.add_node("regenerate", regenerate_node)
     workflow.add_node("segment_script", segment_script_node)  # NEW: Script segmentation
     workflow.add_node("generate_audio", generate_audio_node)  # NEW: Audio generation
+    workflow.add_node("extract_entities", extract_entities_node)  # NEW: Entity extraction
     workflow.add_node("save_execution_report", save_execution_report_node)  # NEW: Save execution report (final step!)
     
     # Set entry point (create project directory first!)
@@ -790,9 +849,10 @@ def create_agent_graph():
     # Regenerate loops back to validate
     workflow.add_edge("regenerate", "validate")
     
-    # NEW: Segmentation, audio, and report pipeline
+    # NEW: Segmentation, audio, entity extraction and report pipeline
     workflow.add_edge("segment_script", "generate_audio")
-    workflow.add_edge("generate_audio", "save_execution_report")  # NEW: report after audio
+    workflow.add_edge("generate_audio", "extract_entities")  # NEW: entity extraction after audio
+    workflow.add_edge("extract_entities", "save_execution_report")  # NEW: report after entities
     workflow.add_edge("save_execution_report", END)  # NEW: report is final step
     
     # Compile graph

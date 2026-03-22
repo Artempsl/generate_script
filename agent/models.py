@@ -372,7 +372,12 @@ class AgentState(TypedDict, total=False):
     audio_files_count: int
     tts_characters: int  # Total characters sent to TTS API
     tts_estimated_cost: float  # Estimated TTS cost in USD
-    
+
+    # NEW: Entity extraction fields
+    entities: Dict[str, Any]  # Extracted entities JSON (characters/animals/objects)
+    entities_file: str        # Path to entities.json
+    entities_report: str      # Path to entities_report.md
+
     # Error handling
     error: Optional[str]
 

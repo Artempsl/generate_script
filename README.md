@@ -33,6 +33,7 @@ This project implements a **ReAct-style autonomous agent** that generates profes
 3. **Acting** with specialized LLM tools (outline generation, script writing, validation)
 4. **Segmenting** scripts into audio-visual chunks with precise text preservation
 5. **Generating** TTS audio files for each segment
+6. **Extracting** recurring characters, animals, and objects for consistent visual identity
 
 The agent ensures **idempotency**, **retry logic**, **error handling**, and **comprehensive logging** for production-grade reliability.
 
@@ -75,7 +76,8 @@ The agent ensures **idempotency**, **retry logic**, **error handling**, and **co
 | **Script Segmentation** | Breaks scripts into 3-6 narrative moments (2-6 sentences each) | Cohere Command-R |
 | **Text Preservation** | Character-level validation to prevent LLM rewrites (temperature=0.0) | Custom validation |
 | **TTS Generation** | OpenAI TTS-1 model generates MP3 files for each segment | OpenAI API |
-| **Project Management** | Organized file structure: `projects/{slug}/script.txt`, `000X.mp3` | File system |
+| **Entity Extraction** | Identifies recurring characters, animals, and objects with visual base prompts and scene states | GPT-4o-mini |
+| **Project Management** | Organized file structure: `projects/{slug}/script.txt`, `000X.mp3`, `entities.json` | File system |
 
 ### 📊 Monitoring & Debugging
 
@@ -119,6 +121,7 @@ graph TB
         C7[regenerate_node]
         C8[segment_script_node]
         C9[generate_audio_node]
+        C10[extract_entities_node]
     end
     
     subgraph "Storage"
@@ -127,6 +130,8 @@ graph TB
         D3[script.txt]
         D4[script_segmented.txt]
         D5[000X.mp3 files]
+        D6[entities.json]
+        D7[entities_report.md]
     end
     
     B1 --> B2
@@ -150,11 +155,16 @@ graph TB
     C8 -->|Segment script| A3
     C8 --> C9
     C9 -->|Generate TTS| A4
+    C9 --> C10
+    C10 -->|Extract entities| A1
     
     C9 --> D2
     D2 --> D3
     D2 --> D4
     D2 --> D5
+    C10 --> D2
+    D2 --> D6
+    D2 --> D7
     D1 -->|Save execution| B3
 ```
 
@@ -176,7 +186,8 @@ stateDiagram-v2
     regenerate --> generate_script: Retry (max 3)
     
     segment_script --> generate_audio: Text preserved
-    generate_audio --> [*]: Save MP3 files
+    generate_audio --> extract_entities: Save MP3 files
+    extract_entities --> [*]: Save entities.json + entities_report.md
 ```
 
 ### Data Flow
@@ -214,6 +225,9 @@ sequenceDiagram
         Graph->>Tools: generate_tts_tool()
         Tools->>Storage: Save MP3 files
         Tools-->>Graph: Audio paths
+        Graph->>Tools: extract_entities_tool()
+        Tools->>Storage: Save entities.json + entities_report.md
+        Tools-->>Graph: Entities
         
         Graph-->>API: Final state
         API->>DB: Save execution
@@ -487,7 +501,9 @@ projects/
     ├── 0001.mp3                # Segment 1 audio
     ├── 0002.mp3                # Segment 2 audio
     ├── 0003.mp3                # Segment 3 audio
-    └── 0004.mp3                # Segment 4 audio
+    ├── 0004.mp3                # Segment 4 audio
+    ├── entities.json           # Extracted characters, animals, objects
+    └── entities_report.md      # Human-readable entities report
 ```
 
 ---
@@ -614,7 +630,12 @@ generate_script/
 │   ├── graph.py                    # LangGraph workflow
 │   ├── language_utils.py           # Language detection
 │   ├── models.py                   # Pydantic models
-│   └── tools.py                    # LLM tools (8 tools)
+│   ├── tools.py                    # LLM tools (8 tools)
+│   └── entity/                     # Entity extraction module
+│       ├── __init__.py
+│       ├── entity_extractor.py     # Orchestrates extraction pipeline
+│       ├── llm_client.py           # GPT-4o-mini call + prompt
+│       └── file_writer.py          # Writes entities_report.md
 │
 ├── src/                            # Ingestion pipeline
 │   ├── __init__.py
@@ -629,7 +650,9 @@ generate_script/
 │   └── {project-slug}/
 │       ├── script.txt              # Original script
 │       ├── script_segmented.txt    # Segmented script
-│       └── *.mp3                   # Audio files
+│       ├── *.mp3                   # Audio files
+│       ├── entities.json           # Extracted entities (characters/animals/objects)
+│       └── entities_report.md      # Human-readable entities report
 │
 ├── logs/                           # Execution logs
 │   └── agent_logs.json
@@ -906,6 +929,48 @@ def should_regenerate(state: GraphState) -> Literal["regenerate", "segment_scrip
 ```
 
 **Max Iterations:** 3 attempts (initial + 2 retries)
+
+---
+
+### 9. Entity Extraction
+
+**Purpose:** After audio generation, the agent analyzes the script to extract all recurring **characters**, **animals**, and **objects** — building a reusable visual identity system for downstream text-to-image pipelines.
+
+**Location:** `agent/entity/` module (`entity_extractor.py`, `llm_client.py`, `file_writer.py`)
+
+**Extraction categories:**
+- **Characters** — humans with age variants, physical base prompts, and per-scene actions/emotions
+- **Animals** — typed creatures with visual descriptions and behavioral states
+- **Objects** — standalone recurring items that appear independently across scenes
+
+**Output files per project:**
+
+| File | Format | Contents |
+|---|---|---|
+| `entities.json` | JSON | Structured entity data (IDs, versions, base prompts, scene states) |
+| `entities_report.md` | Markdown | Human-readable table of all extracted entities |
+
+**Pipeline:**
+
+```python
+# agent/entity/entity_extractor.py
+def extract_entities(script: str, project_dir: str) -> dict:
+    # 1. Call GPT-4o-mini with the entity extraction prompt
+    entities = call_entity_extraction_llm(script)
+    # 2. Persist entities.json
+    (project_path / "entities.json").write_text(json.dumps(entities, ...))
+    # 3. Generate entities_report.md
+    report_path = write_entities_report(entities, project_dir)
+    return {"entities": entities, "entities_file": ..., "entities_report": ..., "status": "completed"}
+```
+
+**Prompt design principles:**
+- **Strict separation** of base visual identity (constant) from scene states (dynamic)
+- **Visual precision over emotion** — physical structure and visible traits only
+- **AI image generation compatibility** — output format designed for direct use in image prompts
+- **No mixing** of identity and context under any circumstances
+
+**Integration in LangGraph:** The `extract_entities_node` runs after `generate_audio_node`, ensuring entities are extracted from the final validated script.
 
 ---
 
