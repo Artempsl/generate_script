@@ -1,0 +1,52 @@
+{
+  "characters": [
+    {
+      "id": "char_1",
+      "name": "Commander Max",
+      "versions": [
+        {
+          "age": "30",
+          "base_prompt": "male, angular jawline, high cheekbones, almond-shaped eyes, blue eyes, short dark hair, athletic build, light skin tone, no distinctive features, sleek space suit",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "animals": [
+    {
+      "id": "animal_1",
+      "type": "creature",
+      "name": "Martian kitten-like creature",
+      "versions": [
+        {
+          "age": "young",
+          "base_prompt": "feline-like body, fluffy fur, large round eyes, playful demeanor, light gray fur with dark stripes, small size, cartoonish appearance",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "space vacuum",
+      "base_prompt": "compact handheld vacuum, metallic body, bright orange color, modern design, minimal scratches, highly detailed"
+    },
+    {
+      "id": "obj_2",
+      "name": "laser pointer",
+      "base_prompt": "small handheld device, sleek black casing, red light beam, modern design, minimal wear, highly detailed"
+    },
+    {
+      "id": "obj_3",
+      "name": "Martian toy",
+      "base_prompt": "colorful plush toy, alien design, bright green and purple colors, soft texture, cartoonish features, excellent condition, highly detailed"
+    }
+  ]
+}

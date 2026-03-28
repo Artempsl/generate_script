@@ -1,0 +1,31 @@
+{
+  "characters": [
+    {
+      "id": "char_1",
+      "name": "Dr. Emma Reed",
+      "versions": [
+        {
+          "age": "30s",
+          "base_prompt": "female astronaut, oval face, high cheekbones, almond-shaped green eyes, short wavy brown hair, athletic build, fair skin, wearing a standard space suit with a helmet, highly detailed, cinematic lighting",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "animals": [],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "habitat module",
+      "base_prompt": "rectangular structure, metallic exterior, matte gray finish, multiple screens on the interior, modern design, highly detailed, cinematic lighting"
+    },
+    {
+      "id": "obj_2",
+      "name": "communication equipment",
+      "base_prompt": "compact device, rectangular shape, black casing, illuminated buttons, modern design, highly detailed, cinematic lighting"
+    }
+  ]
+}

@@ -109,7 +109,9 @@ EVALUATORS = [
 
 
 # ---------------------------------------------------------------------------
-# Experiment runner  (direct loop — avoids Python 3.14 threading issues)
+# Experiment runner  — uses client.evaluate(max_concurrency=1)
+# max_concurrency=1 sends runs to LangSmith sequentially (no thread pool),
+# which avoids Python 3.14 threading/asyncio compatibility issues.
 # ---------------------------------------------------------------------------
 
 def run_experiment(config: dict) -> dict:
@@ -120,40 +122,48 @@ def run_experiment(config: dict) -> dict:
     print(f"\n{'=' * 60}")
     print(f"Experiment: {experiment_name}")
     print(f"{'=' * 60}")
+    print(f"  Sending traces to LangSmith via client.evaluate()")
 
     target = make_target(model=model, temperature=temperature)
-    examples = list(client.list_examples(dataset_name=DATASET_NAME))
-    n = len(examples)
-
-    all_scores: dict[str, list] = {}
     start_time = time.time()
 
-    for i, example in enumerate(examples, 1):
-        print(f"  [{i}/{n}]", end=" ", flush=True)
+    # client.evaluate() automatically creates LangSmith runs linked to dataset
+    # examples and attaches evaluator feedback.  max_concurrency=1 forces
+    # sequential execution — avoids Python 3.14 thread-executor issues.
+    eval_results = client.evaluate(
+        target,
+        data=DATASET_NAME,
+        evaluators=EVALUATORS,
+        experiment_prefix=experiment_name,
+        max_concurrency=1,
+        metadata={"model": model, "temperature": temperature},
+    )
+
+    # Iterate to trigger execution and collect per-example metric scores
+    all_scores: dict[str, list] = {}
+    count = 0
+    for row in eval_results:
+        count += 1
+        print(f"  [{count}] done", flush=True)
         try:
-            outputs = target(example.inputs)
+            # ExperimentResultRow can be dict-like or a typed object
+            eval_res = (
+                row["evaluation_results"]
+                if isinstance(row, dict)
+                else getattr(row, "evaluation_results", {})
+            )
+            results_list = (
+                eval_res["results"]
+                if isinstance(eval_res, dict)
+                else getattr(eval_res, "results", [])
+            )
+            for er in (results_list or []):
+                k = er["key"] if isinstance(er, dict) else getattr(er, "key", None)
+                v = er["score"] if isinstance(er, dict) else getattr(er, "score", None)
+                if k is not None and v is not None:
+                    all_scores.setdefault(k, []).append(float(v))
         except Exception as e:
-            print(f"target ERROR: {e}")
-            continue
-
-        ref = example.outputs or {}
-        inp = example.inputs or {}
-
-        for evaluator in EVALUATORS:
-            try:
-                try:
-                    results = evaluator(outputs=outputs, reference_outputs=ref, inputs=inp)
-                except TypeError:
-                    results = evaluator(outputs=outputs, reference_outputs=ref)
-                for r in (results or []):
-                    if isinstance(r, dict):
-                        k = r.get("key")
-                        v = r.get("score")
-                        if k and v is not None:
-                            all_scores.setdefault(k, []).append(float(v))
-            except Exception as e:
-                name = getattr(evaluator, "__name__", str(evaluator))
-                print(f"\n    Evaluator {name} error: {e}")
+            print(f"\n  Score collection error for row {count}: {e}")
 
     elapsed = time.time() - start_time
     avg_scores = {k: round(sum(v) / len(v), 4) for k, v in all_scores.items()}
@@ -192,15 +202,24 @@ def main() -> None:
     print(f"Experiments: {len(configs)}")
     print(f"Evaluators:  {len(EVALUATORS)}")
 
+    # Experiments that must be re-run as real LangSmith traces even if they
+    # already exist in the local JSON (the JSON only had aggregate data from
+    # the earlier direct-loop run — not real LangSmith traces).
+    FORCE_RERUN = {"gpt-4o_t0.0", "gpt-5.4_t0.0"}
+
     # Load already-completed experiments to avoid re-running them
     existing: dict = {}
     if RESULTS_FILE.exists():
         try:
             existing_data = json.loads(RESULTS_FILE.read_text(encoding="utf-8"))
             for r in existing_data.get("experiments", []):
-                existing[r["experiment"]] = r
+                name = r["experiment"]
+                if name not in FORCE_RERUN:   # skip only if NOT in force-rerun list
+                    existing[name] = r
             if existing:
                 print(f"Skipping {len(existing)} already-completed experiment(s): {list(existing.keys())}")
+            if FORCE_RERUN:
+                print(f"Force re-run (real LangSmith traces): {sorted(FORCE_RERUN)}")
         except Exception:
             pass
 

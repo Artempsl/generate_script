@@ -1,0 +1,4 @@
+C:\Users\kupit\w5\generate_script\.venv\Lib\site-packages\langchain_core\_api\deprecation.py:25: UserWarning: Core Pydantic V1 functionality isn't compatible with Python 3.14 or greater.
+  from pydantic.v1.fields import FieldInfo as FieldInfoV1
+0it [00:00, ?it/s]1it [00:20, 20.91s/it]2it [00:31, 14.66s/it]3it [00:37, 10.92s/it]4it [00:44,  9.30s/it]5it [00:51,  8.61s/it]6it [00:59,  8.17s/it]7it [01:08,  8.43s/it]8it [01:16,  8.30s/it]9it [01:22,  7.77s/it]10it [01:25,  6.22s/it]10it [01:25,  8.55s/it]
+0it [00:00, ?it/s]1it [00:12, 12.85s/it]2it [00:18,  8.73s/it]3it [00:25,  7.75s/it]4it [00:31,  6.99s/it]5it [00:37,  6.60s/it]6it [00:43,  6.41s/it]7it [00:49,  6.42s/it]8it [00:55,  6.30s/it]9it [01:01,  6.20s/it]10it [01:03,  4.90s/it]10it [01:03,  6.35s/it]

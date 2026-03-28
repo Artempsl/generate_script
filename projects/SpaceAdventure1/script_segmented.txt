@@ -1,0 +1,178 @@
+================================================================================
+SEGMENTED SCRIPT
+================================================================================
+
+Total segments: 17
+Generated: 2026-03-28T10:45:38.733337+00:00
+
+================================================================================
+FULL SCRIPT (ORIGINAL)
+================================================================================
+
+The Martian landscape, a barren expanse of rusted dust, holds secrets beneath its desolate beauty. Dr. Emma Reed, an astronaut cloaked in silence, gazes out, her helmet reflecting the dim, crimson light. “What secrets lie beneath this red dust?” she wonders, as static crackles in her earpiece.
+
+Inside her habitat module, screens flicker with fluctuating signals. “It’s not just noise…” she murmurs, heart racing. A sudden alarm shatters her focus; equipment blares as she fights to stabilize communication. Shadows dance outside, the Martian void echoing her fears. “Am I alone in this vast silence?”
+
+Sweat beads on her brow. Memories of Earth flash—laughter, warmth, connection lost. “What if this signal is a plea for help?”
+
+Then, a surge—a coherent message materializes: “WE ARE HERE.” Awe and dread wash over her. “We are not alone… but at what cost?” Her eyes reflect terror and hope as the haunting silence shifts to a faint melody, hinting at connection. 
+
+“In the quietest moments, the universe speaks.” The Martian landscape looms, the signal fading, leaving only lingering wonder.
+
+================================================================================
+SEGMENTS (17 total)
+================================================================================
+
+[Segment 1]
+--------------------------------------------------------------------------------
+The Martian landscape, a barren expanse of rusted dust, holds secrets beneath its desolate beauty.
+
+Audio URL: N/A
+Character count: 98
+
+================================================================================
+
+[Segment 2]
+--------------------------------------------------------------------------------
+Dr. Emma Reed, an astronaut cloaked in silence, gazes out, her helmet reflecting the dim, crimson light.
+
+Audio URL: N/A
+Character count: 104
+
+================================================================================
+
+[Segment 3]
+--------------------------------------------------------------------------------
+"What secrets lie beneath this red dust?" she wonders, as static crackles in her earpiece.
+
+Audio URL: N/A
+Character count: 90
+
+================================================================================
+
+[Segment 4]
+--------------------------------------------------------------------------------
+Inside her habitat module, screens flicker with fluctuating signals.
+
+Audio URL: N/A
+Character count: 68
+
+================================================================================
+
+[Segment 5]
+--------------------------------------------------------------------------------
+"It’s not just noise…" she murmurs, heart racing.
+
+Audio URL: N/A
+Character count: 49
+
+================================================================================
+
+[Segment 6]
+--------------------------------------------------------------------------------
+A sudden alarm shatters her focus; equipment blares as she fights to stabilize communication.
+
+Audio URL: N/A
+Character count: 93
+
+================================================================================
+
+[Segment 7]
+--------------------------------------------------------------------------------
+Shadows dance outside, the Martian void echoing her fears.
+
+Audio URL: N/A
+Character count: 58
+
+================================================================================
+
+[Segment 8]
+--------------------------------------------------------------------------------
+"Am I alone in this vast silence?"
+
+Audio URL: N/A
+Character count: 34
+
+================================================================================
+
+[Segment 9]
+--------------------------------------------------------------------------------
+Sweat beads on her brow.
+
+Audio URL: N/A
+Character count: 24
+
+================================================================================
+
+[Segment 10]
+--------------------------------------------------------------------------------
+Memories of Earth flash—laughter, warmth, connection lost.
+
+Audio URL: N/A
+Character count: 58
+
+================================================================================
+
+[Segment 11]
+--------------------------------------------------------------------------------
+"What if this signal is a plea for help?"
+
+Audio URL: N/A
+Character count: 41
+
+================================================================================
+
+[Segment 12]
+--------------------------------------------------------------------------------
+Then, a surge—a coherent message materializes: "WE ARE HERE."
+
+Audio URL: N/A
+Character count: 61
+
+================================================================================
+
+[Segment 13]
+--------------------------------------------------------------------------------
+Awe and dread wash over her.
+
+Audio URL: N/A
+Character count: 28
+
+================================================================================
+
+[Segment 14]
+--------------------------------------------------------------------------------
+"We are not alone… but at what cost?"
+
+Audio URL: N/A
+Character count: 37
+
+================================================================================
+
+[Segment 15]
+--------------------------------------------------------------------------------
+Her eyes reflect terror and hope as the haunting silence shifts to a faint melody, hinting at connection.
+
+Audio URL: N/A
+Character count: 105
+
+================================================================================
+
+[Segment 16]
+--------------------------------------------------------------------------------
+"In the quietest moments, the universe speaks."
+
+Audio URL: N/A
+Character count: 47
+
+================================================================================
+
+[Segment 17]
+--------------------------------------------------------------------------------
+The Martian landscape looms, the signal fading, leaving only lingering wonder.
+
+Audio URL: N/A
+Character count: 78
+
+================================================================================
+

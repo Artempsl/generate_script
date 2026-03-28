@@ -1,0 +1,36 @@
+{
+  "characters": [
+    {
+      "id": "char_1",
+      "name": "Avery",
+      "versions": [
+        {
+          "age": "30",
+          "base_prompt": "30-year-old human, androgynous, oval face with soft jawline, high cheekbones, almond-shaped green eyes, short tousled dark brown hair, athletic build, light skin tone, no distinctive features, wearing a fitted space suit with a sleek design.",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "animals": [],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "habitat module",
+      "base_prompt": "metallic habitat module, rectangular shape, reflective surface, rust-colored accents, modern design, well-maintained condition, highly detailed, cinematic lighting"
+    },
+    {
+      "id": "obj_2",
+      "name": "communication equipment",
+      "base_prompt": "advanced communication equipment, compact design, metallic casing, digital display, various buttons and knobs, slightly worn condition, highly detailed, cinematic lighting"
+    },
+    {
+      "id": "obj_3",
+      "name": "soil sample container",
+      "base_prompt": "transparent soil sample container, cylindrical shape, clear plastic material, labeled with markings, pristine condition, highly detailed, cinematic lighting"
+    }
+  ]
+}

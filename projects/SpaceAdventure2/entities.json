@@ -1,0 +1,31 @@
+{
+  "characters": [
+    {
+      "id": "char_1",
+      "name": "Dr. Elara Voss",
+      "versions": [
+        {
+          "age": "30s",
+          "base_prompt": "female, oval face, defined jawline, high cheekbones, almond-shaped green eyes, medium intensity, long wavy auburn hair, athletic build, fair skin tone, wearing a futuristic space suit with a helmet, highly detailed, cinematic lighting",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "animals": [],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "MARS-1",
+      "base_prompt": "compact robotic AI unit, rectangular shape, metallic surface, matte silver color, minimal scratches, modern design, highly detailed, cinematic lighting"
+    },
+    {
+      "id": "obj_2",
+      "name": "distress beacon",
+      "base_prompt": "small cylindrical device, plastic material, bright red color, sleek design, in good condition, highly detailed, cinematic lighting"
+    }
+  ]
+}

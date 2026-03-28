@@ -1,0 +1,157 @@
+================================================================================
+PROJECT EXECUTION REPORT
+================================================================================
+
+Generated: 2026-03-28T10:53:33.277542+00:00
+Request ID: ba8abf29-8ce4-40af-96be-8d2c4cd5f2e4
+
+================================================================================
+PROJECT INFORMATION
+================================================================================
+
+Project Name: SpaceAdventure2
+Project Slug: SpaceAdventure2
+Genre: Sci-Fi
+Language: en
+Target Duration: 1 minutes
+Target Characters: 1,000
+
+================================================================================
+EXECUTION SUMMARY
+================================================================================
+
+Total Steps: 13
+Total Iterations: 1
+Regeneration Count: 0
+Retry Attempts: 0
+Status: ✓ SUCCESS
+
+================================================================================
+RESOURCE USAGE
+================================================================================
+
+Total Tokens Used: 16,454
+Pinecone Queries: 5
+Web Search Enabled: No
+
+Token Breakdown by Action:
+  - synthesize_context: 5,042 tokens
+  - retrieve_pinecone: 4,033 tokens
+  - generate_outline: 2,547 tokens
+  - react_reasoning: 1,549 tokens
+  - regenerate_script (iteration 2): 1,326 tokens
+  - generate_script (iteration 1): 1,298 tokens
+  - segment_script: 659 tokens
+  - create_project_directory: 0 tokens
+  - web_search (skipped): 0 tokens
+  - validate_length: 0 tokens
+  - generate_audio: 0 tokens
+  - extract_entities: 0 tokens
+
+TTS API Usage (Character-Based Pricing):
+  - Characters Processed: 1,070
+  - Estimated Cost: $0.0161 (at $0.015/1K chars)
+
+================================================================================
+SCRIPT VALIDATION
+================================================================================
+
+Validation Status: ✓ PASSED
+Script Length: 1,086 characters
+Target Length: 1,000 characters
+Length Ratio: 108.6%
+Validation Message: ✓ Length valid (108.6%)
+
+Estimated Duration: 1.1 minutes
+Target Duration: 1 minutes
+Duration Match: ✓ YES
+
+================================================================================
+SEGMENTATION & AUDIO GENERATION
+================================================================================
+
+Script Segments Created: 9
+Audio Files Generated: 9
+TTS Characters Processed: 1,070
+TTS Estimated Cost: $0.0161
+Segmentation Success: ✓ YES
+Audio Generation Success: ✓ YES
+
+================================================================================
+FULL REASONING TRACE
+================================================================================
+
+[Step create_project (iteration 0)] create_project_directory
+  Timestamp: N/A
+  Result: N/A
+  Tokens Used: 0
+
+[Step 2] retrieve_pinecone
+  Timestamp: 2026-03-28T10:50:54.168353+00:00
+  Result: Retrieved 5 sources (16133 chars)
+  Tokens Used: 4,033
+
+[Step 3] web_search (skipped)
+  Timestamp: 2026-03-28T10:50:54.169554+00:00
+  Result: Skipped (None)
+  Tokens Used: 0
+
+[Step 4] synthesize_context
+  Timestamp: 2026-03-28T10:51:06.731403+00:00
+  Result: Generated 3512 chars of insights
+  Tokens Used: 5,042
+
+[Step 5] react_reasoning
+  Timestamp: 2026-03-28T10:51:22.851899+00:00
+  Result: Strategy: {'tone': 'atmospheric', 'pacing': 'fast-paced', 'emphasis': 'character', 'key_techniques': ['tension-building', 'plot-twists', 'psychological-depth']} (3381 chars reasoning)
+  Tokens Used: 1,549
+
+[Step 6] generate_outline
+  Timestamp: 2026-03-28T10:51:31.499413+00:00
+  Result: Generated outline (2809 chars)
+  Tokens Used: 2,547
+
+[Step 7] generate_script (iteration 1)
+  Timestamp: 2026-03-28T10:51:36.663417+00:00
+  Result: Generated 1,190 chars
+  Tokens Used: 1,298
+
+[Step 8] validate_length
+  Timestamp: 2026-03-28T10:51:36.666761+00:00
+  Result: ✗ Too long (119.0%)
+  Tokens Used: 0
+
+[Step 9] regenerate_script (iteration 2)
+  Timestamp: 2026-03-28T10:51:42.606056+00:00
+  Result: Regenerated: 1,086 chars
+  Tokens Used: 1,326
+
+[Step 10] validate_length
+  Timestamp: 2026-03-28T10:51:42.612504+00:00
+  Result: ✓ Length valid (108.6%)
+  Tokens Used: 0
+
+[Step 11] segment_script
+  Timestamp: 2026-03-28T10:53:04.405935+00:00
+  Result: Created 9 segments
+  Tokens Used: 659
+
+[Step 12] generate_audio
+  Timestamp: 2026-03-28T10:53:28.215790+00:00
+  Result: Generated 9 audio files (1,070 characters, ~$0.0161)
+  Tokens Used: 0
+
+[Step 13] extract_entities
+  Timestamp: 2026-03-28T10:53:33.276426+00:00
+  Result: Extracted 1 characters, 0 animals, 2 objects → projects\SpaceAdventure2\entities.json
+  Tokens Used: 0
+
+================================================================================
+PERFORMANCE METRICS
+================================================================================
+
+Execution time calculation unavailable.
+
+================================================================================
+END OF REPORT
+================================================================================

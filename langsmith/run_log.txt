@@ -1,0 +1,115 @@
+LangSmith Segmentation Evaluation
+Dataset: storytelling_segmentation_eval_v1
+Experiments: 3
+Evaluators:  4
+Skipping 1 already-completed experiment(s): ['gpt-4o-mini_t0.0']
+Force re-run (real LangSmith traces): ['gpt-4o_t0.0', 'gpt-5.4_t0.0']
+
+[1/3] Starting gpt-4o-mini_t0.0...
+  [SKIP] Already completed — loading from results file.
+
+[2/3] Starting gpt-4o_t0.0...
+
+============================================================
+Experiment: gpt-4o_t0.0
+============================================================
+  Sending traces to LangSmith via client.evaluate()
+View the evaluation results for experiment: 'gpt-4o_t0.0-c057a594' at:
+https://eu.smith.langchain.com/o/b9c42180-fcfa-42e9-9776-fad95c258de4/datasets/2a332a51-9bf1-481f-892a-06448fee7f27/compare?selectedSessions=d0a4a4f1-4be0-406b-b649-585394cf036f
+
+
+  [gpt-4o t=0.0] 26 segments in 9.1s (attempt 1)
+  [gpt-4o t=0.0] 26 segments in 10.9s (attempt 1)
+  [gpt-4o t=0.0] 26 segments in 9.9s (attempt 1)
+  [gpt-4o t=0.0] 26 segments in 6.1s (attempt 1)
+  [gpt-4o t=0.0] 26 segments in 6.4s (attempt 1)
+  [gpt-4o t=0.0] 26 segments in 6.9s (attempt 1)
+  [gpt-4o t=0.0] 26 segments in 6.9s (attempt 1)
+  [gpt-4o t=0.0] 26 segments in 8.5s (attempt 1)
+  [gpt-4o t=0.0] 26 segments in 7.5s (attempt 1)
+  [gpt-4o t=0.0] 26 segments in 6.2s (attempt 1)
+  [1] done
+  [2] done
+  [3] done
+  [4] done
+  [5] done
+  [6] done
+  [7] done
+  [8] done
+  [9] done
+  [10] done
+
+Results for gpt-4o_t0.0 (87s):
+  avg_sentences_per_segment           1.0000
+  boundary_similarity                 0.6650
+  exact_text_match                    0.0000
+  judge_coherence                     0.8800
+  judge_completeness                  0.6000
+  judge_overall                       0.8700
+  judge_relevance                     1.0000
+  judge_visualizability               1.0000
+  length_score                        1.0000
+  segment_count_match                 0.3850
+  structure_valid                     1.0000
+  text_coverage                       1.0000
+  valid_segment_ratio                 1.0000
+
+[3/3] Starting gpt-5.4_t0.0...
+
+============================================================
+Experiment: gpt-5.4_t0.0
+============================================================
+  Sending traces to LangSmith via client.evaluate()
+View the evaluation results for experiment: 'gpt-5.4_t0.0-bd2686dd' at:
+https://eu.smith.langchain.com/o/b9c42180-fcfa-42e9-9776-fad95c258de4/datasets/2a332a51-9bf1-481f-892a-06448fee7f27/compare?selectedSessions=2c41e4a9-9cc4-4931-bc39-77415629e2d0
+
+
+  [gpt-5.4 t=0.0] 14 segments in 6.5s (attempt 1)
+  [gpt-5.4 t=0.0] 11 segments in 5.6s (attempt 1)
+  [gpt-5.4 t=0.0] 11 segments in 5.4s (attempt 1)
+  [gpt-5.4 t=0.0] 13 segments in 6.2s (attempt 1)
+  [gpt-5.4 t=0.0] 11 segments in 5.4s (attempt 1)
+  [gpt-5.4 t=0.0] 11 segments in 5.5s (attempt 1)
+  [gpt-5.4 t=0.0] 11 segments in 5.6s (attempt 1)
+  [gpt-5.4 t=0.0] 14 segments in 6.0s (attempt 1)
+  [gpt-5.4 t=0.0] 11 segments in 5.7s (attempt 1)
+  [gpt-5.4 t=0.0] 11 segments in 5.5s (attempt 1)
+  [1] done
+  [2] done
+  [3] done
+  [4] done
+  [5] done
+  [6] done
+  [7] done
+  [8] done
+  [9] done
+  [10] done
+
+Results for gpt-5.4_t0.0 (64s):
+  avg_sentences_per_segment           2.2240
+  boundary_similarity                 0.9717
+  exact_text_match                    0.2400
+  judge_coherence                     1.0000
+  judge_completeness                  0.9600
+  judge_overall                       0.9900
+  judge_relevance                     1.0000
+  judge_visualizability               1.0000
+  length_score                        1.0000
+  segment_count_match                 0.8560
+  structure_valid                     1.0000
+  text_coverage                       1.0000
+  valid_segment_ratio                 1.0000
+
+Results saved to: C:\Users\kupit\w5\generate_script\langsmith\evaluation_results.json
+
+======================================================================
+RANKING by boundary_similarity (higher = closer to ground truth)
+======================================================================
+#   Experiment                          boundary   exact   count   time
+----------------------------------------------------------------------
+1   gpt-5.4_t0.0                          0.9717  0.2400  0.8560  64.3s
+2   gpt-4o-mini_t0.0                      0.6650  0.0000  0.3850 127.4s
+3   gpt-4o_t0.0                           0.6650  0.0000  0.3850  87.1s
+
+View full results in LangSmith: https://eu.smith.langchain.com
+Project: storytelling-segmentation-eval

@@ -18,7 +18,7 @@ from typing import Dict, Any, List, Union
 from datetime import datetime, timezone
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.exceptions import RequestValidationError
@@ -257,7 +257,7 @@ async def test_endpoint():
     }
 
 
-@app.post("/generate-script", response_model=SegmentedScriptResponse)
+@app.post("/generate-script")
 async def generate_script(request: Request):
     """
     Main endpoint for script generation.
@@ -345,14 +345,32 @@ async def generate_script(request: Request):
         logger.info(f"Genre: {request_item.genre}")
         logger.info(f"Duration: {request_item.duration} min")
         logger.info(f"Idea: {request_item.normalized_story_idea[:100]}...")
-        
+        logger.info(f"Use case: {request_item.use_case}  |  Chat ID: {request_item.chat_id}")
+
+        # ─── USE CASE ROUTING ─────────────────────────────────────────────────
+        if request_item.use_case == "teacher":
+            raise HTTPException(
+                status_code=501,
+                detail="use_case 'teacher' pipeline is not yet implemented"
+            )
+        elif request_item.use_case != "youtube":
+            raise HTTPException(
+                status_code=422,
+                detail=f"Unknown use_case: '{request_item.use_case}'. Supported values: 'youtube'"
+            )
+        # use_case == "youtube" → continue with existing pipeline
+        # ──────────────────────────────────────────────────────────────────────
+
         # Check for existing execution (idempotency)
         existing = await db_manager.get_execution(request_id)
         if existing:
             logger.info("✓ Found existing execution (cached)")
             response = existing.to_response()
+            # Always reflect current request's use_case/chat_id (not stored in DB)
+            response.use_case = request_item.use_case
+            response.chat_id = request_item.chat_id
             logger.info("=" * 80)
-            return response
+            return JSONResponse(content=response.model_dump())
         
         # Detect audio base URL from request headers
         host = request.headers.get("host", "localhost:8000")
@@ -367,98 +385,108 @@ async def generate_script(request: Request):
         logger.info(f"  Target characters: {initial_state['target_chars']:,}")
         logger.info(f"  Audio base URL: {audio_base_url}")
         
-        # Execute agent graph with timeout wrapper
+        # Execute agent graph with streaming keepalive to prevent Cloudflare 524
         logger.info(f"→ Executing agent graph (timeout: {MAX_TIMEOUT_SECONDS}s)...")
-        try:
-            final_state = await asyncio.wait_for(
-                execute_agent(initial_state),
-                timeout=MAX_TIMEOUT_SECONDS
+
+        async def _stream_response():
+            # Start pipeline as independent task so keepalive loop doesn't block it
+            pipeline_task = asyncio.create_task(
+                asyncio.wait_for(execute_agent(initial_state), timeout=MAX_TIMEOUT_SECONDS)
             )
-        except asyncio.TimeoutError:
-            error_msg = f"Agent execution timed out after {MAX_TIMEOUT_SECONDS}s"
-            logger.error(f"✗ {error_msg}")
-            
-            # Save timeout execution
+
+            # Send a space byte every 20s while pipeline runs — keeps Cloudflare alive
+            while not pipeline_task.done():
+                yield b" "
+                try:
+                    await asyncio.wait_for(asyncio.shield(pipeline_task), timeout=20)
+                except asyncio.TimeoutError:
+                    pass  # still running — loop again and send another keepalive
+
+            # Pipeline finished — retrieve result
+            try:
+                final_state = pipeline_task.result()
+            except asyncio.TimeoutError:
+                error_msg = f"Agent execution timed out after {MAX_TIMEOUT_SECONDS}s"
+                logger.error(f"✗ {error_msg}")
+                execution = Execution(
+                    request_id=request_id,
+                    status="error",
+                    project_name=request_item.normalized_project_name,
+                    genre=request_item.genre,
+                    duration=request_item.duration,
+                    language=initial_state['language'],
+                    error_message=error_msg,
+                    iteration_count=0,
+                    tokens_used_total=0
+                )
+                await db_manager.save_execution(execution)
+                yield json.dumps({"error": error_msg, "status": "error"}).encode()
+                return
+            except Exception as exc:
+                error_msg = f"Agent execution failed: {exc}"
+                logger.error(f"✗ {error_msg}")
+                yield json.dumps({"error": error_msg, "status": "error"}).encode()
+                return
+
+            # Check for pipeline-level errors
+            if final_state.get('error'):
+                error_msg = final_state['error']
+                logger.error(f"✗ Agent execution failed: {error_msg}")
+                execution = Execution(
+                    request_id=request_id,
+                    status="error",
+                    project_name=request_item.normalized_project_name,
+                    genre=request_item.genre,
+                    duration=request_item.duration,
+                    language=final_state.get('language', initial_state['language']),
+                    error_message=error_msg,
+                    iteration_count=final_state.get('iteration', 0),
+                    tokens_used_total=final_state.get('tokens_used', 0)
+                )
+                await db_manager.save_execution(execution)
+                yield json.dumps({"error": error_msg, "status": "error"}).encode()
+                return
+
+            # Build response
+            response = state_to_segmented_response(final_state)
+            # Inject use_case/chat_id directly from request — guaranteed non-null
+            response.use_case = request_item.use_case
+            response.chat_id = request_item.chat_id
+
+            logger.info("✓ Script generated successfully")
+            logger.info(f"  Iterations: {final_state.get('iteration', 0) + 1}")
+            logger.info(f"  Characters: {final_state.get('char_count', 0):,}")
+            logger.info(f"  Tokens used: {final_state.get('tokens_used', 0):,}")
+            logger.info(f"  Segments: {final_state.get('segment_count', 0)}")
+            logger.info(f"  Audio files: {final_state.get('audio_files_count', 0)}")
+
+            # Save to DB
             execution = Execution(
                 request_id=request_id,
-                status="error",
-                project_name=request_item.normalized_project_name,
-                genre=request_item.genre,
-                duration=request_item.duration,
-                language=initial_state['language'],
-                error_message=error_msg,
-                iteration_count=0,
-                tokens_used_total=0
-            )
-            await db_manager.save_execution(execution)
-            
-            raise HTTPException(
-                status_code=500,
-                detail=error_msg
-            )
-        
-        # Check for errors
-        if final_state.get('error'):
-            logger.error(f"✗ Agent execution failed: {final_state['error']}")
-            
-            # Save failed execution
-            execution = Execution(
-                request_id=request_id,
-                status="error",
+                status="success",
                 project_name=request_item.normalized_project_name,
                 genre=request_item.genre,
                 duration=request_item.duration,
                 language=final_state['language'],
-                error_message=final_state['error'],
-                iteration_count=final_state.get('iteration', 0),
-                tokens_used_total=final_state.get('tokens_used', 0)
+                outline=final_state.get('outline', ''),
+                script=final_state.get('script', ''),
+                char_count=final_state.get('char_count', 0),
+                target_chars=final_state['target_chars'],
+                iteration_count=final_state.get('iteration', 0) + 1,
+                tokens_used_total=final_state.get('tokens_used', 0),
+                retrieved_sources_count=final_state.get('retrieved_sources_count', 0),
+                reasoning_trace=final_state.get('reasoning_trace', []),
+                segments=final_state.get('segments', []),
+                audio_files_count=final_state.get('audio_files_count', 0)
             )
             await db_manager.save_execution(execution)
-            
-            raise HTTPException(
-                status_code=500,
-                detail=f"Agent execution failed: {final_state['error']}"
-            )
-        
-        # Convert state to segmented response
-        response = state_to_segmented_response(final_state)
-        
-        # Print execution summary
-        logger.info("✓ Script generated successfully")
-        logger.info(f"  Iterations: {final_state.get('iteration', 0) + 1}")
-        logger.info(f"  Characters: {final_state.get('char_count', 0):,}")
-        logger.info(f"  Tokens used: {final_state.get('tokens_used', 0):,}")
-        logger.info(f"  Sources: {final_state.get('retrieved_sources_count', 0)}")
-        logger.info(f"  Validation: {'✓ Passed' if final_state.get('validation_passed') else '✗ Failed'}")
-        logger.info(f"  Segments: {final_state.get('segment_count', 0)}")
-        logger.info(f"  Audio files: {final_state.get('audio_files_count', 0)}")
-        
-        # Save successful execution to database
-        execution = Execution(
-            request_id=request_id,
-            status="success",
-            project_name=request_item.normalized_project_name,
-            genre=request_item.genre,
-            duration=request_item.duration,
-            language=final_state['language'],
-            outline=final_state.get('outline', ''),
-            script=final_state.get('script', ''),
-            char_count=final_state.get('char_count', 0),
-            target_chars=final_state['target_chars'],
-            iteration_count=final_state.get('iteration', 0) + 1,
-            tokens_used_total=final_state.get('tokens_used', 0),
-            retrieved_sources_count=final_state.get('retrieved_sources_count', 0),
-            reasoning_trace=final_state.get('reasoning_trace', []),
-            segments=final_state.get('segments', []),
-            audio_files_count=final_state.get('audio_files_count', 0)
-        )
-        
-        await db_manager.save_execution(execution)
-        logger.info("✓ Execution saved to database")
-        logger.info("=" * 80)
-        
-        return response
-        
+            logger.info("✓ Execution saved to database")
+            logger.info("=" * 80)
+
+            yield response.model_dump_json().encode()
+
+        return StreamingResponse(_stream_response(), media_type="application/json")
+
     except HTTPException:
         raise
     except Exception as e:

@@ -76,6 +76,23 @@ class ScriptRequestItem(BaseModel):
         default_factory=lambda: str(uuid4()),
         description="Unique request ID for idempotency (auto-generated if not provided)"
     )
+
+    use_case: str = Field(
+        default="youtube",
+        description="Pipeline to use: 'youtube' or 'teacher'"
+    )
+
+    chat_id: Optional[int] = Field(
+        default=None,
+        description="Telegram chat ID of the sender"
+    )
+
+    description: Optional[str] = Field(
+        default=None,
+        min_length=10,
+        max_length=5000,
+        description="Story description (new alias for storyIdea / story_idea)"
+    )
     
     @field_validator('isValid')
     @classmethod
@@ -90,8 +107,8 @@ class ScriptRequestItem(BaseModel):
         return self.projectName or self.project_name or ""
     
     def get_story_idea(self) -> str:
-        """Get story idea from either camelCase or snake_case field."""
-        return self.storyIdea or self.story_idea or ""
+        """Get story idea from camelCase, snake_case, or description field."""
+        return self.storyIdea or self.story_idea or self.description or ""
     
     @property
     def normalized_project_name(self) -> str:
@@ -100,8 +117,8 @@ class ScriptRequestItem(BaseModel):
     
     @property
     def normalized_story_idea(self) -> str:
-        """Normalized story idea (prioritize camelCase)."""
-        return self.storyIdea or self.story_idea or ""
+        """Normalized story idea (prioritize camelCase, falls back to description)."""
+        return self.storyIdea or self.story_idea or self.description or ""
 
 
 class ScriptRequestArray(BaseModel):
@@ -296,6 +313,16 @@ class SegmentedScriptResponse(BaseModel):
         description="Error message if status is 'error' or 'partial_success'"
     )
 
+    use_case: Optional[str] = Field(
+        default=None,
+        description="Pipeline used to process the request: 'youtube' or 'teacher'"
+    )
+
+    chat_id: Optional[int] = Field(
+        default=None,
+        description="Telegram chat ID from the original request"
+    )
+
 
 # =============================================================================
 # LANGGRAPH STATE (TypedDict)
@@ -327,6 +354,8 @@ class AgentState(TypedDict, total=False):
     genre: str
     idea: str
     duration: int
+    use_case: str
+    chat_id: Optional[int]
     
     # Detected/calculated fields
     language: str  # "ru" or "en"
@@ -456,6 +485,8 @@ def create_initial_state(request: ScriptRequestItem) -> AgentState:
         "audio_files": [],
         "audio_base_url": "",  # Will be set by API endpoint
         "audio_files_count": 0,
+        "use_case": request.use_case,
+        "chat_id": request.chat_id,
     }
 
 
@@ -550,6 +581,8 @@ def state_to_segmented_response(state: AgentState) -> SegmentedScriptResponse:
         tokens_used_total=state.get("tokens_used", 0),
         retrieved_sources_count=state.get("retrieved_sources_count", 0),
         error_message=state.get("error"),
+        use_case=state.get("use_case"),
+        chat_id=state.get("chat_id"),
     )
 
 

@@ -1,0 +1,147 @@
+================================================================================
+SEGMENTED SCRIPT
+================================================================================
+
+Total segments: 14
+Generated: 2026-03-28T10:57:25.652095+00:00
+
+================================================================================
+FULL SCRIPT (ORIGINAL)
+================================================================================
+
+A desolate Martian landscape stretches beneath a blood-red sky, the wind howling like a lost soul. Inside a lone spacecraft, Dr. Alex Turner stares through a helmet, worry etched on their face—a reflection of the ghosts they’ve left behind on Earth. Flickering lights reveal data logs with strange readings, and static crackles through the radio, a distant, eerie whisper causing Alex’s chest to tighten. Dismissing it as interference, doubt lurks in their mind.
+
+Stepping onto the cold, barren surface, the crunch of boots reverberates. An unnerving growl echoes, raising the hairs on their neck. Heart pounding, Alex scans the horizon, fear creeping in as a shadow darts behind a rock. The growl intensifies, a primal warning. Suddenly, a crash erupts behind them. Alex bolts back to the ship, panic swelling.
+
+Inside, alarms wail as Alex fumbles with the airlock, but the door buckles under monstrous force. With a final crash, it bursts open, revealing a grotesque creature—a twisted reflection of Alex’s darkest fears. A chilling whisper echoes, “You are not alone.” The screen fades to black.
+
+================================================================================
+SEGMENTS (14 total)
+================================================================================
+
+[Segment 1]
+--------------------------------------------------------------------------------
+A desolate Martian landscape stretches beneath a blood-red sky, the wind howling like a lost soul.
+
+Audio URL: N/A
+Character count: 98
+
+================================================================================
+
+[Segment 2]
+--------------------------------------------------------------------------------
+Inside a lone spacecraft, Dr. Alex Turner stares through a helmet, worry etched on their face—a reflection of the ghosts they’ve left behind on Earth.
+
+Audio URL: N/A
+Character count: 150
+
+================================================================================
+
+[Segment 3]
+--------------------------------------------------------------------------------
+Flickering lights reveal data logs with strange readings, and static crackles through the radio, a distant, eerie whisper causing Alex’s chest to tighten.
+
+Audio URL: N/A
+Character count: 154
+
+================================================================================
+
+[Segment 4]
+--------------------------------------------------------------------------------
+Dismissing it as interference, doubt lurks in their mind.
+
+Audio URL: N/A
+Character count: 57
+
+================================================================================
+
+[Segment 5]
+--------------------------------------------------------------------------------
+Stepping onto the cold, barren surface, the crunch of boots reverberates.
+
+Audio URL: N/A
+Character count: 73
+
+================================================================================
+
+[Segment 6]
+--------------------------------------------------------------------------------
+An unnerving growl echoes, raising the hairs on their neck.
+
+Audio URL: N/A
+Character count: 59
+
+================================================================================
+
+[Segment 7]
+--------------------------------------------------------------------------------
+Heart pounding, Alex scans the horizon, fear creeping in as a shadow darts behind a rock.
+
+Audio URL: N/A
+Character count: 89
+
+================================================================================
+
+[Segment 8]
+--------------------------------------------------------------------------------
+The growl intensifies, a primal warning.
+
+Audio URL: N/A
+Character count: 40
+
+================================================================================
+
+[Segment 9]
+--------------------------------------------------------------------------------
+Suddenly, a crash erupts behind them.
+
+Audio URL: N/A
+Character count: 37
+
+================================================================================
+
+[Segment 10]
+--------------------------------------------------------------------------------
+Alex bolts back to the ship, panic swelling.
+
+Audio URL: N/A
+Character count: 44
+
+================================================================================
+
+[Segment 11]
+--------------------------------------------------------------------------------
+Inside, alarms wail as Alex fumbles with the airlock, but the door buckles under monstrous force.
+
+Audio URL: N/A
+Character count: 97
+
+================================================================================
+
+[Segment 12]
+--------------------------------------------------------------------------------
+With a final crash, it bursts open, revealing a grotesque creature—a twisted reflection of Alex’s darkest fears.
+
+Audio URL: N/A
+Character count: 112
+
+================================================================================
+
+[Segment 13]
+--------------------------------------------------------------------------------
+A chilling whisper echoes, “You are not alone.”
+
+Audio URL: N/A
+Character count: 47
+
+================================================================================
+
+[Segment 14]
+--------------------------------------------------------------------------------
+The screen fades to black.
+
+Audio URL: N/A
+Character count: 26
+
+================================================================================
+

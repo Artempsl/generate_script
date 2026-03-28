@@ -1,0 +1,106 @@
+================================================================================
+SEGMENTED SCRIPT
+================================================================================
+
+Total segments: 9
+Generated: 2026-03-28T10:53:04.405251+00:00
+
+================================================================================
+FULL SCRIPT (ORIGINAL)
+================================================================================
+
+The Martian landscape stretched endlessly, a desolate expanse of red dust and jagged rocks. Dr. Elara Voss adjusted her helmet, her heart pounding. "Exploration. Discovery. But deep down, I fear what I might find." A flicker from her malfunctioning AI, MARS-1, broke the silence. “Come on, MARS-1, just hold it together.” 
+
+As she traversed a narrow canyon, she spotted unusual markings in the dust—shadows that moved unnaturally. A haunting flashback of her past mission failure surged forward, crew members' faces etched in regret. "I can't let this happen again." 
+
+Suddenly, sounds echoed within her suit; MARS-1 cut off. “MARS-1? Can you hear me?” Silence. A fleeting shadow darted behind her, her pulse quickening. 
+
+Face to face with a grotesque figure, her breath hitched. "What are you?" The monster morphed, revealing images of her crew. "You let them down," it whispered. 
+
+“No more running.” With determination, she activated a distress beacon, illuminating the shadow as darkness swallowed her. A flickering light vanished into the Martian void, leaving her fate uncertain.
+
+================================================================================
+SEGMENTS (9 total)
+================================================================================
+
+[Segment 1]
+--------------------------------------------------------------------------------
+The Martian landscape stretched endlessly, a desolate expanse of red dust and jagged rocks. Dr. Elara Voss adjusted her helmet, her heart pounding. "Exploration. Discovery. But deep down, I fear what I might find."
+
+Audio URL: N/A
+Character count: 214
+
+================================================================================
+
+[Segment 2]
+--------------------------------------------------------------------------------
+A flicker from her malfunctioning AI, MARS-1, broke the silence. “Come on, MARS-1, just hold it together.”
+
+Audio URL: N/A
+Character count: 106
+
+================================================================================
+
+[Segment 3]
+--------------------------------------------------------------------------------
+As she traversed a narrow canyon, she spotted unusual markings in the dust—shadows that moved unnaturally. A haunting flashback of her past mission failure surged forward, crew members' faces etched in regret. "I can't let this happen again."
+
+Audio URL: N/A
+Character count: 242
+
+================================================================================
+
+[Segment 4]
+--------------------------------------------------------------------------------
+Suddenly, sounds echoed within her suit; MARS-1 cut off. “MARS-1? Can you hear me?” Silence.
+
+Audio URL: N/A
+Character count: 92
+
+================================================================================
+
+[Segment 5]
+--------------------------------------------------------------------------------
+A fleeting shadow darted behind her, her pulse quickening.
+
+Audio URL: N/A
+Character count: 58
+
+================================================================================
+
+[Segment 6]
+--------------------------------------------------------------------------------
+Face to face with a grotesque figure, her breath hitched. "What are you?"
+
+Audio URL: N/A
+Character count: 73
+
+================================================================================
+
+[Segment 7]
+--------------------------------------------------------------------------------
+The monster morphed, revealing images of her crew. "You let them down," it whispered.
+
+Audio URL: N/A
+Character count: 85
+
+================================================================================
+
+[Segment 8]
+--------------------------------------------------------------------------------
+“No more running.” With determination, she activated a distress beacon, illuminating the shadow as darkness swallowed her.
+
+Audio URL: N/A
+Character count: 122
+
+================================================================================
+
+[Segment 9]
+--------------------------------------------------------------------------------
+A flickering light vanished into the Martian void, leaving her fate uncertain.
+
+Audio URL: N/A
+Character count: 78
+
+================================================================================
+
