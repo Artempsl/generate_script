@@ -1,44 +1,96 @@
 # ============================================================================
-# SCRIPT GENERATION AGENT - DEPENDENCIES
+# AI STORYTELLING PLATFORM - DEPENDENCIES
 # ============================================================================
-# Python 3.10+ required
+# Project: End-to-end AI video generation with character consistency
+# Status: POC Complete (April 1, 2026) | Next: Pilot Phase (May-June 2026)
+# Python: 3.10+ required
 # Install: pip install -r requirements.txt
+# ============================================================================
 
-# Core Framework
-fastapi==0.115.0
-uvicorn[standard]==0.31.0
-pydantic==2.9.2
+# ============================================================================
+# CORE FRAMEWORK
+# ============================================================================
+fastapi==0.115.0              # REST API server (high-performance ASGI)
+uvicorn[standard]==0.31.0     # ASGI server with WebSocket support
+pydantic==2.9.2               # Data validation and settings management
 
-# Database
-aiosqlite==0.20.0
+# ============================================================================
+# DATABASE & STORAGE
+# ============================================================================
+aiosqlite==0.20.0             # Async SQLite (execution history, idempotency)
+aiofiles==24.1.0              # Async file I/O operations
 
-# LangChain & LangGraph
-langgraph==0.2.34
-langchain==0.3.3
-langchain-openai==0.2.0
-langchain-core==0.3.7
-langchain-community==0.3.2
+# ============================================================================
+# AGENT ORCHESTRATION (LANGGRAPH)
+# ============================================================================
+langgraph==0.2.34             # Agent workflow orchestration (17-node StateGraph)
+langchain==0.3.3              # LLM abstractions and tools
+langchain-openai==0.2.0       # OpenAI integrations (GPT-4o-mini, TTS-1)
+langchain-core==0.3.7         # Core LangChain components
+langchain-community==0.3.2    # Community integrations
 
-# LangSmith (evaluation pipeline)
-langsmith==0.7.11
+# ============================================================================
+# AI/ML SERVICES
+# ============================================================================
+# OpenAI (Script Generation, Entity Extraction, TTS)
+openai==1.51.2                # GPT-4o-mini, TTS-1 ($0.150/1M tokens, $15/1M chars)
 
-# AI/ML APIs
-openai==1.51.2
-cohere==5.9.4
-pinecone-client==5.0.1
+# Cohere (Embeddings, Segmentation)
+cohere==5.9.4                 # command-r-08-2024, embed-english-v3.0
 
-# Utilities
-tenacity==9.0.0
-python-multipart==0.0.12
+# Pinecone (Vector Database)
+pinecone-client==5.0.1        # RAG best practices storage (1024-dim embeddings)
 
-# PDF Processing (for knowledge base ingestion)
-pypdf==4.0.1
+# Fact-Checking (Teacher Pipeline)
+# Note: Facticity API integration via REST API (no Python SDK)
+requests==2.32.3              # HTTP client for Facticity API calls
 
-# Optional: Web Search (uncomment if using SerpAPI)
+# ============================================================================
+# VIDEO GENERATION PIPELINE
+# ============================================================================
+moviepy==1.0.3                # Video assembly (images + audio → MP4)
+Pillow==10.4.0                # Image processing (resize, effects, transitions)
+imageio==2.35.1               # Media I/O (read/write images and videos)
+imageio-ffmpeg==0.5.1         # FFmpeg wrapper for MoviePy
+numpy==1.26.4                 # Numerical computing (MoviePy dependency)
+mutagen==1.47.0               # Audio metadata handling
+
+# ============================================================================
+# UTILITIES & HELPERS
+# ============================================================================
+tenacity==9.0.0               # Retry logic with exponential backoff (2-10s, 3 attempts)
+python-multipart==0.0.12      # Multipart form data parsing (FastAPI file uploads)
+python-slugify==8.0.4         # URL-safe project name generation
+pypdf==4.0.1                  # PDF text extraction (knowledge base ingestion)
+
+# ============================================================================
+# EVALUATION & TESTING (LANGSMITH)
+# ============================================================================
+langsmith==0.7.11             # LangSmith evaluation pipeline (quality metrics)
+
+# ============================================================================
+# OPTIONAL INTEGRATIONS
+# ============================================================================
+# Web Search (for long-form scripts >10 min, uncomment if using SerpAPI)
 # google-search-results==2.4.2
 
-# Development Tools (optional)
+# Stability AI SDK (production image generation, migration from Pollinations.ai)
+# Coming in Pilot Phase (May 2026)
+# stability-sdk==0.8.5
+
+# ============================================================================
+# DEVELOPMENT TOOLS (uncomment for local development)
+# ============================================================================
+# Testing
 # pytest==8.3.3
 # pytest-asyncio==0.24.0
-# black==24.8.0
-# ruff==0.6.8
+# pytest-cov==5.0.0
+
+# Code Quality
+# black==24.8.0                # Code formatter (line length 120)
+# ruff==0.6.8                  # Fast Python linter
+# mypy==1.11.2                 # Static type checker
+
+# Monitoring (planned for Pilot Phase)
+# sentry-sdk==2.14.0           # Error tracking and monitoring
+# prometheus-client==0.20.0    # Metrics collection for Grafana

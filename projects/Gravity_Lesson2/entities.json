@@ -1,0 +1,21 @@
+{
+  "characters": [],
+  "animals": [],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "apple",
+      "base_prompt": "red apple, round shape, smooth texture, shiny surface, fresh condition, highly detailed, cinematic lighting"
+    },
+    {
+      "id": "obj_2",
+      "name": "feather",
+      "base_prompt": "white feather, elongated shape, soft texture, slightly curved, pristine condition, highly detailed, cinematic lighting"
+    },
+    {
+      "id": "obj_3",
+      "name": "rock",
+      "base_prompt": "gray rock, irregular shape, rough texture, weathered surface, solid condition, highly detailed, cinematic lighting"
+    }
+  ]
+}

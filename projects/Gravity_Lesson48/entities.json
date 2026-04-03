@@ -1,0 +1,31 @@
+{
+  "characters": [
+    {
+      "id": "char_1",
+      "name": "Newton",
+      "versions": [
+        {
+          "age": "mid-30s",
+          "base_prompt": "male, oval face, prominent jawline, high cheekbones, almond-shaped eyes, brown, short wavy hair, average build, fair skin, distinctive feature: wearing a dark coat and waistcoat, stable clothing style: 18th-century attire",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "animals": [],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "apple",
+      "base_prompt": "round shape, smooth skin, bright red color, glossy finish, fresh condition, highly detailed, cinematic lighting"
+    },
+    {
+      "id": "obj_2",
+      "name": "apple tree",
+      "base_prompt": "tall, sturdy trunk, rough bark texture, dark green leaves, twisted branches, eerie appearance, highly detailed, cinematic lighting"
+    }
+  ]
+}

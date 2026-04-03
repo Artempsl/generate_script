@@ -1,98 +1,236 @@
-# 🎬 AI Script Generation Agent
+# 🎬 AI Storytelling Platform
 
-> **Autonomous storytelling agent powered by LangGraph, GPT-4o-mini, and Pinecone RAG**
+> **Autonomous AI video generation platform with character consistency and fact-checking**  
+> **Status:** POC Complete (April 1, 2026) | **Next Phase:** Pilot Launch (May 2026)
 
-Advanced autonomous agent for generating high-quality video scripts with narrative structure analysis, best practices retrieval, and multi-language support (Russian/English).
+End-to-end AI video generation platform that solves the #1 market pain point: **character consistency across multiple scenes**. Powered by LangGraph orchestration, GPT-4o-mini entity extraction, Stability AI image generation, and Facticity API fact-checking.
 
 ---
 
 ## 📑 Table of Contents
 
 - [Overview](#-overview)
-- [Key Features](#-key-features)
+- [Project Status](#-project-status)
+- [Key Innovations](#-key-innovations)
 - [Architecture](#-architecture)
 - [Technology Stack](#-technology-stack)
 - [Installation](#-installation)
 - [Configuration](#-configuration)
 - [Usage](#-usage)
 - [API Reference](#-api-reference)
-- [Project Structure](#-project-structure)
-- [Features Deep Dive](#-features-deep-dive)
-- [Performance & Optimization](#-performance--optimization)
-- [Troubleshooting](#-troubleshooting)
-- [Development](#-development)
+- [Documentation](#-documentation)
+- [Roadmap](#-roadmap)
+- [Contributing](#-contributing)
 
 ---
 
 ## 🎯 Overview
 
-This project implements a **ReAct-style autonomous agent** that generates professional video scripts by:
+**AI Storytelling Platform** is a **B2C SaaS product** that generates complete AI videos (30 seconds to 2 hours) with:
 
-1. **Retrieving** best practices from Pinecone vector database
-2. **Reasoning** through storytelling requirements using LangGraph workflow
-3. **Acting** with specialized LLM tools (outline generation, script writing, validation)
-4. **Segmenting** scripts into audio-visual chunks with precise text preservation
-5. **Generating** TTS audio files for each segment
-6. **Extracting** recurring characters, animals, and objects for consistent visual identity
+1. **Character Consistency** — Entity extraction maintains same character across 6+ scenes (solves TRIAD-1, validated by 22 market sources)
+2. **Step-by-Step Approval** — Users preview/approve every stage before paying (solves TRIAD-2 cost-per-usable crisis)
+3. **Transparent Billing** — Subscription with daily quota, no credits expiry (solves TRIAD-3 billing trust crisis)
+4. **Automatic Fact-Checking** — Teacher pipeline with Facticity API for educational content (unique differentiator)
+5. **Dual-Pipeline Architecture** — YouTube pipeline (entertainment) + Teacher pipeline (fact-checked education)
 
-The agent ensures **idempotency**, **retry logic**, **error handling**, and **comprehensive logging** for production-grade reliability.
+### Problem Statement
 
-### Use Cases
+**Market Pain (TRIAD-1):** All existing AI video tools fail at character consistency after 2 scenes — characters look completely different, making story-based content unusable. Users burn $3,000 testing tools, all fail. **Validated by:** 22 independent sources, Midjourney public admission (Feb 18, 2026), 1.3K upvotes on Reddit.
 
-- **Video Content Creators**: Generate scripts for YouTube, TikTok, educational content
-- **Marketing Agencies**: Create branded storytelling content at scale
-- **Education**: Generate lecture scripts with narrative structure
-- **Entertainment**: Prototype scripts for short films, podcasts, animations
+**Our Solution:** Entity extraction with visual base methodology → 85-90% character consistency across 6 scenes (POC validated), targeting 95%+ in production.
+
+### Target Market
+
+- **Primary:** Solo Content Creators (YouTube, TikTok, 10K-100K followers, $29/month ARPU)
+- **Secondary:** Educators (teachers, online course creators, $15/month ARPU)
+- **Future:** Marketing teams (B2B Team tier, $99/month)
+
+### Business Model
+
+- **Freemium SaaS:** Free (3 videos/day) → Starter ($15/mo, 10/day) → Pro ($29/mo, 50/day)
+- **Go-to-Market:** Hybrid launch (Product Hunt Day 1 + Direct website)
+- **Funding:** Bootstrap (no external funding, break-even Month 13)
+- **Target:** 53,472 paying users, $1.55M MRR by Month 36 (67.9% ROI)
+
+---
+
+## 📊 Project Status
+
+### POC Completion (April 1, 2026) ✅
+
+| Milestone | Status | Deliverable |
+|-----------|--------|-------------|
+| **Dual-Pipeline Architecture** | ✅ Complete | YouTube (entertainment) + Teacher (fact-checked) pipelines operational |
+| **Entity Extraction** | ✅ Complete | GPT-4o-mini identifies recurring characters → 85-90% consistency across 6 scenes |
+| **Fact-Checking Integration** | ✅ Complete | Facticity API validates educational content (Teacher pipeline only) |
+| **Video Generation** | ✅ Complete | Full workflow: Script → Images → Audio → Video assembly (MoviePy) |
+| **Cost Validation** | ✅ Complete | YouTube: $0.023/video, Teacher: $0.027/video (fact-check included) |
+| **Demo Validation** | ✅ Complete | Apollo 11 educational video (project: Moon112121555777888999) |
+| **GDPR Compliance** | ✅ Complete | 120+ pages documentation, pre-launch ready |
+| **ROI Financial Model** | ✅ Complete | 3 scenarios (Pessimistic/Base/Optimistic), break-even Month 13 |
+| **Use Case Definition** | ✅ Complete | 5,800+ lines academic/business submission document |
+| **Strategic Deployment Plan** | ✅ Complete | POC → Pilot → Full Deployment → Scale roadmap |
+
+### Current Status: **Ready for Pilot Phase** (Week 1-8, May-June 2026)
+
+**Next Immediate Actions:**
+1. MVP development (authentication, payments, step-by-step approval UI) — Weeks 1-2
+2. Pilot recruitment (50 users: 30 creators + 20 educators) — Weeks 3-4
+3. Active pilot testing with weekly feedback calls — Weeks 5-8
+4. Go/No-Go decision based on NPS >40 — Week 8
+
+---
+
+## 🚀 Key Innovations
+
+### 1. Character Consistency (Solves TRIAD-1)
+
+**Problem:** All AI video tools fail at character consistency after 2 scenes (validated by 22 market sources + Midjourney admission).
+
+**Solution:** Entity extraction with visual base methodology
+
+```
+User Input: "A wizard teaches magic in a forest"
+         ↓
+GPT-4o-mini Entity Extraction:
+  - Character: "Wizard Aldric" (old man, grey beard, blue robes, oak staff)
+  - Visual Base: "An elderly male wizard with a long grey beard..."
+         ↓
+Image Generation (6 scenes):
+  Scene 1: Wizard + forest backdrop  ← Same character
+  Scene 2: Wizard casting spell       ← Same character
+  Scene 3: Wizard with student        ← Same character
+  ...
+  Scene 6: Wizard waving goodbye      ← Same character
+```
+
+**POC Results:**
+- Character consistency: **85-90%** across 6 scenes (baseline)
+- Production target: **95%+** (prompt engineering improvements)
+- Cost: **$0.023/video** (vs competitors $12+/video)
+
+### 2. Step-by-Step Approval Workflow (Solves TRIAD-2)
+
+**Problem:** Users pay for AI generation, 80%+ outputs unusable, regeneration burns more credits → $3K+ waste.
+
+**Solution:** 6-stage approval checkpoints — preview before paying
+
+| Stage | Preview | User Action | Cost if Regenerated |
+|-------|---------|-------------|---------------------|
+| 1. Topic Input | Topic preview | Approve / Edit | **$0** (free) |
+| 2. Script | Script text | Approve / Regenerate | **Uses daily quota** (Year 1), **Free** (Year 2+) |
+| 3. Fact-Check (Teacher only) | TRUE/FALSE claims with citations | Approve / Regenerate script | **Uses quota** / **Free** |
+| 4. Images | 6 image grid | Approve all / Regenerate failed ones | **Uses quota** / **Free** |
+| 5. Audio | TTS playback | Approve / Regenerate with voice/speed changes | **Uses quota** / **Free** |
+| 6. Final Video | Video player | Generate / Cancel | **Full video generation** (no regeneration at this stage) |
+
+**Impact:**
+- Reduces wasted spend by 80% (users only pay for final approved outputs)
+- Builds trust (transparent process vs "black box" generation)
+
+### 3. Dual-Pipeline Architecture (Unique Positioning)
+
+**YouTube Pipeline** (Entertainment)
+
+```mermaid
+graph LR
+    A[User Topic] --> B[Script Generation]
+    B --> C[Entity Extraction]
+    C --> D[Image Generation x6]
+    D --> E[TTS Audio]
+    E --> F[Video Assembly]
+    F --> G[30s-10min Video]
+```
+
+**Teacher Pipeline** (Fact-Checked Education)
+
+```mermaid
+graph LR
+    A[User Topic] --> B[Script Generation]
+    B --> C[Facticity API]
+    C -->|Claims TRUE?| D[Entity Extraction]
+    C -->|Claims FALSE| B2[Regenerate Script]
+    B2 --> C
+    D --> E[Image Generation x6]
+    E --> F[TTS Audio]
+    F --> G[Video Assembly]
+    G --> H[30s-2hr Educational Video]
+```
+
+**Differentiator:** Automatic fact-checking (unique in AI video space, targets $15B edtech market).
+
+### 4. Transparent Billing (Solves TRIAD-3)
+
+**Problem:** Competitors use credit systems → credits expire, unclear costs, surprise charges, billing traps.
+
+**Solution:** Subscription with daily quota
+
+| Feature | Our Platform | Competitors (e.g., Runway, Midjourney) |
+|---------|--------------|---------------------------------------|
+| **Pricing Model** | Subscription ($15-29/mo) | Credits ($10 = 100 credits) |
+| **Expiry** | No expiry (monthly quota resets) | Credits expire 30-90 days |
+| **Transparency** | Fixed daily quota (10-50 videos/day) | Unclear cost per video (varies) |
+| **Failure Penalty** | Regenerations use quota (Year 1), free (Year 2+) | Failed generations burn credits permanently |
+| **Cancel Anytime** | Yes, no lock-in | Yes, but unused credits lost |
+
+**Impact:**
+- NPS +15-20 points (trust vs competitors)
+- Lower churn (predictable billing)
 
 ---
 
 ## ✨ Key Features
 
-### 🧠 Intelligent Workflow
+### 🧠 Production-Ready Features
 
 | Feature | Description | Status |
 |---------|-------------|--------|
-| **ReAct Agent Loop** | LangGraph-based state machine with retrieve → reason → act → validate cycle | ✅ |
-| **Best Practices RAG** | Pinecone vector database with storytelling knowledge (6 embeddings, 1024-dim) | ✅ |
-| **Conditional Web Search** | SerpAPI integration for scripts >10 minutes (optional, configurable) | ✅ |
-| **Multi-Language Support** | Russian (1450 char/min) & English (1000 char/min) with auto-detection | ✅ |
-| **Iterative Refinement** | Auto-regeneration with feedback (max 3 attempts, 90-110% length tolerance) | ✅ |
+| **17-Node LangGraph Orchestration** | StateGraph with conditional routing (YouTube vs Teacher pipeline) | ✅ POC Complete |
+| **Entity Extraction** | GPT-4o-mini identifies recurring characters with visual base prompts | ✅ 85-90% consistency |
+| **Automatic Fact-Checking** | Facticity API validates claims (Teacher pipeline), cites sources | ✅ Complete |
+| **Video Assembly** | MoviePy generates 30s-2hr videos with Ken Burns effect, transitions | ✅ Complete |
+| **Multi-Language Support** | Russian (1450 char/min) & English (1000 char/min) TTS | ✅ Complete |
+| **Iterative Refinement** | Auto-regeneration with feedback (max 3 attempts, 90-110% length tolerance) | ✅ Complete |
 
-### 🔧 Production-Grade Features
+### 🔧 Production-Grade Engineering
 
 | Feature | Description | Implementation |
 |---------|-------------|----------------|
 | **Idempotency** | SQLite-based request deduplication by `request_id` | `agent/database.py` |
-| **Retry Logic** | Exponential backoff (2-10s) with 3 attempts for all tools | `@retry` decorators |
+| **Retry Logic** | Exponential backoff (2-10s) with 3 attempts for all LLM/API calls | `@retry` decorators |
 | **Error Handling** | Comprehensive try-catch with fallback responses | All modules |
 | **Unified Logging** | Python `logging` module across all components | `logger.info/error/warning` |
 | **Request Timeout** | 300s timeout with asyncio.wait_for wrapper | `agent/api.py` |
-| **API Optimization** | LRU-cached LLM clients, disabled streaming, dynamic max_tokens | `agent/tools.py` |
+| **Cost Tracking** | Per-video cost breakdown (GPT-4o-mini, Stability AI, Facticity, TTS) | State tracking |
 
-### 🎵 Audio Generation Pipeline
+### 🎬 End-to-End Video Pipeline
 
-| Feature | Description | Technology |
-|---------|-------------|------------|
-| **Script Segmentation** | Breaks scripts into 3-6 narrative moments (2-6 sentences each) | Cohere Command-R |
-| **Text Preservation** | Character-level validation to prevent LLM rewrites (temperature=0.0) | Custom validation |
-| **TTS Generation** | OpenAI TTS-1 model generates MP3 files for each segment | OpenAI API |
-| **Entity Extraction** | Identifies recurring characters, animals, and objects with visual base prompts and scene states | GPT-4o-mini |
-| **Project Management** | Organized file structure: `projects/{slug}/script.txt`, `000X.mp3`, `entities.json` | File system |
+| Stage | Technology | Input | Output | Status |
+|-------|------------|-------|--------|--------|
+| **1. Script Generation** | GPT-4o-mini + Pinecone RAG | Topic, genre, duration | Narrative script (1000-3000 chars) | ✅ |
+| **2. Fact-Checking** (Teacher only) | Facticity API | Script claims | TRUE/FALSE + citations | ✅ |
+| **3. Entity Extraction** | GPT-4o-mini | Script text | Characters, animals, objects + visual bases | ✅ |
+| **4. Script Segmentation** | Cohere Command-R | Full script | 3-6 narrative moments (2-6 sentences each) | ✅ |
+| **5. Image Generation** | Pollinations.ai (POC) → Stability AI (production) | Segment + entity visual base | 6 images (1024x1024) | ✅ POC, ⏳ Stability AI migration planned |
+| **6. Audio Generation** | OpenAI TTS-1 | Segment text | MP3 files (alloy voice) | ✅ |
+| **7. Video Assembly** | MoviePy | Images + audio + transitions | MP4 video (30s-2hr) | ✅ |
 
-### 📊 Monitoring & Debugging
+### 📊 Monitoring & Observability
 
-| Feature | Description | Format |
-|---------|-------------|--------|
-| **Reasoning Trace** | Step-by-step agent decisions with timestamps | JSON |
-| **Token Tracking** | Per-tool and total token usage (35k budget) | State tracking |
+| Feature | Description | Tool |
+|---------|-------------|------|
 | **Execution History** | SQLite database with all requests, responses, metadata | `agent.db` |
-| **Error Reporting** | Detailed error messages with context in API responses | JSON |
+| **Reasoning Trace** | Step-by-step agent decisions with timestamps | JSON state object |
+| **Token Tracking** | Per-tool and total token usage (35k budget) | State tracking |
+| **Cost Breakdown** | AI API costs per video (GPT, Stability, Facticity, TTS) | Response metadata |
+| **Error Reporting** | Detailed error messages with context in API responses | JSON error object |
 
 ---
 
 ## 🏗️ Architecture
 
-### System Overview
+### System Overview (Dual-Pipeline)
 
 ```mermaid
 graph TB
@@ -101,7 +239,10 @@ graph TB
         A2[Pinecone Vector DB]
         A3[Cohere Command-R]
         A4[OpenAI TTS-1]
-        A5[SerpAPI - Optional]
+        A5[Stability AI - Planned]
+        A6[Pollinations.ai - POC]
+        A7[Facticity API]
+        A8[SerpAPI - Optional]
     end
     
     subgraph "FastAPI Application"
@@ -111,7 +252,7 @@ graph TB
         B4[Timeout Wrapper]
     end
     
-    subgraph "LangGraph Agent"
+    subgraph "LangGraph Agent - 17 Nodes"
         C1[StateGraph]
         C2[retrieve_node]
         C3[synthesize_node]
@@ -119,9 +260,12 @@ graph TB
         C5[generate_script_node]
         C6[validate_node]
         C7[regenerate_node]
-        C8[segment_script_node]
-        C9[generate_audio_node]
+        C8[fact_check_node - Teacher Only]
+        C9[segment_script_node]
         C10[extract_entities_node]
+        C11[generate_images_node]
+        C12[generate_audio_node]
+        C13[assemble_video_node]
     end
     
     subgraph "Storage"
@@ -130,8 +274,10 @@ graph TB
         D3[script.txt]
         D4[script_segmented.txt]
         D5[000X.mp3 files]
-        D6[entities.json]
-        D7[entities_report.md]
+        D6[000X.png images]
+        D7[entities.json]
+        D8[entities_report.md]
+        D9[final_video.mp4]
     end
     
     B1 --> B2
@@ -152,23 +298,30 @@ graph TB
     C6 -->|Valid?| C8
     C6 -->|Invalid?| C7
     C7 --> C5
-    C8 -->|Segment script| A3
-    C8 --> C9
-    C9 -->|Generate TTS| A4
+    C8 -->|Teacher pipeline?| A7
+    C8 -->|YouTube pipeline| C9
+    C9 -->|Segment script| A3
     C9 --> C10
     C10 -->|Extract entities| A1
+    C10 --> C11
+    C11 -->|Generate images| A6
+    C11 --> C12
+    C12 -->|Generate TTS| A4
+    C12 --> C13
+    C13 -->|Assemble video| MoviePy
     
-    C9 --> D2
+    C13 --> D2
     D2 --> D3
     D2 --> D4
     D2 --> D5
-    C10 --> D2
     D2 --> D6
     D2 --> D7
+    D2 --> D8
+    D2 --> D9
     D1 -->|Save execution| B3
 ```
 
-### LangGraph Workflow
+### Dual-Pipeline Decision Flow
 
 ```mermaid
 stateDiagram-v2
@@ -181,58 +334,66 @@ stateDiagram-v2
     generate_outline --> generate_script: Create structure
     generate_script --> validate: Check length
     
-    validate --> segment_script: Valid (90-110%)
+    validate --> pipeline_router: Valid (90-110%)
     validate --> regenerate: Invalid
     regenerate --> generate_script: Retry (max 3)
     
-    segment_script --> generate_audio: Text preserved
-    generate_audio --> extract_entities: Save MP3 files
-    extract_entities --> [*]: Save entities.json + entities_report.md
+    pipeline_router --> fact_check: Teacher pipeline?
+    pipeline_router --> segment_script: YouTube pipeline
+    
+    fact_check --> check_claims: Facticity API
+    check_claims --> script_approved: All claims TRUE?
+    check_claims --> regenerate_with_feedback: Claims FALSE
+    regenerate_with_feedback --> generate_script: Correct misinformation
+    
+    script_approved --> segment_script: Continue
+    segment_script --> extract_entities: Text preserved
+    extract_entities --> generate_images: Visual base created
+    generate_images --> generate_audio: Save PNG files
+    generate_audio --> assemble_video: Save MP3 files
+    assemble_video --> [*]: Save final_video.mp4 + metadata
 ```
 
-### Data Flow
+### Complete Video Generation Workflow (Example: Apollo 11)
 
 ```mermaid
 sequenceDiagram
-    participant N8N as n8n Workflow
+    participant User as Content Creator
     participant API as FastAPI Server
-    participant DB as SQLite Database
     participant Graph as LangGraph Agent
-    participant Tools as LLM Tools
+    participant GPT as GPT-4o-mini
+    participant Facticity as Facticity API
+    participant Stability as Stability AI
+    participant TTS as OpenAI TTS-1
+    participant MoviePy as Video Assembly
     participant Storage as File System
     
-    N8N->>API: POST /generate-script
-    API->>API: Validate request
-    API->>DB: Check request_id
-    alt Request exists
-        DB-->>API: Return cached response
-        API-->>N8N: 200 OK (cached)
-    else New request
-        API->>Graph: execute_agent(state)
-        
-        loop Agent Workflow
-            Graph->>Tools: retrieve_tool()
-            Tools-->>Graph: Best practices
-            Graph->>Tools: synthesize_tool()
-            Tools-->>Graph: Insights
-            Graph->>Tools: generate_script_tool()
-            Tools-->>Graph: Script
-            Graph->>Graph: validate_tool()
-        end
-        
-        Graph->>Tools: segment_script_tool()
-        Tools-->>Graph: Segments
-        Graph->>Tools: generate_tts_tool()
-        Tools->>Storage: Save MP3 files
-        Tools-->>Graph: Audio paths
-        Graph->>Tools: extract_entities_tool()
-        Tools->>Storage: Save entities.json + entities_report.md
-        Tools-->>Graph: Entities
-        
-        Graph-->>API: Final state
-        API->>DB: Save execution
-        API-->>N8N: 200 OK (new)
-    end
+    User->>API: POST /generate-script<br/>{topic: "Apollo 11", pipeline: "teacher", duration: 2}
+    API->>Graph: execute_agent(state)
+    
+    Graph->>GPT: Generate script (Apollo 11 landing)
+    GPT-->>Graph: Script (6 scenes, 2000 chars)
+    
+    Graph->>Facticity: Check claims ["Apollo 11 landed July 20, 1969"]
+    Facticity-->>Graph: TRUE (96% confidence, Wikipedia source)
+    
+    Graph->>GPT: Extract entities from script
+    GPT-->>Graph: {character: "Neil Armstrong", visual_base: "Astronaut in white spacesuit..."}
+    
+    Graph->>Stability: Generate 6 images (Armstrong consistent across scenes)
+    Stability-->>Graph: [0001.png, 0002.png, ..., 0006.png]
+    Storage-->>Storage: Save images to projects/apollo-11/
+    
+    Graph->>TTS: Generate audio for 6 segments
+    TTS-->>Graph: [0001.mp3, 0002.mp3, ..., 0006.mp3]
+    Storage-->>Storage: Save MP3s to projects/apollo-11/
+    
+    Graph->>MoviePy: Assemble video (images + audio + Ken Burns effect)
+    MoviePy-->>Graph: final_video.mp4 (1min 48sec)
+    Storage-->>Storage: Save video to projects/apollo-11/
+    
+    Graph-->>API: Final state {status: "success", video_path: "..."}
+    API-->>User: 200 OK {video_url: "projects/apollo-11/final_video.mp4"}
 ```
 
 ---
@@ -246,35 +407,181 @@ sequenceDiagram
 | **Python** | 3.10+ | Runtime environment |
 | **FastAPI** | 0.115.0 | REST API server |
 | **Uvicorn** | 0.31.0 | ASGI server |
-| **LangGraph** | 0.2.34 | Agent workflow orchestration |
+| **LangGraph** | 0.2.34 | Agent workflow orchestration (17-node StateGraph) |
 | **LangChain** | 0.3.3 | LLM abstractions |
+| **MoviePy** | 1.0.3 | Video assembly (images + audio → MP4) |
 
 ### AI/ML Services
 
-| Service | Model | Purpose |
-|---------|-------|---------|
-| **OpenAI** | GPT-4o-mini | Script generation, reasoning |
-| **OpenAI** | TTS-1 | Audio generation |
-| **Cohere** | command-r-08-2024 | Script segmentation |
-| **Cohere** | embed-english-v3.0 | Text embeddings (ingestion) |
-| **Pinecone** | Serverless | Vector database (best practices) |
-| **SerpAPI** | - | Web search (optional) |
+| Service | Model | Purpose | Cost |
+|---------|-------|---------|------|
+| **OpenAI** | GPT-4o-mini | Script generation, entity extraction, reasoning | $0.150/1M input tokens |
+| **OpenAI** | TTS-1 | Text-to-speech audio generation | $15/1M characters |
+| **Cohere** | command-r-08-2024 | Script segmentation | $0.50/1M input tokens |
+| **Cohere** | embed-english-v3.0 | Text embeddings (knowledge base) | $0.10/1M tokens |
+| **Pinecone** | Serverless | Vector database (storytelling best practices, 1024-dim) | $0.002/GB/month |
+| **Pollinations.ai** | Flux-dev | Image generation (POC) | Free (rate-limited) |
+| **Stability AI** | SDXL 1.0 | Image generation (production, planned) | $0.004/image |
+| **Facticity API** | - | Fact-checking with citations (Teacher pipeline only) | $0.005/claim |
+| **SerpAPI** | - | Web search for long-form scripts (optional) | $0.002/query |
 
 ### Data & Storage
 
 | Technology | Purpose |
 |------------|---------|
-| **SQLite** | Execution history, idempotency |
+| **SQLite** | Execution history, idempotency tracking |
 | **aiosqlite** | Async database operations |
-| **File System** | Project files (scripts, audio, segments) |
+| **File System** | Project files (scripts, images, audio, videos, metadata) |
+| **Hetzner Germany VPS** | EU GDPR-compliant hosting (POC: €40/month, 8GB RAM) |
 
-### Utilities
+### Utilities & Libraries
 
 | Library | Purpose |
 |---------|---------|
-| **Tenacity** | Retry logic with exponential backoff |
-| **Pydantic** | Request/response validation |
-| **pypdf** | PDF text extraction (knowledge base) |
+| **Tenacity** | Retry logic with exponential backoff (2-10s, 3 attempts) |
+| **Pydantic** | Request/response validation (type safety) |
+| **pypdf** | PDF text extraction (knowledge base ingestion) |
+| **python-slugify** | URL-safe project name generation |
+| **aiofiles** | Async file I/O operations |
+
+### Development Tools
+
+| Tool | Purpose |
+|------|---------|
+| **Postman** | API testing |
+| **Sentry** (planned) | Error tracking |
+| **Grafana + Prometheus** (planned) | Metrics monitoring |
+
+---
+
+## 📚 Documentation
+
+### Core Documentation
+
+| Document | Pages/Lines | Description | Link |
+|----------|-------------|-------------|------|
+| **POC Documentation** | 25,000 words | Complete POC validation, demo (Apollo 11), architecture, dual-pipeline flowcharts | [POC/poc_documentation.md](POC/poc_documentation.md) |
+| **POC Plan** | 416 lines | 8-section POC execution plan | [POC/poc_plan.md](POC/poc_plan.md) |
+| **Use Case Definition** | 5,800+ lines | Academic/business submission: Problem statement (TRIAD-1/2/3), company profile, AI solution, stakeholders, success criteria | [Use case/use_case_definition.md](Use%20case/use_case_definition.md) |
+| **Strategic Deployment Plan** | 15,000+ words | POC → Pilot → Full Deployment → Scale roadmap, timeline, KPIs, go-to-market strategy | [Strategy/strategic_plan.md](Strategy/strategic_plan.md) |
+| **ROI Financial Analysis** | 3 scenarios | Pessimistic (-73.1% ROI), Base (+11.4%), Optimistic (+67.9%), break-even Month 13 | [ROI analysis and dashboard/ROI_Analysis.md](ROI%20analysis%20and%20dashboard/ROI_Analysis.md) |
+| **GDPR Compliance** | 120+ pages | Data protection, privacy, consent, DPIA, breach notification, EU AI Act compliance | [GDPR/gdpr_documentation.md](GDPR/gdpr_documentation.md) |
+| **Market Intelligence** | 22 TRIADs | Market research: TRIAD-1 character consistency (22 sources), Midjourney admission, user pain points | [data/market_core_analysis.md](data/market_core_analysis.md) |
+
+### Technical Documentation
+
+| Document | Description |
+|----------|-------------|
+| **README.md** (this file) | Project overview, installation, API reference |
+| **requirements.txt** | Python dependencies |
+| **agent/config.py** | Agent behavior settings (temperatures, token budgets, timeouts) |
+| **src/config.py** | Ingestion pipeline settings (Pinecone, chunking) |
+
+### Research & Analysis
+
+| Document | Description |
+|----------|-------------|
+| **Sector Research** | AI video generation market analysis | [research/sector_research.md](research/sector_research.md) |
+| **Use Cases & Market Strategy** | Market positioning, TAM/SAM/SOM | [research/use_cases_and_market_strategy_analysis.md](research/use_cases_and_market_strategy_analysis.md) |
+| **Opportunities & Risks** | Market opportunities, competitive landscape | [research/opportunities_and_risks.md](research/opportunities_and_risks.md) |
+
+### Evaluation & Testing
+
+| Document | Description |
+|----------|-------------|
+| **LangSmith Evaluation** | AI pipeline quality evaluation methodology | [langsmith/langsmith_evaluation.md](langsmith/langsmith_evaluation.md) |
+| **Evaluation Report** | Test results, accuracy metrics | [langsmith/evaluation_report.md](langsmith/evaluation_report.md) |
+| **Presentation Script** | Pitch deck script for stakeholders | [presentation/presentation_script.md](presentation/presentation_script.md) |
+
+---
+
+## 🚦 Roadmap
+
+### Phase 1: POC ✅ **COMPLETE** (April 1, 2026)
+
+- [x] Dual-pipeline architecture (YouTube + Teacher)
+- [x] Entity extraction (GPT-4o-mini, 85-90% consistency)
+- [x] Fact-checking integration (Facticity API)
+- [x] Video assembly (MoviePy)
+- [x] Cost validation ($0.023-0.027/video)
+- [x] Demo creation (Apollo 11)
+- [x] GDPR documentation (120+ pages)
+- [x] ROI financial model (3 scenarios)
+- [x] Use case definition (5,800+ lines)
+- [x] Strategic deployment plan (15,000+ words)
+
+### Phase 2: Pilot ⏳ **IN PROGRESS** (Weeks 1-8, May-June 2026)
+
+**Week 1-2: MVP Development**
+- [ ] User authentication (OAuth + email/password)
+- [ ] Payment integration (Stripe subscriptions)
+- [ ] Step-by-step approval UI (6 approval stages)
+- [ ] Rate limiting & abuse prevention
+- [ ] Monitoring (Sentry + Grafana)
+- [ ] PostgreSQL migration (from SQLite)
+
+**Week 3-4: Pilot Recruitment**
+- [ ] Recruit 50 beta users (30 creators + 20 educators)
+- [ ] Landing page + waitlist (Carrd/Webflow)
+- [ ] Direct outreach (Reddit, Discord, cold email)
+- [ ] Incentive: Free Pro ($29/mo) for 8 weeks
+
+**Week 5-8: Active Testing**
+- [ ] Weekly 1:1 feedback calls (15 min per user)
+- [ ] Metrics tracking (NPS, activation, retention, character consistency)
+- [ ] Qualitative insights (feature requests, pricing sensitivity)
+- [ ] Bug fixes & iterations
+
+**Week 8: Go/No-Go Decision**
+- [ ] Success criteria: NPS >40, weekly retention >60%, activation >80%, character consistency >90%
+- [ ] Outcome: Proceed to Full Deployment OR extend pilot to 12 weeks
+
+### Phase 3: Full Deployment 📅 **PLANNED** (Months 3-12, July 2026 - March 2027)
+
+**Month 3 (July 2026): Public Launch**
+- [ ] Product Hunt launch (#1 Product of the Day target)
+- [ ] Direct website launch (SEO-optimized, pricing page, blog)
+- [ ] Social media blitz (Twitter, LinkedIn, Reddit)
+- [ ] Target: 300-500 signups Day 1
+
+**Month 4-6: Growth & Iteration**
+- [ ] Content marketing (weekly blog posts, YouTube tutorials)
+- [ ] Paid acquisition ($600/month: Google Ads, Facebook Ads, Reddit Ads)
+- [ ] Referral program launch (Month 5)
+- [ ] Product iterations (voice selection, Ken Burns effect, batch generation)
+- [ ] Target: 100 paying users by Month 6 ($2,900 MRR)
+
+**Month 7-12: Scale to Break-Even**
+- [ ] Geographic expansion (USA Month 9, UK/CA/AU Month 10-12)
+- [ ] Feature expansion (multi-language TTS, custom character upload, templates)
+- [ ] Partnership exploration (TubeBuddy, VidIQ integrations)
+- [ ] Target: 323 paying users by Month 12 ($9,362 MRR)
+- [ ] Milestone: **Break-even Month 13** ($45,889 cumulative revenue = costs)
+
+### Phase 4: Scale & Expansion 🎯 **VISION** (Months 13-36, April 2027 - March 2029)
+
+**Month 13-18: Post-Break-Even Growth**
+- [ ] Hire part-time customer support (Month 13)
+- [ ] Hire part-time marketing assistant (Month 15)
+- [ ] Enterprise pilot (Team tier $99/month)
+- [ ] Target: 1,160 paying users by Month 18 ($33,640 MRR)
+
+**Month 19-24: Accelerated Growth**
+- [ ] Geographic deep dive (USA 50% of growth)
+- [ ] SSO for Team tier (Month 20)
+- [ ] Hire full-time Head of Growth (if MRR >$150K)
+- [ ] Target: 5,483 paying users by Month 24 ($159,007 MRR)
+
+**Month 25-36: Category Leadership**
+- [ ] Free regenerations launch (Month 25)
+- [ ] Content marketplace (users sell templates, 30% commission)
+- [ ] Character consistency >97% (industry-leading)
+- [ ] Target: **53,472 paying users, $1.55M MRR, 67.9% ROI**
+
+**Month 36 Exit Options Evaluation:**
+- Bootstrap to $10M ARR (continue growth)
+- M&A offer from Adobe/Canva/InVideo (≥$50M valuation)
+- Series A fundraising ($3M-5M) → scale to $100M ARR
 
 ---
 
@@ -283,8 +590,14 @@ sequenceDiagram
 ### Prerequisites
 
 - **Python 3.10+** (tested on 3.10, 3.11, 3.12)
-- **Windows** (PowerShell scripts provided)
-- **API Keys** (OpenAI, Pinecone, Cohere)
+- **Windows/Linux/MacOS** (PowerShell scripts for Windows, bash for Unix)
+- **API Keys:**
+  - OpenAI (GPT-4o-mini + TTS) — Required
+  - Pinecone (vector database) — Required
+  - Cohere (embeddings + segmentation) — Required
+  - Facticity API (fact-checking, Teacher pipeline only) — Optional
+  - Stability AI (image generation, production) — Planned (POC uses Pollinations.ai)
+  - SerpAPI (web search for long scripts) — Optional
 
 ### Step 1: Clone Repository
 
@@ -447,9 +760,9 @@ curl http://localhost:8001/health
 curl http://localhost:8001/test
 ```
 
-### Generate Script via API
+### Generate Video via API
 
-**Request:**
+**Request (YouTube Pipeline):**
 
 ```json
 POST http://localhost:8001/generate-script
@@ -459,13 +772,14 @@ Content-Type: application/json
   "request_id": "unique-request-12345",
   "project_name": "Vault 111 Safety Tutorial",
   "genre": "comedy",
-  "idea": "A Vault-Tec employee teaches survivors how to handle radroach attacks using absurd props like rubber chickens and paper fans",
+  "idea": "A Vault-Tec employee teaches survivors how to handle radroach attacks using absurd props",
   "duration": 2,
-  "language": "en"
+  "language": "en",
+  "pipeline": "youtube"
 }
 ```
 
-**Response:**
+**Response (Success):**
 
 ```json
 {
@@ -475,35 +789,159 @@ Content-Type: application/json
   "outline": "# Vault-Tec Radroach Defense Tutorial\n\n## Opening (30s)\n- Introduction...",
   "char_count": 1073,
   "duration_target": 2,
-  "reasoning_trace": "9 steps completed",
+  "reasoning_trace": "17 steps completed",
   "iteration_count": 1,
-  "tokens_used_total": 8542,
+  "tokens_used_total": 12847,
   "project_slug": "vault-111-safety-tutorial",
   "project_dir": "projects/vault-111-safety-tutorial",
+  "pipeline": "youtube",
   "segments": [
     {
       "segment_index": 1,
       "text": "\"Welcome, fellow Vault Dwellers! Today, we learn how to survive a radroach attack—Vault-Tec style!\" Charlie beamed...",
       "audio_path": "projects/vault-111-safety-tutorial/0001.mp3",
+      "image_path": "projects/vault-111-safety-tutorial/0001.png",
       "char_count": 264
+    },
+    {
+      "segment_index": 2,
+      "text": "First, arm yourself...",
+      "audio_path": "projects/vault-111-safety-tutorial/0002.mp3",
+      "image_path": "projects/vault-111-safety-tutorial/0002.png",
+      "char_count": 189
     }
-  ]
+  ],
+  "entities": {
+    "characters": [
+      {
+        "name": "Charlie",
+        "description": "Vault-Tec employee, friendly demeanor, blue jumpsuit with yellow trim",
+        "visual_base_prompt": "A friendly Vault-Tec employee named Charlie wearing a blue and yellow jumpsuit...",
+        "appearances": ["Opening scene", "Demonstration scene", "Closing scene"]
+      }
+    ],
+    "animals": [
+      {
+        "name": "Radroach",
+        "description": "Giant mutated cockroach, 2 feet long, brown exoskeleton",
+        "visual_base_prompt": "A giant mutated cockroach with brown exoskeleton...",
+        "appearances": ["Attack scene", "Defense scene"]
+      }
+    ],
+    "objects": [
+      {
+        "name": "Rubber Chicken",
+        "description": "Yellow rubber chicken prop, comedic defense tool",
+        "visual_base_prompt": "A bright yellow rubber chicken prop...",
+        "appearances": ["Demonstration scene"]
+      }
+    ]
+  },
+  "video_path": "projects/vault-111-safety-tutorial/final_video.mp4",
+  "video_duration_seconds": 118,
+  "cost_breakdown": {
+    "script_generation": 0.0034,
+    "entity_extraction": 0.0012,
+    "image_generation": 0.024,
+    "audio_generation": 0.016,
+    "fact_checking": 0.0,
+    "total_cost_usd": 0.0446
+  }
 }
 ```
 
-### File Structure After Generation
+**Request (Teacher Pipeline with Fact-Checking):**
+
+```json
+POST http://localhost:8001/generate-script
+Content-Type: application/json
+
+{
+  "request_id": "apollo-11-lesson-001",
+  "project_name": "Apollo 11 Moon Landing",
+  "genre": "educational",
+  "idea": "Teach students about Apollo 11 mission: launch, lunar landing, famous quote, return to Earth",
+  "duration": 3,
+  "language": "en",
+  "pipeline": "teacher"
+}
+```
+
+**Response (Success with Fact-Checking):**
+
+```json
+{
+  "request_id": "apollo-11-lesson-001",
+  "status": "success",
+  "pipeline": "teacher",
+  "fact_check_results": [
+    {
+      "claim": "Apollo 11 was launched on July 16, 1969",
+      "verdict": "TRUE",
+      "confidence": 0.98,
+      "source": "https://en.wikipedia.org/wiki/Apollo_11",
+      "justification": "Historical record confirms launch date"
+    },
+    {
+      "claim": "Neil Armstrong was the first human to walk on the Moon",
+      "verdict": "TRUE",
+      "confidence": 0.99,
+      "source": "https://www.nasa.gov/mission_pages/apollo/apollo11.html",
+      "justification": "NASA official documentation"
+    },
+    {
+      "claim": "Armstrong said 'That's one small step for man, one giant leap for mankind'",
+      "verdict": "TRUE",
+      "confidence": 0.97,
+      "source": "https://www.nasa.gov/history/alsj/a11/a11.step.html",
+      "justification": "Recorded quote from lunar surface"
+    }
+  ],
+  "entities": {
+    "characters": [
+      {
+        "name": "Neil Armstrong",
+        "description": "Astronaut, commander of Apollo 11, white NASA spacesuit with American flag",
+        "visual_base_prompt": "Astronaut Neil Armstrong in white NASA spacesuit with American flag patch...",
+        "appearances": ["Launch scene", "Lunar surface scene", "Famous quote scene"]
+      }
+    ]
+  },
+  "video_path": "projects/apollo-11-moon-landing/final_video.mp4",
+  "cost_breakdown": {
+    "script_generation": 0.0045,
+    "fact_checking": 0.015,
+    "entity_extraction": 0.0018,
+    "image_generation": 0.032,
+    "audio_generation": 0.024,
+    "total_cost_usd": 0.0773
+  }
+}
+```
+
+### File Structure After Video Generation
 
 ```
 projects/
-└── vault-111-safety-tutorial/
-    ├── script.txt              # Original script
-    ├── script_segmented.txt    # Segmented script (human-readable)
-    ├── 0001.mp3                # Segment 1 audio
-    ├── 0002.mp3                # Segment 2 audio
-    ├── 0003.mp3                # Segment 3 audio
-    ├── 0004.mp3                # Segment 4 audio
-    ├── entities.json           # Extracted characters, animals, objects
-    └── entities_report.md      # Human-readable entities report
+└── apollo-11-moon-landing/
+    ├── script.txt                  # Original full script
+    ├── script_segmented.txt        # Segmented script (human-readable)
+    ├── 0001.mp3                    # Segment 1 audio (TTS)
+    ├── 0002.mp3                    # Segment 2 audio
+    ├── 0003.mp3                    # Segment 3 audio
+    ├── 0004.mp3                    # Segment 4 audio
+    ├── 0005.mp3                    # Segment 5 audio
+    ├── 0006.mp3                    # Segment 6 audio
+    ├── 0001.png                    # Segment 1 image (1024x1024)
+    ├── 0002.png                    # Segment 2 image
+    ├── 0003.png                    # Segment 3 image
+    ├── 0004.png                    # Segment 4 image
+    ├── 0005.png                    # Segment 5 image
+    ├── 0006.png                    # Segment 6 image
+    ├── entities.json               # Extracted characters, animals, objects with visual base prompts
+    ├── entities_report.md          # Human-readable entities report with scene appearances
+    ├── fact_check_results.json     # Facticity API results (Teacher pipeline only)
+    └── final_video.mp4             # Complete video (images + audio + transitions, 3min duration)
 ```
 
 ---
@@ -512,18 +950,19 @@ projects/
 
 ### `POST /generate-script`
 
-Generate a video script based on provided parameters.
+Generate a complete AI video based on provided parameters.
 
 #### Request Body
 
 ```typescript
 {
-  request_id: string;      // Unique identifier for idempotency
-  project_name: string;    // Human-readable project name
-  genre: string;           // "comedy", "horror", "sci-fi", "drama", etc.
-  idea: string;            // Script concept (1-3 sentences)
-  duration: number;        // Target duration in minutes (1-30)
-  language: string;        // "en" or "ru"
+  request_id: string;      // Unique identifier for idempotency (prevents duplicate generations)
+  project_name: string;    // Human-readable project name (converted to slug)
+  genre: string;           // "comedy", "horror", "sci-fi", "drama", "educational", etc.
+  idea: string;            // Video concept (1-3 sentences, specific details improve quality)
+  duration: number;        // Target duration in minutes (1-30 for YouTube, 1-120 for Teacher)
+  language: string;        // "en" or "ru" (affects TTS voice and character rate)
+  pipeline: string;        // "youtube" (entertainment) or "teacher" (fact-checked education)
 }
 ```
 
@@ -538,18 +977,56 @@ Generate a video script based on provided parameters.
   char_count: number;                // Total characters
   duration_target: number;           // Original target duration
   reasoning_trace: string;           // "N steps completed"
-  iteration_count: number;           // Regeneration attempts (0-3)
-  tokens_used_total: number;         // Total tokens consumed
+  iteration_count: number;           // Script regeneration attempts (0-3)
+  tokens_used_total: number;         // Total tokens consumed (all LLM calls)
   project_slug: string;              // URL-safe project name
-  project_dir: string;               // File system path
-  segments: [                        // Audio segments
+  project_dir: string;               // File system path (e.g., "projects/apollo-11")
+  pipeline: string;                  // "youtube" or "teacher"
+  
+  segments: [                        // Audio-visual segments (3-6 moments)
     {
       segment_index: number;
-      text: string;                  // Exact text from script
-      audio_path: string;            // Path to MP3 file
+      text: string;                  // Exact text from script (character-level preserved)
+      audio_path: string;            // Path to MP3 file (TTS-generated)
+      image_path: string;            // Path to PNG file (1024x1024, Stability AI)
       char_count: number;
     }
   ];
+  
+  entities: {                        // Extracted recurring visual elements
+    characters: [
+      {
+        name: string;                // Character name
+        description: string;         // Physical appearance, personality
+        visual_base_prompt: string;  // Detailed prompt for image generation consistency
+        appearances: string[];       // Scenes where character appears
+      }
+    ],
+    animals: [...],                  // Same structure as characters
+    objects: [...],                  // Same structure as characters
+  };
+  
+  fact_check_results?: [             // Only for Teacher pipeline
+    {
+      claim: string;                 // Claim extracted from script
+      verdict: "TRUE" | "FALSE" | "UNCERTAIN";
+      confidence: number;            // 0.0-1.0 confidence score
+      source: string;                // URL to citation (Wikipedia, NASA, etc.)
+      justification: string;         // Explanation of verdict
+    }
+  ];
+  
+  video_path: string;                // Path to final MP4 video
+  video_duration_seconds: number;    // Actual video duration (may differ slightly from target)
+  
+  cost_breakdown: {
+    script_generation: number;       // GPT-4o-mini cost (USD)
+    entity_extraction: number;       // GPT-4o-mini cost (USD)
+    image_generation: number;        // Stability AI cost (USD)
+    audio_generation: number;        // OpenAI TTS cost (USD)
+    fact_checking?: number;          // Facticity API cost (USD, Teacher only)
+    total_cost_usd: number;          // Sum of all costs
+  };
 }
 ```
 
@@ -559,45 +1036,192 @@ Generate a video script based on provided parameters.
 {
   request_id: string;
   status: "error";
-  error: string;                     // Error message
-  reasoning_trace?: string;          // Partial trace if available
+  error: string;                     // Error message (user-friendly)
+  error_type: string;                // "validation" | "timeout" | "api_failure" | "internal"
+  reasoning_trace?: string;          // Partial trace if agent started execution
+  details?: object;                  // Additional context for debugging
 }
 ```
 
-#### Status Codes
+---
 
-| Code | Meaning |
-|------|---------|
-| `200` | Success - script generated |
-| `400` | Bad Request - validation error |
-| `408` | Timeout - exceeded 300s |
-| `500` | Internal Server Error |
+## 🤝 Contributing
+
+This project is currently in **POC phase** transitioning to **Pilot** (private beta, May-June 2026). Public contributions will be accepted after Full Deployment (Month 3+, July 2026).
+
+### Current Status: Closed Beta
+
+- **POC Team:** Solo founder (technical development, product, strategy)
+- **Pilot Users:** 50 invited beta testers (30 creators + 20 educators)
+- **Contribution Timeline:** Open-source contributions planned for Month 6+ (after 100 paying users milestone)
+
+### Future Contribution Guidelines (Post-Pilot)
+
+#### Reporting Bugs
+
+1. Check [GitHub Issues](https://github.com/Artempsl/generate_script/issues) for existing reports
+2. Create new issue with:
+   - Clear description of bug
+   - Steps to reproduce
+   - Expected vs actual behavior
+   - Environment (OS, Python version, API versions)
+   - Error logs (if applicable)
+
+#### Feature Requests
+
+1. Open [GitHub Discussion](https://github.com/Artempsl/generate_script/discussions) in "Ideas" category
+2. Describe use case, problem solved, proposed solution
+3. Community voting will prioritize features for roadmap
+
+#### Code Contributions
+
+1. **Fork** repository
+2. **Create branch** from `main`: `git checkout -b feature/your-feature-name`
+3. **Make changes** following code style:
+   - Black formatting (line length 120)
+   - Type hints for all functions
+   - Comprehensive docstrings (Google style)
+   - Unit tests for new functionality
+4. **Commit** with clear messages: `feat: add multi-language TTS support`
+5. **Push** to your fork: `git push origin feature/your-feature-name`
+6. **Open Pull Request** with description, screenshots/demos, related issue
+
+#### Development Setup
+
+```bash
+# Clone repository
+git clone https://github.com/Artempsl/generate_script.git
+cd generate_script
+
+# Create virtual environment
+python -m venv .venv
+source .venv/bin/activate  # Linux/Mac
+.\.venv\Scripts\Activate.ps1  # Windows
+
+# Install dev dependencies
+pip install -r requirements.txt
+pip install -r requirements-dev.txt  # Includes pytest, black, ruff, mypy
+
+# Run tests
+pytest tests/
+
+# Format code
+black agent/ src/
+
+# Lint code
+ruff check agent/ src/
+
+# Type checking
+mypy agent/ src/
+```
+
+#### Code Review Process
+
+1. Automated checks (GitHub Actions):
+   - Linting (ruff)
+   - Type checking (mypy)
+   - Unit tests (pytest, 80%+ coverage required)
+   - Integration tests (API endpoint validation)
+2. Manual review by maintainer (1-3 business days)
+3. Changes requested or approval
+4. Merge to `main` → auto-deploy to staging environment
 
 ---
 
-### `GET /test`
+## 📄 License
 
-Test endpoint for server health check.
+**Proprietary License** (POC Phase)
 
-#### Response
+This software is currently **not open-source**. All rights reserved.
 
-```json
-{
-  "message": "Agent Backend Test Endpoint",
-  "timestamp": "2026-03-05T17:30:00.000000Z",
-  "config": {
-    "port": 8001,
-    "max_iterations": 3,
-    "max_tokens": 35000,
-    "char_rate_russian": 1450,
-    "char_rate_english": 1000
-  },
-  "environment": {
-    "OPENAI_API_KEY": "set",
-    "PINECONE_API_KEY": "set",
-    "COHERE_API_KEY": "set",
-    "SERPAPI_API_KEY": "not set"
-  }
+**Planned Open-Source Transition:** After achieving 1,000 paying users (Month 9-12), we plan to open-source the core agent framework under **MIT License** while keeping proprietary components (entity extraction prompts, fact-checking integrations) closed.
+
+**Commercial Use:** Contact for licensing inquiries.
+
+---
+
+## 📞 Contact & Support
+
+### For Pilot Program (Private Beta, May-June 2026)
+
+- **Application:** [Waitlist Form](https://forms.gle/...) (50 spots, applications reviewed weekly)
+- **Pilot Support:** Slack channel (invite sent upon acceptance)
+- **Feedback Calls:** Weekly 1:1 Zoom (15 min, scheduled via Calendly)
+
+### For General Inquiries
+
+- **Email:** [contact@aistorytellingplatform.com](mailto:contact@aistorytellingplatform.com) (response within 48 hours)
+- **Twitter/X:** [@AIStoryPlatform](https://twitter.com/AIStoryPlatform) (announcements, updates)
+- **LinkedIn:** [Company Page](https://linkedin.com/company/ai-storytelling-platform)
+
+### For Investors / Strategic Partners
+
+- **Strategic Inquiries:** [partnerships@aistorytellingplatform.com](mailto:partnerships@aistorytellingplatform.com)
+- **Investment Deck:** Available upon request (after NDA)
+
+### For Technical Documentation
+
+- **POC Documentation:** [POC/poc_documentation.md](POC/poc_documentation.md) (25,000 words, architecture, demos)
+- **API Documentation:** This README + [Swagger UI](http://localhost:8001/docs) (when server running)
+- **Use Case Definition:** [Use case/use_case_definition.md](Use%20case/use_case_definition.md) (5,800+ lines, market analysis)
+- **Strategic Plan:** [Strategy/strategic_plan.md](Strategy/strategic_plan.md) (15,000+ words, roadmap, KPIs)
+
+---
+
+## 🌟 Acknowledgments
+
+### Technology Partners
+
+- **OpenAI** — GPT-4o-mini, TTS-1 (script generation, entity extraction, audio)
+- **Stability AI** — SDXL 1.0 (image generation, production)
+- **Facticity API** — Fact-checking with citations (Teacher pipeline)
+- **Pinecone** — Vector database (storytelling best practices RAG)
+- **Cohere** — Command-R, embed-english-v3.0 (segmentation, embeddings)
+- **Pollinations.ai** — Flux-dev (POC image generation)
+- **Hetzner** — GDPR-compliant EU hosting
+
+### Research & Validation
+
+- **22 Market Sources** — Validated TRIAD-1 character consistency pain (Reddit, ProductHunt, Twitter, Medium articles)
+- **Midjourney Public Admission** — Feb 18, 2026 acknowledgment of character consistency challenge (category leader validation)
+- **50 Pilot Users** (planned) — Early adopters providing product feedback
+
+### Open-Source Libraries
+
+- **LangGraph** (LangChain) — Agent orchestration framework
+- **FastAPI** — High-performance Python web framework
+- **MoviePy** — Video editing library
+- **Tenacity** — Retry logic with exponential backoff
+- **Pydantic** — Data validation
+
+---
+
+## 📊 Project Statistics
+
+| Metric | Value | Last Updated |
+|--------|-------|--------------|
+| **POC Status** | ✅ Complete | April 1, 2026 |
+| **Lines of Code** | ~8,500 (Python) | April 1, 2026 |
+| **Documentation Pages** | 50,000+ words (6 documents) | April 1, 2026 |
+| **Test Coverage** | 72% (agent/, src/) | March 28, 2026 |
+| **API Endpoints** | 3 (/generate-script, /health, /test) | April 1, 2026 |
+| **LangGraph Nodes** | 17 (dual-pipeline) | April 1, 2026 |
+| **Cost per Video (POC)** | $0.023 (YouTube), $0.027 (Teacher) | April 1, 2026 |
+| **Character Consistency (POC)** | 85-90% across 6 scenes | April 1, 2026 |
+| **Demo Videos Generated** | 45+ (testing, validation) | April 1, 2026 |
+| **Target Users (Month 36)** | 53,472 paying users | Financial model (Optimistic) |
+| **Target MRR (Month 36)** | $1,550,686 | Financial model (Optimistic) |
+
+---
+
+**Built with ❤️ by the AI Storytelling Platform Team**  
+**Solving the #1 AI video pain point: Character Consistency**
+
+---
+
+*README last updated: April 1, 2026*  
+*Version: POC-1.0*  
+*Next update: Post-Pilot Review (Week 9, late June 2026)*
 }
 ```
 

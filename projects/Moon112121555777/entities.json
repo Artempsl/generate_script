@@ -1,0 +1,45 @@
+{
+  "characters": [
+    {
+      "id": "char_1",
+      "name": "Neil Armstrong",
+      "versions": [
+        {
+          "age": "39",
+          "base_prompt": "Caucasian male, approximately 39 years old, strong jawline, high cheekbones, oval eyes, blue eyes, short dark brown hair, athletic build, fair skin tone, wearing a white space suit with blue and red accents, highly detailed, cinematic lighting.",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "char_2",
+      "name": "Buzz Aldrin",
+      "versions": [
+        {
+          "age": "39",
+          "base_prompt": "Caucasian male, approximately 39 years old, square jawline, prominent cheekbones, round eyes, hazel eyes, short light brown hair, athletic build, fair skin tone, wearing a white space suit with blue and red accents, highly detailed, cinematic lighting.",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "animals": [],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "Saturn V rocket",
+      "base_prompt": "approximately 110 meters tall, tall cylindrical shape, metallic texture, white with black and red markings, modern design, highly detailed, cinematic lighting"
+    },
+    {
+      "id": "obj_2",
+      "name": "lunar module",
+      "base_prompt": "approximately 4 meters tall, compact triangular shape, metallic texture, gold and silver color, modern design, highly detailed, cinematic lighting"
+    }
+  ]
+}

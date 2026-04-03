@@ -59,6 +59,9 @@ CREATE TABLE IF NOT EXISTS executions (
     reasoning_trace_json TEXT,
     segments_json TEXT,
     audio_files_count INTEGER,
+    video_url TEXT,
+    fact_check_citations_json TEXT,
+    fact_check_report_json TEXT,
     error_message TEXT,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL
@@ -99,6 +102,9 @@ class Execution:
         reasoning_trace: Optional[List[Dict[str, Any]]] = None,
         segments: Optional[List[Dict[str, Any]]] = None,
         audio_files_count: Optional[int] = None,
+        video_url: Optional[str] = None,
+        fact_check_citations: Optional[List[Dict[str, Any]]] = None,
+        fact_check_report: Optional[List[Dict[str, Any]]] = None,
         error_message: Optional[str] = None,
         created_at: Optional[datetime] = None,
         updated_at: Optional[datetime] = None,
@@ -119,6 +125,9 @@ class Execution:
         self.reasoning_trace = reasoning_trace or []
         self.segments = segments or []
         self.audio_files_count = audio_files_count or 0
+        self.video_url = video_url
+        self.fact_check_citations = fact_check_citations or []
+        self.fact_check_report = fact_check_report or []
         self.error_message = error_message
         self.created_at = created_at or datetime.now(timezone.utc)
         self.updated_at = updated_at or datetime.now(timezone.utc)
@@ -142,6 +151,9 @@ class Execution:
             "reasoning_trace": self.reasoning_trace,
             "segments": self.segments,
             "audio_files_count": self.audio_files_count,
+            "video_url": self.video_url,
+            "fact_check_citations": self.fact_check_citations,
+            "fact_check_report": self.fact_check_report,
             "error_message": self.error_message,
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "updated_at": self.updated_at.isoformat() if self.updated_at else None,
@@ -169,6 +181,9 @@ class Execution:
             "tokens_used_total": self.tokens_used_total,
             "retrieved_sources_count": self.retrieved_sources_count,
             "audio_files_count": self.audio_files_count,
+            "video_url": self.video_url,
+            "fact_check_citations": self.fact_check_citations,
+            "fact_check_report": self.fact_check_report,
             "error_message": self.error_message,
         }
     
@@ -192,9 +207,12 @@ class Execution:
             reasoning_trace=json.loads(row[13]) if row[13] else [],
             segments=json.loads(row[14]) if row[14] else [],
             audio_files_count=row[15] if row[15] is not None else 0,
-            error_message=row[16],
-            created_at=datetime.fromisoformat(row[17]) if row[17] else None,
-            updated_at=datetime.fromisoformat(row[18]) if row[18] else None,
+            video_url=row[16],
+            fact_check_citations=json.loads(row[17]) if row[17] else [],
+            fact_check_report=json.loads(row[18]) if row[18] else [],
+            error_message=row[19],
+            created_at=datetime.fromisoformat(row[20]) if row[20] else None,
+            updated_at=datetime.fromisoformat(row[21]) if row[21] else None,
         )
 
 
@@ -224,6 +242,19 @@ class DatabaseManager:
         """
         async with aiosqlite.connect(self.db_path) as db:
             await db.execute(CREATE_EXECUTIONS_TABLE)
+            # Safe migrations for new columns
+            try:
+                await db.execute("ALTER TABLE executions ADD COLUMN video_url TEXT")
+            except Exception:
+                pass
+            try:
+                await db.execute("ALTER TABLE executions ADD COLUMN fact_check_citations_json TEXT")
+            except Exception:
+                pass
+            try:
+                await db.execute("ALTER TABLE executions ADD COLUMN fact_check_report_json TEXT")
+            except Exception:
+                pass
             await db.execute(CREATE_INDEX_STATUS)
             await db.execute(CREATE_INDEX_CREATED)
             await db.commit()
@@ -277,6 +308,37 @@ class DatabaseManager:
                     return execution
         
         return None
+
+    async def get_execution_by_project_name(self, project_name: str) -> Optional[Execution]:
+        """
+        Get execution by project_name.
+        
+        Args:
+            project_name: Project slug/name
+            
+        Returns:
+            Execution if found, None otherwise
+        """
+        # Check cache for matching project_name
+        for execution in self.cache.values():
+            if execution.project_name == project_name:
+                return execution
+        
+        # Query database - get most recent execution for this project
+        async with aiosqlite.connect(self.db_path) as db:
+            db.row_factory = aiosqlite.Row
+            async with db.execute(
+                "SELECT * FROM executions WHERE project_name = ? ORDER BY created_at DESC LIMIT 1",
+                (project_name,)
+            ) as cursor:
+                row = await cursor.fetchone()
+                
+                if row:
+                    execution = Execution.from_row(row)
+                    self._update_cache(execution)
+                    return execution
+        
+        return None
     
     async def save_execution(self, execution: Execution) -> None:
         """
@@ -295,8 +357,9 @@ class DatabaseManager:
                     outline, script, char_count, target_chars,
                     iteration_count, tokens_used_total, retrieved_sources_count,
                     reasoning_trace_json, segments_json, audio_files_count,
+                    video_url, fact_check_citations_json, fact_check_report_json,
                     error_message, created_at, updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ON CONFLICT(request_id) DO UPDATE SET
                     status = excluded.status,
                     outline = excluded.outline,
@@ -309,6 +372,9 @@ class DatabaseManager:
                     reasoning_trace_json = excluded.reasoning_trace_json,
                     segments_json = excluded.segments_json,
                     audio_files_count = excluded.audio_files_count,
+                    video_url = excluded.video_url,
+                    fact_check_citations_json = excluded.fact_check_citations_json,
+                    fact_check_report_json = excluded.fact_check_report_json,
                     error_message = excluded.error_message,
                     updated_at = excluded.updated_at
                 """,
@@ -329,6 +395,9 @@ class DatabaseManager:
                     json.dumps(execution.reasoning_trace),
                     json.dumps(execution.segments),
                     execution.audio_files_count,
+                    execution.video_url,
+                    json.dumps(execution.fact_check_citations),
+                    json.dumps(execution.fact_check_report),
                     execution.error_message,
                     execution.created_at.isoformat(),
                     execution.updated_at.isoformat(),

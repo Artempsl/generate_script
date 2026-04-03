@@ -112,7 +112,7 @@ MUST include:
 - body type
 - skin tone / ethnicity (if inferable)
 - distinctive features
-- stable clothing style (NOT scene-specific)
+- stable clothing style with EXACT COLORS (NOT scene-specific). If the character wears any garment or costume, the color of that garment MUST be stated explicitly (e.g. "dark navy flight suit", "white lab coat", "red jacket"). Color of clothing is MANDATORY if clothing is present.
 
 STYLE:
 
@@ -176,6 +176,8 @@ Same structure as characters:
 - base_prompt (static)
 - scene_states
 
+Animal base_prompt MUST include the animal's body color and any distinctive markings (e.g. "black and white border collie", "tawny orange Bengal tiger with dark stripes"). Color is MANDATORY.
+
 --------------------------------
 OBJECT RULES (IMPORTANT)
 --------------------------------
@@ -205,15 +207,18 @@ OBJECT BASE PROMPT RULES
 
 Must describe:
 
+- size (approximate dimensions or scale relative to a known reference, e.g. "palm-sized", "roughly 30 cm tall", "the size of a briefcase")
 - shape
 - material
 - color
 - design
 - condition
 
+Size is MANDATORY for every object.
+
 Example:
 
-"matte black semi-automatic pistol, compact frame, metallic texture, minimal scratches, modern design, highly detailed, cinematic lighting"
+"palm-sized matte black semi-automatic pistol, compact rectangular frame, metallic texture, minimal scratches, modern design, highly detailed, cinematic lighting"
 
 --------------------------------
 STRICT EXCLUSIONS

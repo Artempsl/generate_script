@@ -1,0 +1,561 @@
+{
+  "name": "Telegram Storytelling Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message",
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "id": "08393d84-cd5a-4f30-9985-2913fcd02e0f",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -688,
+        240
+      ],
+      "webhookId": "storytelling-bot-webhook",
+      "credentials": {
+        "telegramApi": {
+          "id": "tyCy3sLyxnmn9DUx",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── STEP 1: Classify incoming Telegram update ──\nconst u = $json;\nlet _type = 'unknown';\n\nif (u.callback_query) {\n  _type = 'callback_query';\n} else if (u.message?.text === '/start') {\n  _type = 'start';\n} else if (u.message?.text) {\n  _type = 'message';\n}\n\nreturn [{ json: { ...u, _type } }];"
+      },
+      "id": "e3600cc6-b36e-4d11-8cad-2021816b0b93",
+      "name": "Classify Update",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "r1",
+                    "leftValue": "={{ $json._type }}",
+                    "rightValue": "callback_query",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "callback_query"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "r2",
+                    "leftValue": "={{ $json._type }}",
+                    "rightValue": "start",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "start"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "e65730b5-5ef4-40a9-a25f-f325214fc7f0",
+      "name": "Route Update Type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -256,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "👋 *What would you like to create?*\n\nSelect a storytelling format:",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "Youtube",
+                    "additionalFields": {
+                      "callback_data": "youtube"
+                    }
+                  },
+                  {
+                    "text": "Teacher",
+                    "additionalFields": {
+                      "callback_data": "teacher"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "2e462c29-9d28-4d81-9f3f-d73631396782",
+      "name": "Send Welcome Message",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        96,
+        -64
+      ],
+      "webhookId": "6a97e499-35a3-45b5-923f-a4439c023072",
+      "credentials": {
+        "telegramApi": {
+          "id": "tyCy3sLyxnmn9DUx",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "r3",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "youtube",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "youtube"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "r4",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "teacher",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "teacher"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b854b2fa-b096-4fc3-a034-d2374c0461d2",
+      "name": "Route Use Case",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        48,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── STEP 2: Save YouTube session state ──\nconst staticData = $getWorkflowStaticData('global');\nconst chatId = $json.callback_query.message.chat.id.toString();\nstaticData[chatId] = { use_case: 'youtube', awaiting_answer: true, ts: Date.now() };\nreturn [{ json: { chat_id: chatId, use_case: 'youtube' } }];"
+      },
+      "id": "edb8f471-f0ac-4d2f-bb3a-ca5abad1de43",
+      "name": "Save YouTube Session",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        48
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chat_id }}",
+        "text": "✍️ *YouTube Storytelling — answer all 4 questions, each on a new line:*\n\n1\\. Project Name\n2\\. Genre\n3\\. Duration \\(minutes\\)\n4\\. Story Idea / Description\n\n_Example:_\n`Space Adventure`\n`Sci-Fi`\n`12`\n`A lone astronaut discovers a hidden signal on Mars`",
+        "additionalFields": {
+          "parse_mode": "MarkdownV2"
+        }
+      },
+      "id": "fc899cbc-6a48-46c5-a23e-29fe4359c301",
+      "name": "Send YouTube Questions",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        576,
+        64
+      ],
+      "webhookId": "ef7738f8-38e8-455e-a3fd-8ff2aef8a344",
+      "credentials": {
+        "telegramApi": {
+          "id": "tyCy3sLyxnmn9DUx",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── STEP 2: Save Teacher session state ──\nconst staticData = $getWorkflowStaticData('global');\nconst chatId = $json.callback_query.message.chat.id.toString();\nstaticData[chatId] = { use_case: 'teacher', awaiting_answer: true, ts: Date.now() };\nreturn [{ json: { chat_id: chatId, use_case: 'teacher' } }];"
+      },
+      "id": "dfb398fd-f178-4f04-8acd-d768e1b458e8",
+      "name": "Save Teacher Session",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chat_id }}",
+        "text": "✍️ *Teacher Storytelling — answer all 5 questions, each on a new line:*\n\n1\\. Project Name\n2\\. Subject / Topic\n3\\. Duration \\(minutes\\)\n4\\. Style\n5\\. Idea / Description\n\n_Example:_\n`Gravity Lesson`\n`Physics`\n`20`\n`Narrative / Story-driven`\n`Newton's apple moment retold as a mystery`",
+        "additionalFields": {
+          "parse_mode": "MarkdownV2"
+        }
+      },
+      "id": "a9120109-da05-4c47-9d5b-17b8c428a572",
+      "name": "Send Teacher Questions",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        592,
+        288
+      ],
+      "webhookId": "b2269535-3bc8-4cc0-83eb-840a617308d8",
+      "credentials": {
+        "telegramApi": {
+          "id": "tyCy3sLyxnmn9DUx",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Получаем текст сообщения\nconst rawText = $json.message?.text || \"\";\n\n// Разбиваем по строкам и очищаем\nconst lines = rawText\n  .split('\\n')\n  .map(line => line.trim())\n  .filter(line => line.length > 0);\n\n// Определяем use case\nlet use_case = \"unknown\";\n\nif (lines.length === 4) {\n  use_case = \"youtube\";\n} else if (lines.length >= 5) {\n  use_case = \"teacher\";\n}\n\n// Получаем chat_id\nconst chat_id = $json.message?.chat?.id;\n\n// Формируем результат\nlet result = {\n  use_case,\n  chat_id\n};\n\n// Заполняем поля в зависимости от сценария\nif (use_case === \"youtube\") {\n  result.project_name = lines[0] || \"\";\n  result.genre = lines[1] || \"\";\n  result.duration = lines[2] || \"\";\n  result.description = lines.slice(3).join(\" \") || \"\";\n}\n\nif (use_case === \"teacher\") {\n  result.project_name = lines[0] || \"\";\n  result.topic = lines[1] || \"\";\n  result.duration = lines[2] || \"\";\n  result.style = lines[3] || \"\";\n  result.description = lines.slice(4).join(\" \") || \"\";\n}\n\n// ВАЖНО: оборачиваем результат в \"json\", чтобы n8n корректно воспринимала\nreturn [\n  {\n    json: result\n  }\n];"
+      },
+      "id": "45a4753c-689d-4e0d-a1ab-e8fe88746c18",
+      "name": "Validate & Parse Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        304,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://extraordinary-gently-shareware-residents.trycloudflare.com/test-n8n-response",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "use_case",
+              "value": "={{ $json.use_case }}"
+            },
+            {
+              "name": "chat_id",
+              "value": "={{ $json.chat_id }}"
+            },
+            {
+              "name": "project_name",
+              "value": "={{ $json.project_name }}"
+            },
+            {
+              "name": "genre",
+              "value": "={{ $json.genre || '' }}"
+            },
+            {
+              "name": "topic",
+              "value": "={{ $json.topic || '' }}"
+            },
+            {
+              "name": "duration",
+              "value": "={{ $json.duration }}"
+            },
+            {
+              "name": "style",
+              "value": "={{ $json.style || '' }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "65881966-d611-41f9-ad8e-c7518bbcf307",
+      "name": "POST to Backend",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        848,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ── STEP 9: Format backend response for Telegram ──\nconst response = $json;\nconst chatId   = $('Validate & Parse Input').first().json.chat_id;\nconst segments = response.segments || [];\n\nfunction escMd(text) {\n  if (!text) return '';\n  return String(text).replace(/[_*[\\]()~`>#+\\-=|{}.!\\\\]/g, '\\\\$&');\n}\n\nlet msg = '🎬 *Your Story is Ready*\\n\\n';\n\nif (segments.length > 0) {\n  msg += '🎞 *Segments:*\\n\\n';\n  segments.forEach((seg, i) => {\n    msg += `${i + 1}\\\\. ${escMd(seg.text)}\\n`;\n    if (seg.audio_url) {\n      msg += `🔊 Audio: ${escMd(seg.audio_url)}\\n`;\n    }\n    msg += '\\n';\n  });\n} else if (response.script) {\n  msg += escMd(response.script);\n} else {\n  msg += '_No content was returned by the backend\\\\._';\n}\n\n// ── Fact Check Report ──\nconst factReport = response.fact_check_report || [];\nif (factReport.length > 0) {\n  msg += '──────────────────────\\n';\n  msg += '🔍 *Fact Check Report*\\n\\n';\n  factReport.forEach((item, i) => {\n    const verdictEmoji  = item.final_verdict === 'true'  ? '✅' : item.final_verdict === 'false' ? '❌' : '⚠️';\n    const checkedEmoji  = item.checked              ? '✔️' : '✖️';\n    const manualEmoji   = item.requires_manual_check ? '🔎 Yes' : '✅ No';\n    const correctedLine = item.was_corrected\n      ? `\\n📝 *Corrected to:* ${escMd(item.corrected_to)}`\n      : '';\n    msg += `*${i + 1}\\\\. Claim:*\\n`;\n    msg += `_${escMd(item.claim)}_\\n\\n`;\n    msg += `${checkedEmoji} *Checked:* ${item.checked ? 'Yes' : 'No'}\\n`;\n    msg += `${verdictEmoji} *Verdict:* ${escMd(item.final_verdict)}${correctedLine}\\n`;\n    msg += `🔎 *Manual check required:* ${manualEmoji}\\n`;\n    msg += '\\n';\n  });\n}\n\n// ── Video URL ──\nif (response.video_url) {\n  msg += '──────────────────────\\n';\n  msg += `🎥 *Video is Ready\\\\!*\\n\\n`;\n  msg += `▶️ [Watch the video](${response.video_url})\\n`;\n}\n\nreturn [{ json: { ...response, chat_id: chatId, formatted_text: msg.trim() } }];"
+      },
+      "id": "5873b584-7426-4406-a3a4-9816d833385c",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chat_id }}",
+        "text": "={{ $json.formatted_text }}",
+        "additionalFields": {
+          "disable_web_page_preview": true,
+          "parse_mode": "MarkdownV2"
+        }
+      },
+      "id": "92b0a49d-3dcd-46e8-97ff-52223468dd69",
+      "name": "Send Final Message",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1296,
+        464
+      ],
+      "webhookId": "79e27fa2-e14c-4fa5-b264-fb388425262d",
+      "credentials": {
+        "telegramApi": {
+          "id": "tyCy3sLyxnmn9DUx",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Classify Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify Update": {
+      "main": [
+        [
+          {
+            "node": "Route Update Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Update Type": {
+      "main": [
+        [
+          {
+            "node": "Route Use Case",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Welcome Message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Validate & Parse Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Use Case": {
+      "main": [
+        [
+          {
+            "node": "Save YouTube Session",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Save Teacher Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save YouTube Session": {
+      "main": [
+        [
+          {
+            "node": "Send YouTube Questions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Teacher Session": {
+      "main": [
+        [
+          {
+            "node": "Send Teacher Questions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate & Parse Input": {
+      "main": [
+        [
+          {
+            "node": "POST to Backend",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POST to Backend": {
+      "main": [
+        [
+          {
+            "node": "Format Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Response": {
+      "main": [
+        [
+          {
+            "node": "Send Final Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "40135ae4-94b9-4f4f-8232-bde3e651d053",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4dbb252b771d382ff9c67a90fd2bd2d2b76e22dbcc70b6c6148bb62fe2a46f38"
+  },
+  "id": "Otw6Maf5Fgt7gbVl",
+  "tags": [
+    {
+      "updatedAt": "2026-03-28T09:22:26.879Z",
+      "createdAt": "2026-03-28T09:22:26.879Z",
+      "id": "HPvarwsEJqX3AYwD",
+      "name": "telegram"
+    },
+    {
+      "updatedAt": "2026-03-28T09:22:26.849Z",
+      "createdAt": "2026-03-28T09:22:26.849Z",
+      "id": "nTohXlYeGzbzXJH3",
+      "name": "storytelling-bot"
+    }
+  ]
+}

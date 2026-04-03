@@ -1,0 +1,16 @@
+{
+  "characters": [],
+  "animals": [],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "apple",
+      "base_prompt": "red apple, round shape, smooth texture, shiny surface, fresh condition, highly detailed, cinematic lighting"
+    },
+    {
+      "id": "obj_2",
+      "name": "apple tree",
+      "base_prompt": "old apple tree, gnarled trunk, thick branches, dark bark, sparse leaves, eerie appearance, highly detailed, cinematic lighting"
+    }
+  ]
+}

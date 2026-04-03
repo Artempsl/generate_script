@@ -136,6 +136,20 @@ class GraphState(TypedDict):
     # Error handling
     error: str
 
+    # Teacher pipeline fields
+    topic: str
+    style: str
+    fact_check_result: dict
+    fact_check_citations: list
+    fact_check_passed: bool
+    fact_check_iteration: int
+    fact_check_correction: str
+    fact_check_snapshots: list  # [{iteration, citations}] — history across iterations
+
+    # Extra passthrough fields (use_case, chat_id stored here for completeness)
+    use_case: str
+    chat_id: int
+
 
 # =============================================================================
 # NODE IMPLEMENTATIONS
@@ -727,6 +741,124 @@ def extract_entities_node(state: AgentState) -> AgentState:
     return updates
 
 
+def generate_images_node(state: AgentState) -> AgentState:
+    """
+    Node: Generate cinematic images for each script segment.
+
+    Runs after extract_entities_node.  Uses gen.pollinations.ai with Bearer auth
+    (env var 'pollination_api').  Fallback model chain: flux-schnell → zimage → flux.
+    Every segment must produce an image (1920×1080).
+
+    Updates state:
+        - image_generation_results
+        - reasoning_trace
+    """
+    import json
+    from pathlib import Path
+    from agent.image.generator_v2 import generate_all_images_v2
+
+    print(f"  [GRAPH] Entering generate_images_node...")
+
+    segments = state.get("segments", [])
+    project_dir = state.get("project_dir", "")
+
+    results = []
+    error_msg = None
+
+    try:
+        results = generate_all_images_v2(segments, project_dir)
+
+        # Persist image_prompts.json next to the audio files
+        prompts_path = Path(project_dir) / "image_prompts.json"
+        prompts_path.write_text(json.dumps(results, indent=2, ensure_ascii=False))
+
+        ok = sum(1 for r in results if r["status"] == "ok")
+        result_text = f"Generated {ok}/{len(results)} images → {project_dir}/images_v2/"
+    except Exception as exc:
+        result_text = f"Image generation failed: {exc}"
+        error_msg = result_text
+        print(f"  [GRAPH] ERROR in generate_images_node: {exc}")
+
+    step = {
+        "step": len(state.get("reasoning_trace", [])) + 1,
+        "action": "generate_images",
+        "result": result_text,
+        "tokens_used": 0,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
+
+    print(f"  [GRAPH] Exiting generate_images_node ({result_text})")
+
+    updates: dict = {
+        "image_generation_results": results,
+        "reasoning_trace": [step],
+    }
+    if error_msg:
+        updates["error"] = error_msg
+
+    return updates
+
+
+def generate_video_node(state: AgentState) -> AgentState:
+    """
+    Node: Render final MP4 from per-segment audio and image files.
+
+    Runs after generate_images_node.  Calls agent.video.generator.generate_video
+    which applies zoom, flicker, and fades to each ImageClip, attaches the
+    matching AudioFileClip, then concatenates all clips into one 24-fps MP4.
+
+    Updates state:
+        - video_path  : local path to final_video.mp4
+        - video_url   : public URL served via static files
+        - reasoning_trace
+    """
+    from agent.video.generator import generate_video
+
+    print(f"  [GRAPH] Entering generate_video_node...")
+
+    project_dir    = state.get("project_dir", "")
+    audio_files    = state.get("audio_files", [])
+    image_results  = state.get("image_generation_results", [])
+    audio_base_url = state.get("audio_base_url", "")
+
+    video_path = ""
+    video_url  = ""
+    error_msg  = None
+
+    try:
+        video_path, video_url = generate_video(
+            project_dir=project_dir,
+            audio_files=audio_files,
+            image_results=image_results,
+            audio_base_url=audio_base_url,
+        )
+        result_text = f"Video rendered → {video_path}"
+    except Exception as exc:
+        result_text = f"Video generation failed: {exc}"
+        error_msg   = result_text
+        print(f"  [GRAPH] ERROR in generate_video_node: {exc}")
+
+    step = {
+        "step": len(state.get("reasoning_trace", [])) + 1,
+        "action": "generate_video",
+        "result": result_text,
+        "tokens_used": 0,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
+
+    print(f"  [GRAPH] Exiting generate_video_node ({result_text})")
+
+    updates: dict = {
+        "video_path": video_path,
+        "video_url":  video_url,
+        "reasoning_trace": [step],
+    }
+    if error_msg:
+        updates["error"] = error_msg
+
+    return updates
+
+
 def save_execution_report_node(state: AgentState) -> AgentState:
     """
     Node: Save detailed execution report to project directory.
@@ -822,6 +954,8 @@ def create_agent_graph():
     workflow.add_node("segment_script", segment_script_node)  # NEW: Script segmentation
     workflow.add_node("generate_audio", generate_audio_node)  # NEW: Audio generation
     workflow.add_node("extract_entities", extract_entities_node)  # NEW: Entity extraction
+    workflow.add_node("generate_images", generate_images_node)  # NEW: Image generation
+    workflow.add_node("generate_video", generate_video_node)  # NEW: Video generation
     workflow.add_node("save_execution_report", save_execution_report_node)  # NEW: Save execution report (final step!)
     
     # Set entry point (create project directory first!)
@@ -852,7 +986,9 @@ def create_agent_graph():
     # NEW: Segmentation, audio, entity extraction and report pipeline
     workflow.add_edge("segment_script", "generate_audio")
     workflow.add_edge("generate_audio", "extract_entities")  # NEW: entity extraction after audio
-    workflow.add_edge("extract_entities", "save_execution_report")  # NEW: report after entities
+    workflow.add_edge("extract_entities", "generate_images")   # NEW: image generation after entities
+    workflow.add_edge("generate_images", "generate_video")    # NEW: video after images
+    workflow.add_edge("generate_video", "save_execution_report")  # NEW: report after video
     workflow.add_edge("save_execution_report", END)  # NEW: report is final step
     
     # Compile graph

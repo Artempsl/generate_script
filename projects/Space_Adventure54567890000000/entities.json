@@ -1,0 +1,36 @@
+{
+  "characters": [
+    {
+      "id": "char_1",
+      "name": "Dr. Alex Reed",
+      "versions": [
+        {
+          "age": "30s",
+          "base_prompt": "male, angular jawline, high cheekbones, almond-shaped eyes, blue eyes, short dark brown hair, athletic build, fair skin, wearing a dark navy space suit with silver accents, highly detailed, cinematic lighting",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "animals": [],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "headset",
+      "base_prompt": "palm-sized black headset, ergonomic design, plastic material, matte finish, minimal scratches, modern design, highly detailed"
+    },
+    {
+      "id": "obj_2",
+      "name": "holographic interface",
+      "base_prompt": "roughly the size of a tablet, rectangular shape, glass and metal material, translucent display, blue and green glowing elements, futuristic design, highly detailed"
+    },
+    {
+      "id": "obj_3",
+      "name": "signal source",
+      "base_prompt": "approximately 2 meters wide, circular crater shape, rocky texture, reddish-brown color, uneven surface, ancient design, highly detailed"
+    }
+  ]
+}

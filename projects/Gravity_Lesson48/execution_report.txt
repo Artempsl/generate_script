@@ -1,0 +1,146 @@
+================================================================================
+PROJECT EXECUTION REPORT
+================================================================================
+
+Generated: 2026-03-28T15:53:06.511792+00:00
+Request ID: 381b3286-9eb5-4a98-a503-0e3580fc2b1c
+
+================================================================================
+PROJECT INFORMATION
+================================================================================
+
+Project Name: Gravity Lesson48
+Project Slug: Gravity_Lesson48
+Genre: Physics
+Language: en
+Target Duration: 1 minutes
+Target Characters: 1,000
+
+================================================================================
+EXECUTION SUMMARY
+================================================================================
+
+Total Steps: 11
+Total Iterations: 0
+Regeneration Count: 0
+Retry Attempts: 0
+Status: ✓ SUCCESS
+
+================================================================================
+RESOURCE USAGE
+================================================================================
+
+Total Tokens Used: 13,576
+Pinecone Queries: 5
+Web Search Enabled: No
+
+Token Breakdown by Action:
+  - synthesize_context: 5,044 tokens
+  - retrieve_pinecone: 4,033 tokens
+  - react_reasoning: 1,511 tokens
+  - generate_teacher_script: 1,304 tokens
+  - generate_teacher_outline: 1,010 tokens
+  - segment_script: 674 tokens
+  - create_project_directory: 0 tokens
+  - validate_length: 0 tokens
+  - fact_check: 0 tokens
+  - generate_audio: 0 tokens
+  - extract_entities: 0 tokens
+
+TTS API Usage (Character-Based Pricing):
+  - Characters Processed: 1,015
+  - Estimated Cost: $0.0152 (at $0.015/1K chars)
+
+================================================================================
+SCRIPT VALIDATION
+================================================================================
+
+Validation Status: ✓ PASSED
+Script Length: 1,030 characters
+Target Length: 1,000 characters
+Length Ratio: 103.0%
+Validation Message: ✓ Length valid (103.0%)
+
+Estimated Duration: 1.0 minutes
+Target Duration: 1 minutes
+Duration Match: ✓ YES
+
+================================================================================
+SEGMENTATION & AUDIO GENERATION
+================================================================================
+
+Script Segments Created: 12
+Audio Files Generated: 12
+TTS Characters Processed: 1,015
+TTS Estimated Cost: $0.0152
+Segmentation Success: ✓ YES
+Audio Generation Success: ✓ YES
+
+================================================================================
+FULL REASONING TRACE
+================================================================================
+
+[Step create_project (iteration 0)] create_project_directory
+  Timestamp: N/A
+  Result: N/A
+  Tokens Used: 0
+
+[Step 2] retrieve_pinecone
+  Timestamp: 2026-03-28T15:51:20.483981+00:00
+  Result: Retrieved 5 sources (16133 chars)
+  Tokens Used: 4,033
+
+[Step 3] synthesize_context
+  Timestamp: 2026-03-28T15:51:57.132907+00:00
+  Result: Generated 3523 chars of insights
+  Tokens Used: 5,044
+
+[Step 4] react_reasoning
+  Timestamp: 2026-03-28T15:52:11.945089+00:00
+  Result: Strategy: {'tone': 'atmospheric', 'pacing': 'fast-paced', 'emphasis': 'character', 'key_techniques': ['plot-twists', 'psychological-depth', 'visual-storytelling']} (3231 chars reasoning)
+  Tokens Used: 1,511
+
+[Step 5] generate_teacher_outline
+  Timestamp: 2026-03-28T15:52:22.811381+00:00
+  Result: Outline generated (2027 chars)
+  Tokens Used: 1,010
+
+[Step 6] generate_teacher_script
+  Timestamp: 2026-03-28T15:52:27.420126+00:00
+  Result: Script generated (1,030 chars)
+  Tokens Used: 1,304
+
+[Step 7] validate_length
+  Timestamp: 2026-03-28T15:52:27.424550+00:00
+  Result: ✓ Length valid (103.0%)
+  Tokens Used: 0
+
+[Step 8] fact_check
+  Timestamp: 2026-03-28T15:52:29.424722+00:00
+  Result: passed=True, citations=1
+  Tokens Used: 0
+
+[Step 9] segment_script
+  Timestamp: 2026-03-28T15:52:36.922608+00:00
+  Result: Created 12 segments
+  Tokens Used: 674
+
+[Step 10] generate_audio
+  Timestamp: 2026-03-28T15:53:00.798569+00:00
+  Result: Generated 12 audio files (1,015 characters, ~$0.0152)
+  Tokens Used: 0
+
+[Step 11] extract_entities
+  Timestamp: 2026-03-28T15:53:06.510631+00:00
+  Result: Extracted 1 characters, 0 animals, 2 objects → projects\Gravity_Lesson48\entities.json
+  Tokens Used: 0
+
+================================================================================
+PERFORMANCE METRICS
+================================================================================
+
+Execution time calculation unavailable.
+
+================================================================================
+END OF REPORT
+================================================================================

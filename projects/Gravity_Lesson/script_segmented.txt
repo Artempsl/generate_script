@@ -1,0 +1,89 @@
+================================================================================
+SEGMENTED SCRIPT
+================================================================================
+
+Total segments: 7
+Generated: 2026-03-28T17:32:15.987862+00:00
+
+================================================================================
+FULL SCRIPT (ORIGINAL)
+================================================================================
+
+In a dimly lit garden, a single apple looms high on a tree branch, but wait—what mysterious force causes it to plummet? Is it an ungrateful tree or a sneaky gravity ghost? Enter our protagonist, Sir Isaac Newton, dressed like a detective, magnifying glass in hand, peering suspiciously at the ground. “Stay tuned, folks, as we unravel the juicy mystery of gravity!”
+
+“What exactly is gravity?” Newton ponders. “Is it the Earth’s way of saying, ‘Hey, apples, get down here!’?” Then he explains, “Newton’s Law of Universal Gravitation says every object attracts every other object—like a cosmic dance where Earth just can’t resist pulling things in!”
+
+Just then, the apple slips like a clumsy detective on a banana peel, tumbling down to reveal the enigma of gravitational pull! “If I drop this apple, will it fall at 9.81 m/s²? Am I now an apple detective?”
+
+What if you drop two apples? Do they team up or race to the ground? “Remember, next time you munch on an apple, you’re also savoring a slice of gravitational history! And if you feel a pull toward dessert, it’s not just your sweet tooth; it’s gravity!”
+
+================================================================================
+SEGMENTS (7 total)
+================================================================================
+
+[Segment 1]
+--------------------------------------------------------------------------------
+In a dimly lit garden, a single apple looms high on a tree branch, but wait—what mysterious force causes it to plummet? Is it an ungrateful tree or a sneaky gravity ghost?
+
+Audio URL: N/A
+Character count: 171
+
+================================================================================
+
+[Segment 2]
+--------------------------------------------------------------------------------
+Enter our protagonist, Sir Isaac Newton, dressed like a detective, magnifying glass in hand, peering suspiciously at the ground. 
+“Stay tuned, folks, as we unravel the juicy mystery of gravity!”
+
+Audio URL: N/A
+Character count: 194
+
+================================================================================
+
+[Segment 3]
+--------------------------------------------------------------------------------
+"What exactly is gravity?" Newton ponders. 
+"Is it the Earth’s way of saying, ‘Hey, apples, get down here!’?"
+
+Audio URL: N/A
+Character count: 109
+
+================================================================================
+
+[Segment 4]
+--------------------------------------------------------------------------------
+Then he explains, "Newton’s Law of Universal Gravitation says every object attracts every other object—like a cosmic dance where Earth just can’t resist pulling things in!"
+
+Audio URL: N/A
+Character count: 172
+
+================================================================================
+
+[Segment 5]
+--------------------------------------------------------------------------------
+Just then, the apple slips like a clumsy detective on a banana peel, tumbling down to reveal the enigma of gravitational pull!
+
+Audio URL: N/A
+Character count: 126
+
+================================================================================
+
+[Segment 6]
+--------------------------------------------------------------------------------
+"If I drop this apple, will it fall at 9.81 m/s²? Am I now an apple detective?"
+
+Audio URL: N/A
+Character count: 79
+
+================================================================================
+
+[Segment 7]
+--------------------------------------------------------------------------------
+What if you drop two apples? Do they team up or race to the ground? 
+"Remember, next time you munch on an apple, you’re also savoring a slice of gravitational history! And if you feel a pull toward dessert, it’s not just your sweet tooth; it’s gravity!"
+
+Audio URL: N/A
+Character count: 253
+
+================================================================================
+

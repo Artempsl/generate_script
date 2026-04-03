@@ -1,0 +1,75 @@
+================================================================================
+SEGMENTED SCRIPT
+================================================================================
+
+Total segments: 6
+Generated: 2026-03-31T14:15:37.964821+00:00
+
+================================================================================
+FULL SCRIPT (ORIGINAL)
+================================================================================
+
+What does it feel like to touch another world? Picture Neil Armstrong, an astronaut with stars in his eyes, staring at the moon during countless training sessions, each glance filled with a mix of excitement and fear. On July 20, 1969, his dream was about to become reality. The Apollo 11 mission, a monumental leap for humanity, would send Neil, Buzz Aldrin, and Michael Collins over 240,000 miles in the powerful Saturn V rocket. 
+
+Think of the journey as a heroic quest, where the lunar module, "Eagle," became their magical vessel, descending toward the moon’s surface. As Neil stepped onto the lunar soil, he declared, "That's one small step for man, one giant leap for mankind," capturing the weight of this achievement. Yet, challenges loomed—what if they ran out of fuel? But with ingenuity and teamwork, they persevered. 
+
+So, as we gaze at the moon tonight, remember it’s not just a distant rock; it symbolizes our potential. What dreams can you reach for?
+
+================================================================================
+SEGMENTS (6 total)
+================================================================================
+
+[Segment 1]
+--------------------------------------------------------------------------------
+What does it feel like to touch another world? Picture Neil Armstrong, an astronaut with stars in his eyes, staring at the moon during countless training sessions, each glance filled with a mix of excitement and fear.
+
+Audio URL: N/A
+Character count: 217
+
+================================================================================
+
+[Segment 2]
+--------------------------------------------------------------------------------
+On July 20, 1969, his dream was about to become reality. The Apollo 11 mission, a monumental leap for humanity, would send Neil, Buzz Aldrin, and Michael Collins over 240,000 miles in the powerful Saturn V rocket.
+
+Audio URL: N/A
+Character count: 213
+
+================================================================================
+
+[Segment 3]
+--------------------------------------------------------------------------------
+Think of the journey as a heroic quest, where the lunar module, "Eagle," became their magical vessel, descending toward the moon’s surface.
+
+Audio URL: N/A
+Character count: 139
+
+================================================================================
+
+[Segment 4]
+--------------------------------------------------------------------------------
+As Neil stepped onto the lunar soil, he declared, "That’s one small step for man, one giant leap for mankind," capturing the weight of this achievement.
+
+Audio URL: N/A
+Character count: 152
+
+================================================================================
+
+[Segment 5]
+--------------------------------------------------------------------------------
+Yet, challenges loomed—what if they ran out of fuel? But with ingenuity and teamwork, they persevered.
+
+Audio URL: N/A
+Character count: 102
+
+================================================================================
+
+[Segment 6]
+--------------------------------------------------------------------------------
+So, as we gaze at the moon tonight, remember it’s not just a distant rock; it symbolizes our potential. What dreams can you reach for?
+
+Audio URL: N/A
+Character count: 134
+
+================================================================================
+

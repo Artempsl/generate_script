@@ -1,0 +1,183 @@
+================================================================================
+SEGMENTED SCRIPT
+================================================================================
+
+Total segments: 18
+Generated: 2026-03-28T15:46:35.338053+00:00
+
+================================================================================
+FULL SCRIPT (ORIGINAL)
+================================================================================
+
+On a dark, stormy night, the wind howls as our camera creeps toward a spooky old apple tree in a graveyard. A single apple sways ominously from a branch. What if I told you this apple holds a dark secret? What happens when it falls? Suddenly, a thunderclap echoes as the apple drops to the ground. What force pulls it down? Is it just gravity, or something more sinister?
+
+Gravity is a mysterious force that pulls objects together. In 1687, Isaac Newton revealed the formula: F = ma. But where does this force come from? Picture a girl named Lucy in a spooky world where apples float, teasing her. She believes they’re bewitched! Suddenly, they drop one by one. As each soft thud meets the ground, she learns gravity, like a ghostly hand, pulls them down!
+
+If an apple weighs 0.1 kg, how hard does it hit? Let’s calculate! Remember, every time you drop something, you feel gravity's grip. So, next time you see an apple fall, remember the force lurking in the shadows—gravity!
+
+================================================================================
+SEGMENTS (18 total)
+================================================================================
+
+[Segment 1]
+--------------------------------------------------------------------------------
+On a dark, stormy night, the wind howls as our camera creeps toward a spooky old apple tree in a graveyard.
+
+Audio URL: N/A
+Character count: 107
+
+================================================================================
+
+[Segment 2]
+--------------------------------------------------------------------------------
+A single apple sways ominously from a branch.
+
+Audio URL: N/A
+Character count: 45
+
+================================================================================
+
+[Segment 3]
+--------------------------------------------------------------------------------
+What if I told you this apple holds a dark secret?
+
+Audio URL: N/A
+Character count: 50
+
+================================================================================
+
+[Segment 4]
+--------------------------------------------------------------------------------
+What happens when it falls?
+
+Audio URL: N/A
+Character count: 27
+
+================================================================================
+
+[Segment 5]
+--------------------------------------------------------------------------------
+Suddenly, a thunderclap echoes as the apple drops to the ground.
+
+Audio URL: N/A
+Character count: 64
+
+================================================================================
+
+[Segment 6]
+--------------------------------------------------------------------------------
+What force pulls it down?
+
+Audio URL: N/A
+Character count: 25
+
+================================================================================
+
+[Segment 7]
+--------------------------------------------------------------------------------
+Is it just gravity, or something more sinister?
+
+Audio URL: N/A
+Character count: 47
+
+================================================================================
+
+[Segment 8]
+--------------------------------------------------------------------------------
+Gravity is a mysterious force that pulls objects together.
+
+Audio URL: N/A
+Character count: 58
+
+================================================================================
+
+[Segment 9]
+--------------------------------------------------------------------------------
+In 1687, Isaac Newton revealed the formula: F = ma.
+
+Audio URL: N/A
+Character count: 51
+
+================================================================================
+
+[Segment 10]
+--------------------------------------------------------------------------------
+But where does this force come from?
+
+Audio URL: N/A
+Character count: 36
+
+================================================================================
+
+[Segment 11]
+--------------------------------------------------------------------------------
+Picture a girl named Lucy in a spooky world where apples float, teasing her.
+
+Audio URL: N/A
+Character count: 76
+
+================================================================================
+
+[Segment 12]
+--------------------------------------------------------------------------------
+She believes they’re bewitched!
+
+Audio URL: N/A
+Character count: 31
+
+================================================================================
+
+[Segment 13]
+--------------------------------------------------------------------------------
+Suddenly, they drop one by one.
+
+Audio URL: N/A
+Character count: 31
+
+================================================================================
+
+[Segment 14]
+--------------------------------------------------------------------------------
+As each soft thud meets the ground, she learns gravity, like a ghostly hand, pulls them down!
+
+Audio URL: N/A
+Character count: 93
+
+================================================================================
+
+[Segment 15]
+--------------------------------------------------------------------------------
+If an apple weighs 0.1 kg, how hard does it hit?
+
+Audio URL: N/A
+Character count: 48
+
+================================================================================
+
+[Segment 16]
+--------------------------------------------------------------------------------
+Let’s calculate!
+
+Audio URL: N/A
+Character count: 16
+
+================================================================================
+
+[Segment 17]
+--------------------------------------------------------------------------------
+Remember, every time you drop something, you feel gravity’s grip.
+
+Audio URL: N/A
+Character count: 65
+
+================================================================================
+
+[Segment 18]
+--------------------------------------------------------------------------------
+So, next time you see an apple fall, remember the force lurking in the shadows—gravity!
+
+Audio URL: N/A
+Character count: 87
+
+================================================================================
+

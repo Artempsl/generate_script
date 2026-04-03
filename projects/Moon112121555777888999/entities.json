@@ -1,0 +1,59 @@
+{
+  "characters": [
+    {
+      "id": "char_1",
+      "name": "Neil Armstrong",
+      "versions": [
+        {
+          "age": "39",
+          "base_prompt": "male, square jawline, high cheekbones, almond-shaped blue eyes, short dark brown hair, athletic build, fair skin, wearing a white space suit with blue and red accents, highly detailed, cinematic lighting",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "char_2",
+      "name": "Buzz Aldrin",
+      "versions": [
+        {
+          "age": "39",
+          "base_prompt": "male, round jawline, prominent cheekbones, round blue eyes, short gray hair, athletic build, fair skin, wearing a white space suit with blue and red accents, highly detailed, cinematic lighting",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "char_3",
+      "name": "Michael Collins",
+      "versions": [
+        {
+          "age": "38",
+          "base_prompt": "male, oval jawline, defined cheekbones, narrow green eyes, short dark brown hair, athletic build, fair skin, wearing a white space suit with blue and red accents, highly detailed, cinematic lighting",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "animals": [],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "Saturn V rocket",
+      "base_prompt": "approximately 110 meters tall, cylindrical shape, metallic texture, white with black and red markings, modern design, highly detailed, cinematic lighting"
+    },
+    {
+      "id": "obj_2",
+      "name": "lunar module Eagle",
+      "base_prompt": "approximately 4 meters tall, boxy shape with legs, metallic texture, gold and silver color scheme, modern design, highly detailed, cinematic lighting"
+    }
+  ]
+}

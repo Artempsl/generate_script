@@ -16,6 +16,7 @@ import asyncio
 import logging
 from typing import Dict, Any, List, Union
 from datetime import datetime, timezone
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse, StreamingResponse
@@ -31,11 +32,13 @@ try:
         ScriptResponse,
         SegmentedScriptResponse,
         create_initial_state,
+        create_teacher_initial_state,
         state_to_response,
         state_to_segmented_response
     )
     from agent.database import DatabaseManager, Execution
     from agent.graph import execute_agent
+    from agent.teacher.graph import execute_teacher_agent
 except ModuleNotFoundError:
     import sys
     from pathlib import Path
@@ -46,11 +49,13 @@ except ModuleNotFoundError:
         ScriptResponse,
         SegmentedScriptResponse,
         create_initial_state,
+        create_teacher_initial_state,
         state_to_response,
         state_to_segmented_response
     )
     from agent.database import DatabaseManager, Execution
     from agent.graph import execute_agent
+    from agent.teacher.graph import execute_teacher_agent
 
 
 # =============================================================================
@@ -86,6 +91,34 @@ app.mount("/projects", StaticFiles(directory="projects"), name="projects")
 
 # Initialize database manager
 db_manager = DatabaseManager()
+
+
+# =============================================================================
+# HELPER FUNCTIONS
+# =============================================================================
+
+def save_final_json_to_project(project_slug: str, response_data: Dict[str, Any]) -> None:
+    """
+    Save final n8n response JSON to project directory.
+    
+    Args:
+        project_slug: URL-safe project name
+        response_data: Complete response data to save
+    """
+    try:
+        project_dir = Path("projects") / project_slug
+        if not project_dir.exists():
+            logger.warning(f"Project directory not found: {project_dir}")
+            return
+        
+        json_path = project_dir / "final_response.json"
+        
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(response_data, f, indent=2, ensure_ascii=False)
+        
+        logger.info(f"✓ Final JSON saved to {json_path}")
+    except Exception as e:
+        logger.error(f"✗ Failed to save final JSON: {e}")
 
 
 # =============================================================================
@@ -309,30 +342,34 @@ async def generate_script(request: Request):
         HTTPException: On validation or execution errors
     """
     try:
+        from pydantic import ValidationError as PydanticValidationError
         # Parse raw body
         body = await request.body()
         body_str = body.decode('utf-8')
         body_json = json.loads(body_str)
         
         # Auto-detect format and extract item
-        if isinstance(body_json, list):
-            # Format 1: Array [{...}]
-            if not body_json or len(body_json) == 0:
+        try:
+            if isinstance(body_json, list):
+                # Format 1: Array [{...}]
+                if not body_json or len(body_json) == 0:
+                    raise HTTPException(
+                        status_code=422,
+                        detail="Request array cannot be empty"
+                    )
+                request_item = ScriptRequestItem(**body_json[0])
+                logger.debug(f"→ Detected array format: {len(body_json)} item(s)")
+            elif isinstance(body_json, dict):
+                # Format 2: Direct object {...}
+                request_item = ScriptRequestItem(**body_json)
+                logger.debug(f"→ Detected direct object format")
+            else:
                 raise HTTPException(
                     status_code=422,
-                    detail="Request array cannot be empty"
+                    detail="Invalid request format. Expected array [{...}] or object {...}"
                 )
-            request_item = ScriptRequestItem(**body_json[0])
-            logger.debug(f"→ Detected array format: {len(body_json)} item(s)")
-        elif isinstance(body_json, dict):
-            # Format 2: Direct object {...}
-            request_item = ScriptRequestItem(**body_json)
-            logger.debug(f"→ Detected direct object format")
-        else:
-            raise HTTPException(
-                status_code=422,
-                detail="Invalid request format. Expected array [{...}] or object {...}"
-            )
+        except PydanticValidationError as ve:
+            raise HTTPException(status_code=422, detail=str(ve))
         
         # Get request ID
         request_id = request_item.request_id
@@ -342,23 +379,21 @@ async def generate_script(request: Request):
         logger.info("=" * 80)
         logger.info(f"Request ID: {request_id}")
         logger.info(f"Project: {request_item.normalized_project_name}")
-        logger.info(f"Genre: {request_item.genre}")
+        logger.info(f"Genre/Topic: {request_item.genre or request_item.topic}")
         logger.info(f"Duration: {request_item.duration} min")
         logger.info(f"Idea: {request_item.normalized_story_idea[:100]}...")
         logger.info(f"Use case: {request_item.use_case}  |  Chat ID: {request_item.chat_id}")
 
         # ─── USE CASE ROUTING ─────────────────────────────────────────────────
         if request_item.use_case == "teacher":
-            raise HTTPException(
-                status_code=501,
-                detail="use_case 'teacher' pipeline is not yet implemented"
-            )
-        elif request_item.use_case != "youtube":
+            execute_fn = execute_teacher_agent
+        elif request_item.use_case == "youtube":
+            execute_fn = execute_agent
+        else:
             raise HTTPException(
                 status_code=422,
-                detail=f"Unknown use_case: '{request_item.use_case}'. Supported values: 'youtube'"
+                detail=f"Unknown use_case: '{request_item.use_case}'. Supported values: 'youtube', 'teacher'"
             )
-        # use_case == "youtube" → continue with existing pipeline
         # ──────────────────────────────────────────────────────────────────────
 
         # Check for existing execution (idempotency)
@@ -367,19 +402,26 @@ async def generate_script(request: Request):
             logger.info("✓ Found existing execution (cached)")
             response = existing.to_response()
             # Always reflect current request's use_case/chat_id (not stored in DB)
-            response.use_case = request_item.use_case
-            response.chat_id = request_item.chat_id
+            response["use_case"] = request_item.use_case
+            response["chat_id"] = request_item.chat_id
+            # For teacher pipeline, fact_check data is now stored in DB
+            if request_item.use_case == "teacher":
+                # fact_check_citations and fact_check_report already in response from DB
+                pass
             logger.info("=" * 80)
-            return JSONResponse(content=response.model_dump())
-        
+            return JSONResponse(content=response)
+
         # Detect audio base URL from request headers
         host = request.headers.get("host", "localhost:8000")
         scheme = "https" if request.headers.get("x-forwarded-proto") == "https" else "http"
         audio_base_url = f"{scheme}://{host}"
-        
-        # Create initial state
+
+        # Create initial state (routing-aware)
         logger.info("→ Creating initial state...")
-        initial_state = create_initial_state(request_item)
+        if request_item.use_case == "teacher":
+            initial_state = create_teacher_initial_state(request_item)
+        else:
+            initial_state = create_initial_state(request_item)
         initial_state['audio_base_url'] = audio_base_url
         logger.info(f"  Language detected: {initial_state['language']}")
         logger.info(f"  Target characters: {initial_state['target_chars']:,}")
@@ -391,7 +433,7 @@ async def generate_script(request: Request):
         async def _stream_response():
             # Start pipeline as independent task so keepalive loop doesn't block it
             pipeline_task = asyncio.create_task(
-                asyncio.wait_for(execute_agent(initial_state), timeout=MAX_TIMEOUT_SECONDS)
+                asyncio.wait_for(execute_fn(initial_state), timeout=MAX_TIMEOUT_SECONDS)
             )
 
             # Send a space byte every 20s while pipeline runs — keeps Cloudflare alive
@@ -408,18 +450,6 @@ async def generate_script(request: Request):
             except asyncio.TimeoutError:
                 error_msg = f"Agent execution timed out after {MAX_TIMEOUT_SECONDS}s"
                 logger.error(f"✗ {error_msg}")
-                execution = Execution(
-                    request_id=request_id,
-                    status="error",
-                    project_name=request_item.normalized_project_name,
-                    genre=request_item.genre,
-                    duration=request_item.duration,
-                    language=initial_state['language'],
-                    error_message=error_msg,
-                    iteration_count=0,
-                    tokens_used_total=0
-                )
-                await db_manager.save_execution(execution)
                 yield json.dumps({"error": error_msg, "status": "error"}).encode()
                 return
             except Exception as exc:
@@ -477,10 +507,19 @@ async def generate_script(request: Request):
                 retrieved_sources_count=final_state.get('retrieved_sources_count', 0),
                 reasoning_trace=final_state.get('reasoning_trace', []),
                 segments=final_state.get('segments', []),
-                audio_files_count=final_state.get('audio_files_count', 0)
+                audio_files_count=final_state.get('audio_files_count', 0),
+                video_url=final_state.get('video_url'),
+                fact_check_citations=final_state.get('fact_check_citations', []),
+                fact_check_report=final_state.get('fact_check_snapshots', []),
             )
             await db_manager.save_execution(execution)
             logger.info("✓ Execution saved to database")
+            
+            # Save final JSON to project directory
+            response_dict = response.model_dump()
+            project_slug = final_state.get('project_slug', request_item.normalized_project_name)
+            save_final_json_to_project(project_slug, response_dict)
+            
             logger.info("=" * 80)
 
             yield response.model_dump_json().encode()
@@ -519,6 +558,86 @@ async def get_execution(request_id: str):
         )
     
     return execution.to_dict()
+
+
+@app.get("/test-n8n-response/{project_name}")
+async def test_n8n_response_get(project_name: str):
+    """
+    Test endpoint (GET): Returns existing project's final_response.json.
+    Use this to preview what n8n will receive from /generate-script.
+    
+    Args:
+        project_name: Project slug (e.g., Moon112121555777888999)
+        
+    Returns:
+        Exact JSON that would be returned to n8n
+    """
+    project_file = Path(f"projects/{project_name}/final_response.json")
+    
+    if not project_file.exists():
+        raise HTTPException(
+            status_code=404,
+            detail=f"Project not found: {project_name}"
+        )
+    
+    try:
+        with open(project_file, "r", encoding="utf-8") as f:
+            response_data = json.load(f)
+        return response_data
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to load project data: {str(e)}"
+        )
+
+
+@app.post("/test-n8n-response")
+async def test_n8n_response_post(request: Request):
+    """
+    Test endpoint (POST): Accepts same format as /generate-script but returns 
+    existing project data without generating anything. Perfect for testing n8n 
+    integration without spending tokens.
+    
+    Request body should include project_name field.
+    
+    Returns:
+        Exact JSON that n8n would receive from /generate-script
+    """
+    try:
+        body = await request.json()
+        project_name = body.get("project_name")
+        
+        if not project_name:
+            raise HTTPException(
+                status_code=400,
+                detail="project_name is required in request body"
+            )
+        
+        project_file = Path(f"projects/{project_name}/final_response.json")
+        
+        if not project_file.exists():
+            raise HTTPException(
+                status_code=404,
+                detail=f"Project not found: {project_name}"
+            )
+        
+        with open(project_file, "r", encoding="utf-8") as f:
+            response_data = json.load(f)
+        
+        logger.info(f"✓ Test response returned for project: {project_name}")
+        return response_data
+        
+    except json.JSONDecodeError:
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid JSON in request body"
+        )
+    except Exception as e:
+        logger.error(f"Test endpoint error: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to load project data: {str(e)}"
+        )
 
 
 @app.get("/statistics")

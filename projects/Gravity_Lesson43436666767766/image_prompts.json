@@ -1,0 +1,65 @@
+[
+  {
+    "segment": 1,
+    "text_preview": "Picture this: a quaint orchard, a mysterious apple tree, and a curious figure named Isaac. Why is he staring at that app",
+    "prompt": "POV cinematic photo, English countryside orchard at golden hour, apple tree, warm sunlight, no people, atmospheric lighting, photorealistic, 8k",
+    "status": "failed",
+    "image_path": null
+  },
+  {
+    "segment": 2,
+    "text_preview": "But is it just fruit, or is this apple... a clue?",
+    "prompt": "POV cinematic photo, misty orchard, single sunbeam on a red apple, soft focus shadows, no people, atmospheric lighting, photorealistic, 8k",
+    "status": "failed",
+    "image_path": null
+  },
+  {
+    "segment": 3,
+    "text_preview": "In 1666, Newton pondered: why do apples fall straight down instead of sideways? Gravity isn’t just a force; it’s why you",
+    "prompt": "POV cinematic photo, looking up through apple tree canopy, red apple falling toward camera, no people, atmospheric lighting, photorealistic, 8k",
+    "status": "failed",
+    "image_path": null
+  },
+  {
+    "segment": 4,
+    "text_preview": "Newton’s big revelation? The formula for gravity: F = G(m1*m2)/r²—yes, a mouthful!",
+    "prompt": "POV cinematic photo, old wooden desk with handwritten equations on parchment, candlelight, no people, atmospheric lighting, photorealistic, 8k",
+    "status": "failed",
+    "image_path": null
+  },
+  {
+    "segment": 5,
+    "text_preview": "Imagine you’re at a magic show. What if the magician could pull an apple from the sky? Newton realized gravity is like t",
+    "prompt": "POV cinematic photo, Victorian theatre stage, red curtains, dramatic spotlight, smoky air, no people, atmospheric lighting, photorealistic, 8k",
+    "status": "failed",
+    "image_path": null
+  },
+  {
+    "segment": 6,
+    "text_preview": "So every bite of an apple is a reminder of physics!",
+    "prompt": "POV cinematic photo, close-up red apple on rough wood, dramatic side lighting, deep shadows, no people, atmospheric lighting, photorealistic, 8k",
+    "status": "failed",
+    "image_path": null
+  },
+  {
+    "segment": 7,
+    "text_preview": "Let’s recap: Gravity pulls objects together. If you dropped two apples from a tree, they’d fall at 9.8 m/s²—don't try th",
+    "prompt": "POV cinematic photo, English countryside orchard at golden hour, apple tree, warm sunlight, no people, atmospheric lighting, photorealistic, 8k",
+    "status": "failed",
+    "image_path": null
+  },
+  {
+    "segment": 8,
+    "text_preview": "So next time you munch on an apple, think of the genius who unlocked the mystery of gravity… and maybe don’t drop it!",
+    "prompt": "POV cinematic photo, looking up through apple tree canopy, red apple falling toward camera, no people, atmospheric lighting, photorealistic, 8k",
+    "status": "failed",
+    "image_path": null
+  },
+  {
+    "segment": 9,
+    "text_preview": "Reminder: Do not change any words!",
+    "prompt": "POV cinematic photo, old science classroom, antique windows, afternoon light, physics instruments, no people, atmospheric lighting, photorealistic, 8k",
+    "status": "failed",
+    "image_path": null
+  }
+]

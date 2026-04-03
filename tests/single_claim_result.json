@@ -1,0 +1,9 @@
+{
+  "claim": "Isaac Newton published his laws of motion in 1700.",
+  "verdict": "false",
+  "confidence": null,
+  "source_url": "http://amsi.org.au/ESA_Senior_Years/SeniorTopic3/3i/3i_4history_2.html",
+  "overall_assessment": "**Isaac Newton published his laws of motion in 1687 as part of his seminal work \"Philosophiæ Naturalis Principia Mathematica\" (\"Mathematical Principles of Natural Philosophy\").**\n\nBased on the evidence, Isaac Newton's laws of motion were published in 1687 as part of his work \"Philosophiæ Naturalis Principia Mathematica.\" Multiple reputable sources, including Britannica, American Physical Society (APS), and Lehman archives, confirm the 1687 publication date of these laws. No evidence supports the claim of a 1700 publication date. Relevant sources include:\n- Britannica: [https://www.britannica.com/summary/Understanding-Newtons-Laws-of-Motion](https://www.britannica.com/summary/Understanding-Newtons-Laws-of-Motion)\n- American Physical Society: [https://www.aps.org/apsnews/2000/07/isaac-newton-principia](https://www.aps.org/apsnews/2000/07/isaac-newton-principia)\n- Lehman archives: [https://www.lehman.edu/faculty/anchordoqui/chapter07.pdf](https://www.lehman.edu/faculty/anchordoqui/chapter07.pdf)",
+  "requires_manual_check": false,
+  "manual_check_reason": null
+}

@@ -1,0 +1,50 @@
+{
+  "characters": [
+    {
+      "id": "char_1",
+      "name": "Alex",
+      "versions": [
+        {
+          "age": "child",
+          "base_prompt": "young child, gender-neutral, round face, wide eyes, light brown eyes, short curly hair, medium build, fair skin, wearing a simple t-shirt and shorts",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "char_2",
+      "name": "Sir Isaac Newton",
+      "versions": [
+        {
+          "age": "middle-aged",
+          "base_prompt": "middle-aged man, male, prominent jawline, high cheekbones, deep-set eyes, dark brown eyes, long wavy hair, slender build, pale skin, wearing a period-appropriate coat and waistcoat",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "animals": [],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "apple",
+      "base_prompt": "red apple, round shape, smooth texture, shiny surface, fresh condition, highly detailed, cinematic lighting"
+    },
+    {
+      "id": "obj_2",
+      "name": "ball",
+      "base_prompt": "small rubber ball, spherical shape, bright yellow color, smooth texture, new condition, highly detailed, cinematic lighting"
+    },
+    {
+      "id": "obj_3",
+      "name": "gnarled tree",
+      "base_prompt": "gnarled tree, twisted branches, dark brown bark, rough texture, aged condition, highly detailed, cinematic lighting"
+    }
+  ]
+}

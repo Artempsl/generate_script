@@ -1,0 +1,106 @@
+================================================================================
+SEGMENTED SCRIPT
+================================================================================
+
+Total segments: 9
+Generated: 2026-03-28T17:38:24.874191+00:00
+
+================================================================================
+FULL SCRIPT (ORIGINAL)
+================================================================================
+
+Picture this: a quaint orchard, a mysterious apple tree, and a curious figure named Isaac. Why is he staring at that apple? What if I told you this apple holds a gravitational secret that changed the world forever? But is it just fruit, or is this apple... a clue?
+
+In 1666, Newton pondered: why do apples fall straight down instead of sideways? Gravity isn’t just a force; it’s why your lunch ends up on the ground when you drop it! Newton’s big revelation? The formula for gravity: F = G(m1*m2)/r²—yes, a mouthful!
+
+Imagine you’re at a magic show. What if the magician could pull an apple from the sky? Newton realized gravity is like that magician—always pulling things toward the Earth. So every bite of an apple is a reminder of physics!
+
+Let’s recap: Gravity pulls objects together. If you dropped two apples from a tree, they’d fall at 9.8 m/s²—don't try this at home! 
+
+So next time you munch on an apple, think of the genius who unlocked the mystery of gravity… and maybe don’t drop it!
+
+================================================================================
+SEGMENTS (9 total)
+================================================================================
+
+[Segment 1]
+--------------------------------------------------------------------------------
+Picture this: a quaint orchard, a mysterious apple tree, and a curious figure named Isaac. Why is he staring at that apple? What if I told you this apple holds a gravitational secret that changed the world forever?
+
+Audio URL: N/A
+Character count: 214
+
+================================================================================
+
+[Segment 2]
+--------------------------------------------------------------------------------
+But is it just fruit, or is this apple... a clue?
+
+Audio URL: N/A
+Character count: 49
+
+================================================================================
+
+[Segment 3]
+--------------------------------------------------------------------------------
+In 1666, Newton pondered: why do apples fall straight down instead of sideways? Gravity isn’t just a force; it’s why your lunch ends up on the ground when you drop it!
+
+Audio URL: N/A
+Character count: 167
+
+================================================================================
+
+[Segment 4]
+--------------------------------------------------------------------------------
+Newton’s big revelation? The formula for gravity: F = G(m1*m2)/r²—yes, a mouthful!
+
+Audio URL: N/A
+Character count: 82
+
+================================================================================
+
+[Segment 5]
+--------------------------------------------------------------------------------
+Imagine you’re at a magic show. What if the magician could pull an apple from the sky? Newton realized gravity is like that magician—always pulling things toward the Earth.
+
+Audio URL: N/A
+Character count: 172
+
+================================================================================
+
+[Segment 6]
+--------------------------------------------------------------------------------
+So every bite of an apple is a reminder of physics!
+
+Audio URL: N/A
+Character count: 51
+
+================================================================================
+
+[Segment 7]
+--------------------------------------------------------------------------------
+Let’s recap: Gravity pulls objects together. If you dropped two apples from a tree, they’d fall at 9.8 m/s²—don't try this at home!
+
+Audio URL: N/A
+Character count: 131
+
+================================================================================
+
+[Segment 8]
+--------------------------------------------------------------------------------
+So next time you munch on an apple, think of the genius who unlocked the mystery of gravity… and maybe don’t drop it!
+
+Audio URL: N/A
+Character count: 117
+
+================================================================================
+
+[Segment 9]
+--------------------------------------------------------------------------------
+Reminder: Do not change any words!
+
+Audio URL: N/A
+Character count: 34
+
+================================================================================
+

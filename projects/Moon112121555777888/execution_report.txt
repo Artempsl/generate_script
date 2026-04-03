@@ -1,0 +1,158 @@
+================================================================================
+PROJECT EXECUTION REPORT
+================================================================================
+
+Generated: 2026-03-31T13:31:12.204870+00:00
+Request ID: b9ec6896-dae7-4fc7-8aa8-cf7aea15f622
+
+================================================================================
+PROJECT INFORMATION
+================================================================================
+
+Project Name: Moon112121555777888
+Project Slug: Moon112121555777888
+Genre: History
+Language: en
+Target Duration: 1 minutes
+Target Characters: 1,000
+
+================================================================================
+EXECUTION SUMMARY
+================================================================================
+
+Total Steps: 13
+Total Iterations: 0
+Regeneration Count: 0
+Retry Attempts: 0
+Status: ✓ SUCCESS
+
+================================================================================
+RESOURCE USAGE
+================================================================================
+
+Total Tokens Used: 12,797
+Pinecone Queries: 5
+Web Search Enabled: No
+
+Token Breakdown by Action:
+  - synthesize_context: 4,689 tokens
+  - retrieve_pinecone: 3,639 tokens
+  - react_reasoning: 1,546 tokens
+  - generate_teacher_script: 1,317 tokens
+  - generate_teacher_outline: 1,028 tokens
+  - segment_script: 578 tokens
+  - create_project_directory: 0 tokens
+  - validate_length: 0 tokens
+  - fact_check: 0 tokens
+  - generate_audio: 0 tokens
+  - extract_entities: 0 tokens
+  - generate_images: 0 tokens
+  - generate_video: 0 tokens
+
+TTS API Usage (Character-Based Pricing):
+  - Characters Processed: 1,009
+  - Estimated Cost: $0.0151 (at $0.015/1K chars)
+
+================================================================================
+SCRIPT VALIDATION
+================================================================================
+
+Validation Status: ✓ PASSED
+Script Length: 1,014 characters
+Target Length: 1,000 characters
+Length Ratio: 101.4%
+Validation Message: ✓ Length valid (101.4%)
+
+Estimated Duration: 1.0 minutes
+Target Duration: 1 minutes
+Duration Match: ✓ YES
+
+================================================================================
+SEGMENTATION & AUDIO GENERATION
+================================================================================
+
+Script Segments Created: 5
+Audio Files Generated: 5
+TTS Characters Processed: 1,009
+TTS Estimated Cost: $0.0151
+Segmentation Success: ✓ YES
+Audio Generation Success: ✓ YES
+
+================================================================================
+FULL REASONING TRACE
+================================================================================
+
+[Step create_project (iteration 0)] create_project_directory
+  Timestamp: N/A
+  Result: N/A
+  Tokens Used: 0
+
+[Step 2] retrieve_pinecone
+  Timestamp: 2026-03-31T13:22:04.982854+00:00
+  Result: Retrieved 5 sources (14559 chars)
+  Tokens Used: 3,639
+
+[Step 3] synthesize_context
+  Timestamp: 2026-03-31T13:22:20.544315+00:00
+  Result: Generated 3693 chars of insights
+  Tokens Used: 4,689
+
+[Step 4] react_reasoning
+  Timestamp: 2026-03-31T13:22:38.770998+00:00
+  Result: Strategy: {'tone': 'atmospheric', 'pacing': 'fast-paced', 'emphasis': 'character', 'key_techniques': ['tension-building', 'psychological-depth', 'visual-storytelling']} (3386 chars reasoning)
+  Tokens Used: 1,546
+
+[Step 5] generate_teacher_outline
+  Timestamp: 2026-03-31T13:22:46.951460+00:00
+  Result: Outline generated (2053 chars)
+  Tokens Used: 1,028
+
+[Step 6] generate_teacher_script
+  Timestamp: 2026-03-31T13:22:51.534696+00:00
+  Result: Script generated (1,014 chars)
+  Tokens Used: 1,317
+
+[Step 7] validate_length
+  Timestamp: 2026-03-31T13:22:51.536934+00:00
+  Result: ✓ Length valid (101.4%)
+  Tokens Used: 0
+
+[Step 8] fact_check
+  Timestamp: 2026-03-31T13:23:35.772953+00:00
+  Result: passed=True, citations=2
+  Tokens Used: 0
+
+[Step 9] segment_script
+  Timestamp: 2026-03-31T13:23:42.765113+00:00
+  Result: Created 5 segments
+  Tokens Used: 578
+
+[Step 10] generate_audio
+  Timestamp: 2026-03-31T13:24:00.512576+00:00
+  Result: Generated 5 audio files (1,009 characters, ~$0.0151)
+  Tokens Used: 0
+
+[Step 11] extract_entities
+  Timestamp: 2026-03-31T13:24:05.286978+00:00
+  Result: Extracted 1 characters, 0 animals, 1 objects → projects\Moon112121555777888\entities.json
+  Tokens Used: 0
+
+[Step 12] generate_images
+  Timestamp: 2026-03-31T13:27:41.457665+00:00
+  Result: Generated 5/5 images → projects\Moon112121555777888/images_v2/
+  Tokens Used: 0
+
+[Step 13] generate_video
+  Timestamp: 2026-03-31T13:31:12.203399+00:00
+  Result: Video rendered → projects\Moon112121555777888\output\final_video.mp4
+  Tokens Used: 0
+
+================================================================================
+PERFORMANCE METRICS
+================================================================================
+
+Execution time calculation unavailable.
+
+================================================================================
+END OF REPORT
+================================================================================

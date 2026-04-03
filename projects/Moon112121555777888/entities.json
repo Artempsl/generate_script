@@ -1,0 +1,26 @@
+{
+  "characters": [
+    {
+      "id": "char_1",
+      "name": "Neil Armstrong",
+      "versions": [
+        {
+          "age": "39",
+          "base_prompt": "male, square jawline, high cheekbones, almond-shaped brown eyes, short dark brown hair, medium build, fair skin, wearing a white space suit with blue and red accents, highly detailed, cinematic lighting",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "animals": [],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "footprint",
+      "base_prompt": "approximately 30 cm long, oval shape, imprinted in lunar dust, light gray color, detailed texture, representing a human footprint, highly detailed, cinematic lighting"
+    }
+  ]
+}

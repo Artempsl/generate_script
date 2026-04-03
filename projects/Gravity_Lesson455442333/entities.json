@@ -1,0 +1,20 @@
+{
+  "characters": [
+    {
+      "id": "char_1",
+      "name": "Christopher Columbus",
+      "versions": [
+        {
+          "age": "mid-40s",
+          "base_prompt": "mid-40s male, strong jawline, high cheekbones, almond-shaped brown eyes, short curly dark brown hair, stocky build, fair skin, wearing a dark navy tunic with gold trim and a white collar, highly detailed, cinematic lighting",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "animals": [],
+  "objects": []
+}

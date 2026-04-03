@@ -1,0 +1,113 @@
+================================================================================
+SEGMENTED SCRIPT
+================================================================================
+
+Total segments: 10
+Generated: 2026-03-31T09:10:44.775812+00:00
+
+================================================================================
+FULL SCRIPT (ORIGINAL)
+================================================================================
+
+The Martian landscape stretched endlessly, its crimson dust swirling under an indifferent sky. Dr. Alex Reed adjusted his headset, a faint, rhythmic beeping echoing in the silence. A holographic interface flickered to life, displaying an unreadable pattern. “What are you trying to tell me?” he murmured, confusion morphing into intrigue.
+
+The signal grew louder, filling the air with static, as Alex’s fingers danced over controls. Data projected holographically, revealing the source: a mysterious crater. Determined, he suited up for the journey.
+
+Navigating the rocky terrain, tension crackled around him. The beeping intensified, now accompanied by ghostly whispers. But as he neared the crater's edge, the signal abruptly ceased. Panic clawed at his throat.
+
+Peering into the darkness, a flicker of light beckoned. A loud pulse resonated, then silence enveloped him. Heart racing, Alex hesitated, weighing risk against the unknown. Stepping forward, he reached out, silhouetted against the Martian dusk. With a deep breath, the light flared, and the screen faded to black. What lies beneath?
+
+================================================================================
+SEGMENTS (10 total)
+================================================================================
+
+[Segment 1]
+--------------------------------------------------------------------------------
+The Martian landscape stretched endlessly, its crimson dust swirling under an indifferent sky. Dr. Alex Reed adjusted his headset, a faint, rhythmic beeping echoing in the silence.
+
+Audio URL: N/A
+Character count: 180
+
+================================================================================
+
+[Segment 2]
+--------------------------------------------------------------------------------
+A holographic interface flickered to life, displaying an unreadable pattern. “What are you trying to tell me?” he murmured, confusion morphing into intrigue.
+
+Audio URL: N/A
+Character count: 157
+
+================================================================================
+
+[Segment 3]
+--------------------------------------------------------------------------------
+The signal grew louder, filling the air with static, as Alex’s fingers danced over controls. Data projected holographically, revealing the source: a mysterious crater.
+
+Audio URL: N/A
+Character count: 167
+
+================================================================================
+
+[Segment 4]
+--------------------------------------------------------------------------------
+Determined, he suited up for the journey.
+
+Audio URL: N/A
+Character count: 41
+
+================================================================================
+
+[Segment 5]
+--------------------------------------------------------------------------------
+Navigating the rocky terrain, tension crackled around him. The beeping intensified, now accompanied by ghostly whispers.
+
+Audio URL: N/A
+Character count: 120
+
+================================================================================
+
+[Segment 6]
+--------------------------------------------------------------------------------
+But as he neared the crater's edge, the signal abruptly ceased. Panic clawed at his throat.
+
+Audio URL: N/A
+Character count: 91
+
+================================================================================
+
+[Segment 7]
+--------------------------------------------------------------------------------
+Peering into the darkness, a flicker of light beckoned.
+
+Audio URL: N/A
+Character count: 55
+
+================================================================================
+
+[Segment 8]
+--------------------------------------------------------------------------------
+A loud pulse resonated, then silence enveloped him. Heart racing, Alex hesitated, weighing risk against the unknown.
+
+Audio URL: N/A
+Character count: 116
+
+================================================================================
+
+[Segment 9]
+--------------------------------------------------------------------------------
+Stepping forward, he reached out, silhouetted against the Martian dusk.
+
+Audio URL: N/A
+Character count: 71
+
+================================================================================
+
+[Segment 10]
+--------------------------------------------------------------------------------
+With a deep breath, the light flared, and the screen faded to black. What lies beneath?
+
+Audio URL: N/A
+Character count: 87
+
+================================================================================
+

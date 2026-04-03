@@ -1,0 +1,129 @@
+================================================================================
+SEGMENTED SCRIPT
+================================================================================
+
+Total segments: 12
+Generated: 2026-03-28T15:52:36.921478+00:00
+
+================================================================================
+FULL SCRIPT (ORIGINAL)
+================================================================================
+
+In the chilling twilight of a dark orchard, a whispering voice beckons, "What happens when an apple falls?" Shadows dance around a solitary figure—Newton, gazing skyward at a tree, where a lone apple hangs, swaying ominously. "Is it just gravity... or something more?" Suddenly, the apple plummets, hitting the ground with a spine-chilling thud. 
+
+"Gravity," the voice continues, "is like an invisible hand, yanking everything toward the earth." But how strong is it? Newton’s Law of Universal Gravitation tells us that Earth pulls on you with a force of about 9.8 m/s²! Imagine a haunted apple tree, where each fallen apple conjures a ghost. Each apple embodies gravity's force, drawing the specter closer to the earth. Can you feel that eerie tug? 
+
+What if you were in a spooky tree and heard an apple drop nearby? If two apples fell, would they behave differently? Remember, gravity pulls on us all, whispering from the shadows. So, when you see an apple drop, ask yourself... is it merely gravity, or something more sinister?
+
+================================================================================
+SEGMENTS (12 total)
+================================================================================
+
+[Segment 1]
+--------------------------------------------------------------------------------
+In the chilling twilight of a dark orchard, a whispering voice beckons, "What happens when an apple falls?"
+
+Audio URL: N/A
+Character count: 107
+
+================================================================================
+
+[Segment 2]
+--------------------------------------------------------------------------------
+Shadows dance around a solitary figure—Newton, gazing skyward at a tree, where a lone apple hangs, swaying ominously.
+
+Audio URL: N/A
+Character count: 117
+
+================================================================================
+
+[Segment 3]
+--------------------------------------------------------------------------------
+"Is it just gravity... or something more?" Suddenly, the apple plummets, hitting the ground with a spine-chilling thud.
+
+Audio URL: N/A
+Character count: 119
+
+================================================================================
+
+[Segment 4]
+--------------------------------------------------------------------------------
+"Gravity," the voice continues, "is like an invisible hand, yanking everything toward the earth."
+
+Audio URL: N/A
+Character count: 97
+
+================================================================================
+
+[Segment 5]
+--------------------------------------------------------------------------------
+But how strong is it? Newton’s Law of Universal Gravitation tells us that Earth pulls on you with a force of about 9.8 m/s²!
+
+Audio URL: N/A
+Character count: 124
+
+================================================================================
+
+[Segment 6]
+--------------------------------------------------------------------------------
+Imagine a haunted apple tree, where each fallen apple conjures a ghost.
+
+Audio URL: N/A
+Character count: 71
+
+================================================================================
+
+[Segment 7]
+--------------------------------------------------------------------------------
+Each apple embodies gravity's force, drawing the specter closer to the earth.
+
+Audio URL: N/A
+Character count: 77
+
+================================================================================
+
+[Segment 8]
+--------------------------------------------------------------------------------
+Can you feel that eerie tug?
+
+Audio URL: N/A
+Character count: 28
+
+================================================================================
+
+[Segment 9]
+--------------------------------------------------------------------------------
+What if you were in a spooky tree and heard an apple drop nearby?
+
+Audio URL: N/A
+Character count: 65
+
+================================================================================
+
+[Segment 10]
+--------------------------------------------------------------------------------
+If two apples fell, would they behave differently?
+
+Audio URL: N/A
+Character count: 50
+
+================================================================================
+
+[Segment 11]
+--------------------------------------------------------------------------------
+Remember, gravity pulls on us all, whispering from the shadows.
+
+Audio URL: N/A
+Character count: 63
+
+================================================================================
+
+[Segment 12]
+--------------------------------------------------------------------------------
+So, when you see an apple drop, ask yourself... is it merely gravity, or something more sinister?
+
+Audio URL: N/A
+Character count: 97
+
+================================================================================
+

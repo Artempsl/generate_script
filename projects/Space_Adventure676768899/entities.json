@@ -1,0 +1,20 @@
+{
+  "characters": [
+    {
+      "id": "char_1",
+      "name": "Dr. Kate Morgan",
+      "versions": [
+        {
+          "age": "30s",
+          "base_prompt": "female, oval face, high cheekbones, almond-shaped green eyes, medium intensity, shoulder-length dark brown hair, straight style, slender body type, fair skin tone, no distinctive features, futuristic space suit with a sleek design, highly detailed, cinematic lighting",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "animals": [],
+  "objects": []
+}

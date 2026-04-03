@@ -1,0 +1,84 @@
+================================================================================
+SEGMENTED SCRIPT
+================================================================================
+
+Total segments: 7
+Generated: 2026-03-28T17:20:19.197956+00:00
+
+================================================================================
+FULL SCRIPT (ORIGINAL)
+================================================================================
+
+In a dark, misty orchard, a mysterious figure, Isaac Newton, paces nervously under an apple tree. "Have you ever wondered why an apple falls straight down instead of floating away? What secret does gravity hold?" Suddenly, a gust of wind shakes the branches, and an apple drops with a thud. Newton looks startled, as if he's uncovered a hidden truth.
+
+"Gravity is the invisible force that pulls objects toward each other. In 1687, Newton revealed that the same force pulling the apple down also keeps the Moon orbiting Earth, described by the formula: F = G(m1*m2)/r²." As he gazes at the stars, he muses, "Could this force also connect us to the cosmos?"
+
+Imagine gravity as an invisible string in a giant web. What if I let this second apple go? Would it reveal more? "If gravity pulls everything down, what would happen if Earth vanished? Would the apples float away?" Gravity governs not just apples, but the dance of the universe. Remember—next time you see an apple fall, think of the invisible threads connecting us all. What other mysteries of gravity await?
+
+================================================================================
+SEGMENTS (7 total)
+================================================================================
+
+[Segment 1]
+--------------------------------------------------------------------------------
+In a dark, misty orchard, a mysterious figure, Isaac Newton, paces nervously under an apple tree.
+
+Audio URL: N/A
+Character count: 97
+
+================================================================================
+
+[Segment 2]
+--------------------------------------------------------------------------------
+"Have you ever wondered why an apple falls straight down instead of floating away? What secret does gravity hold?" Suddenly, a gust of wind shakes the branches, and an apple drops with a thud. Newton looks startled, as if he's uncovered a hidden truth.
+
+Audio URL: N/A
+Character count: 252
+
+================================================================================
+
+[Segment 3]
+--------------------------------------------------------------------------------
+"Gravity is the invisible force that pulls objects toward each other. In 1687, Newton revealed that the same force pulling the apple down also keeps the Moon orbiting Earth, described by the formula: F = G(m1*m2)/r²."
+
+Audio URL: N/A
+Character count: 217
+
+================================================================================
+
+[Segment 4]
+--------------------------------------------------------------------------------
+As he gazes at the stars, he muses, "Could this force also connect us to the cosmos?"
+
+Audio URL: N/A
+Character count: 85
+
+================================================================================
+
+[Segment 5]
+--------------------------------------------------------------------------------
+Imagine gravity as an invisible string in a giant web. What if I let this second apple go? Would it reveal more?
+
+Audio URL: N/A
+Character count: 112
+
+================================================================================
+
+[Segment 6]
+--------------------------------------------------------------------------------
+"If gravity pulls everything down, what would happen if Earth vanished? Would the apples float away?"
+
+Audio URL: N/A
+Character count: 101
+
+================================================================================
+
+[Segment 7]
+--------------------------------------------------------------------------------
+Gravity governs not just apples, but the dance of the universe. Remember—next time you see an apple fall, think of the invisible threads connecting us all. What other mysteries of gravity await?
+
+Audio URL: N/A
+Character count: 194
+
+================================================================================
+

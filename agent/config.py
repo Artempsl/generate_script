@@ -53,7 +53,7 @@ MAX_TOTAL_TOKENS = 35000
 # =============================================================================
 
 MAX_ITERATIONS = 3
-MAX_TIMEOUT_SECONDS = 300  # 5 minutes total
+MAX_TIMEOUT_SECONDS = 3000  # 50 minutes total for long image+video pipelines
 
 # Retry configuration
 TOOL_MAX_RETRIES = 2
@@ -125,6 +125,40 @@ CACHE_MAX_SIZE = 100
 
 
 # =============================================================================
+# EXTERNAL API CONFIGURATION
+# =============================================================================
+
+def _read_win_env(name: str) -> str:
+    """
+    Read an environment variable from the Windows registry (Machine + User scopes),
+    falling back to os.getenv. This ensures the value is current even if the process
+    was started before the variable was set in System Properties.
+    """
+    value = os.getenv(name, "")
+    if value:
+        return value
+    try:
+        import winreg
+        for hive, subkey in [
+            (winreg.HKEY_LOCAL_MACHINE, r"SYSTEM\CurrentControlSet\Control\Session Manager\Environment"),
+            (winreg.HKEY_CURRENT_USER, r"Environment"),
+        ]:
+            try:
+                with winreg.OpenKey(hive, subkey) as key:
+                    val, _ = winreg.QueryValueEx(key, name)
+                    if val:
+                        return str(val)
+            except FileNotFoundError:
+                continue
+    except Exception:
+        pass
+    return ""
+
+
+FACTICITY_API = _read_win_env("FACTICITY_API")
+
+
+# =============================================================================
 # ENVIRONMENT VARIABLE VALIDATION
 # =============================================================================
 
@@ -143,11 +177,12 @@ def validate_agent_environment() -> Dict[str, str]:
         "PINECONE_API_KEY": "Pinecone API key for vector database",
         "COHERE_API_KEY": "Cohere API key for embeddings",
         "SERPAPI_API_KEY": "SerpAPI key for web search (optional)",
+        "FACTICITY_API": "Facticity API URL for teacher fact-checking (optional)",
     }
     
     missing_vars = []
     env_vars = {}
-    optional_vars = ["SERPAPI_API_KEY"]
+    optional_vars = ["SERPAPI_API_KEY", "FACTICITY_API"]
     
     for var_name, description in required_vars.items():
         value = os.environ.get(var_name)

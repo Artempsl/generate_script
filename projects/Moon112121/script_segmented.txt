@@ -1,0 +1,160 @@
+================================================================================
+SEGMENTED SCRIPT
+================================================================================
+
+Total segments: 15
+Generated: 2026-03-31T12:25:21.284133+00:00
+
+================================================================================
+FULL SCRIPT (ORIGINAL)
+================================================================================
+
+A small black and white TV flickers in a dimly lit living room on July 20, 1969. A voice whispers, “What does it take to reach the stars?” How could three men travel 240,000 miles to land on the moon when it seemed impossible? Meet Neil Armstrong, the calm leader, and Buzz Aldrin, the enthusiastic pilot, ready to conquer the unknown.
+
+Gravity plays a crucial role. “What keeps the Moon in orbit and the astronauts on its surface?” Newton’s law states that every mass attracts every other mass, guiding Apollo 11’s trajectory and creating conditions for a delicate landing.
+
+Picture the Saturn V rocket, a mythical beast ready to soar. As the lunar module descends, it’s like a feather falling in slow motion. Neil’s heart races as he manually pilots, dodging craters—a real-life video game!
+
+“What if there was no gravity?” Imagine floating off into space. At 1.62 m/s², the Moon’s gravity is only one-sixth of Earth’s. 
+
+As Armstrong stepped onto the Moon, he reminded us, “That’s one small step for man, one giant leap for mankind.” What dreams can we achieve when we understand physics?
+
+================================================================================
+SEGMENTS (15 total)
+================================================================================
+
+[Segment 1]
+--------------------------------------------------------------------------------
+A small black and white TV flickers in a dimly lit living room on July 20, 1969.
+
+Audio URL: N/A
+Character count: 80
+
+================================================================================
+
+[Segment 2]
+--------------------------------------------------------------------------------
+A voice whispers, “What does it take to reach the stars?”
+
+Audio URL: N/A
+Character count: 57
+
+================================================================================
+
+[Segment 3]
+--------------------------------------------------------------------------------
+How could three men travel 240,000 miles to land on the moon when it seemed impossible?
+
+Audio URL: N/A
+Character count: 87
+
+================================================================================
+
+[Segment 4]
+--------------------------------------------------------------------------------
+Meet Neil Armstrong, the calm leader, and Buzz Aldrin, the enthusiastic pilot, ready to conquer the unknown.
+
+Audio URL: N/A
+Character count: 108
+
+================================================================================
+
+[Segment 5]
+--------------------------------------------------------------------------------
+Gravity plays a crucial role.
+
+Audio URL: N/A
+Character count: 29
+
+================================================================================
+
+[Segment 6]
+--------------------------------------------------------------------------------
+“What keeps the Moon in orbit and the astronauts on its surface?”
+
+Audio URL: N/A
+Character count: 65
+
+================================================================================
+
+[Segment 7]
+--------------------------------------------------------------------------------
+Newton’s law states that every mass attracts every other mass, guiding Apollo 11’s trajectory and creating conditions for a delicate landing.
+
+Audio URL: N/A
+Character count: 141
+
+================================================================================
+
+[Segment 8]
+--------------------------------------------------------------------------------
+Picture the Saturn V rocket, a mythical beast ready to soar.
+
+Audio URL: N/A
+Character count: 60
+
+================================================================================
+
+[Segment 9]
+--------------------------------------------------------------------------------
+As the lunar module descends, it’s like a feather falling in slow motion.
+
+Audio URL: N/A
+Character count: 73
+
+================================================================================
+
+[Segment 10]
+--------------------------------------------------------------------------------
+Neil’s heart races as he manually pilots, dodging craters—a real-life video game!
+
+Audio URL: N/A
+Character count: 81
+
+================================================================================
+
+[Segment 11]
+--------------------------------------------------------------------------------
+“What if there was no gravity?”
+
+Audio URL: N/A
+Character count: 31
+
+================================================================================
+
+[Segment 12]
+--------------------------------------------------------------------------------
+Imagine floating off into space.
+
+Audio URL: N/A
+Character count: 32
+
+================================================================================
+
+[Segment 13]
+--------------------------------------------------------------------------------
+At 1.62 m/s², the Moon’s gravity is only one-sixth of Earth’s.
+
+Audio URL: N/A
+Character count: 62
+
+================================================================================
+
+[Segment 14]
+--------------------------------------------------------------------------------
+As Armstrong stepped onto the Moon, he reminded us, “That’s one small step for man, one giant leap for mankind.”
+
+Audio URL: N/A
+Character count: 112
+
+================================================================================
+
+[Segment 15]
+--------------------------------------------------------------------------------
+What dreams can we achieve when we understand physics?
+
+Audio URL: N/A
+Character count: 54
+
+================================================================================
+

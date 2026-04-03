@@ -1,0 +1,26 @@
+{
+  "characters": [
+    {
+      "id": "char_1",
+      "name": "Isaac Newton",
+      "versions": [
+        {
+          "age": "mid-30s",
+          "base_prompt": "male, oval face, prominent jawline, high cheekbones, deep-set eyes, brown eyes, short curly brown hair, average build, fair skin, wearing a dark, period-appropriate coat with a white collar, highly detailed, cinematic lighting",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "animals": [],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "apple",
+      "base_prompt": "round shape, smooth texture, bright red color, glossy finish, fresh condition, highly detailed, cinematic lighting"
+    }
+  ]
+}

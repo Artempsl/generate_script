@@ -1,0 +1,27 @@
+{
+  "characters": [],
+  "animals": [
+    {
+      "id": "animal_1",
+      "type": "mouse",
+      "name": "Martian Mouse",
+      "versions": [
+        {
+          "age": "adult",
+          "base_prompt": "small, slender body, round ears, large eyes, gray fur with a hint of red, delicate paws, short tail, highly detailed, realistic, 4k, consistent lighting-neutral description",
+          "scene_states": {
+            "actions": [],
+            "emotions": []
+          }
+        }
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "Martian Artifact",
+      "base_prompt": "irregular shape, metallic texture, pulsating with an eerie glow, half-buried in sand, highly detailed, cinematic lighting"
+    }
+  ]
+}

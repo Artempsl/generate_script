@@ -1,0 +1,16 @@
+{
+  "characters": [],
+  "animals": [],
+  "objects": [
+    {
+      "id": "obj_1",
+      "name": "apple",
+      "base_prompt": "ripe apple, round shape, glossy red skin, smooth texture, vibrant color, highly detailed, cinematic lighting"
+    },
+    {
+      "id": "obj_2",
+      "name": "ball",
+      "base_prompt": "standard rubber ball, spherical shape, bright yellow color, smooth surface, minimal wear, highly detailed, cinematic lighting"
+    }
+  ]
+}

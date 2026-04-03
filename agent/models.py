@@ -9,7 +9,7 @@ This module defines:
 """
 
 from typing import Optional, List, Dict, Any, TypedDict
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 from uuid import uuid4
 
 
@@ -44,11 +44,10 @@ class ScriptRequestItem(BaseModel):
         description="Project name (snake_case, n8n default)"
     )
     
-    genre: str = Field(
-        ...,
-        min_length=1,
+    genre: Optional[str] = Field(
+        default=None,
         max_length=100,
-        description="Story genre (e.g., Comedy, Drama, Sci-Fi)"
+        description="Story genre (e.g., Comedy, Drama, Sci-Fi) — required for youtube, optional for teacher"
     )
     
     storyIdea: Optional[str] = Field(
@@ -93,7 +92,26 @@ class ScriptRequestItem(BaseModel):
         max_length=5000,
         description="Story description (new alias for storyIdea / story_idea)"
     )
-    
+
+    topic: Optional[str] = Field(
+        default=None,
+        max_length=200,
+        description="Subject/topic for teacher pipeline (e.g. Physics, History)"
+    )
+
+    style: Optional[str] = Field(
+        default=None,
+        max_length=200,
+        description="Teaching style (e.g. Narrative / Story-driven)"
+    )
+
+    @field_validator('topic', 'style', mode='before')
+    @classmethod
+    def empty_str_to_none(cls, v):
+        if v == '':
+            return None
+        return v
+
     @field_validator('isValid')
     @classmethod
     def check_is_valid(cls, v):
@@ -101,7 +119,17 @@ class ScriptRequestItem(BaseModel):
         if v is False:
             raise ValueError("Request validation failed: isValid must be True")
         return v
-    
+
+    @model_validator(mode='after')
+    def check_required_fields_by_use_case(self) -> 'ScriptRequestItem':
+        """Enforce use_case-specific required fields after all fields are set."""
+        if self.use_case == 'youtube' and not self.genre:
+            raise ValueError("Field 'genre' is required for use_case 'youtube'")
+        if self.use_case == 'teacher' and not self.topic:
+            raise ValueError("Field 'topic' is required for use_case 'teacher'")
+        return self
+
+
     def get_project_name(self) -> str:
         """Get project name from either camelCase or snake_case field."""
         return self.projectName or self.project_name or ""
@@ -202,6 +230,11 @@ class ScriptResponse(BaseModel):
     error_message: Optional[str] = Field(
         default=None,
         description="Error message if status is 'error'"
+    )
+
+    video_url: Optional[str] = Field(
+        default=None,
+        description="Public URL to the final rendered MP4 video"
     )
 
 
@@ -323,6 +356,21 @@ class SegmentedScriptResponse(BaseModel):
         description="Telegram chat ID from the original request"
     )
 
+    fact_check_citations: Optional[List[Dict[str, Any]]] = Field(
+        default=None,
+        description="Fact-check results per claim (teacher pipeline only)"
+    )
+
+    fact_check_report: Optional[List[Dict[str, Any]]] = Field(
+        default=None,
+        description="Enriched fact-check report with correction history (teacher pipeline only)"
+    )
+
+    video_url: Optional[str] = Field(
+        default=None,
+        description="Public URL to the final rendered MP4 video"
+    )
+
 
 # =============================================================================
 # LANGGRAPH STATE (TypedDict)
@@ -356,7 +404,17 @@ class AgentState(TypedDict, total=False):
     duration: int
     use_case: str
     chat_id: Optional[int]
-    
+
+    # Teacher pipeline fields
+    topic: str
+    style: str
+    fact_check_result: Dict[str, Any]
+    fact_check_citations: List[Dict[str, Any]]
+    fact_check_passed: bool
+    fact_check_iteration: int
+    fact_check_correction: str
+    fact_check_snapshots: List[Dict[str, Any]]  # [{iteration, citations}]
+
     # Detected/calculated fields
     language: str  # "ru" or "en"
     target_chars: int
@@ -407,6 +465,13 @@ class AgentState(TypedDict, total=False):
     entities_file: str        # Path to entities.json
     entities_report: str      # Path to entities_report.md
 
+    # NEW: Image generation fields
+    image_generation_results: List[Dict[str, Any]]  # [{segment_index, prompt, status, image_path}]
+
+    # NEW: Video generation fields
+    video_path: str   # Local path to final_video.mp4
+    video_url: str    # Public URL served via static files
+
     # Error handling
     error: Optional[str]
 
@@ -455,7 +520,7 @@ def create_initial_state(request: ScriptRequestItem) -> AgentState:
         "project_name": project_name,
         "project_slug": "",  # Will be set by create_project_node
         "project_dir": "",   # Will be set by create_project_node
-        "genre": request.genre,
+        "genre": request.genre or "",
         "idea": story_idea,
         "duration": request.duration,
         "language": language,
@@ -490,6 +555,159 @@ def create_initial_state(request: ScriptRequestItem) -> AgentState:
     }
 
 
+def create_teacher_initial_state(request: "ScriptRequestItem") -> "AgentState":
+    """
+    Create initial agent state for the teacher pipeline.
+
+    Identical to create_initial_state() except:
+    - `topic` is mapped to `genre` so all downstream nodes work unchanged
+    - `style` is stored for prompt customisation in teacher nodes
+    - teacher fact-check fields are pre-populated
+    - `description` is the lesson description / age group instruction
+    """
+    try:
+        from agent.language_utils import detect_language, calculate_target_chars
+    except ModuleNotFoundError:
+        import sys
+        from pathlib import Path
+        sys.path.insert(0, str(Path(__file__).parent.parent))
+        from agent.language_utils import detect_language, calculate_target_chars
+
+    project_name = request.normalized_project_name
+    lesson_description = request.normalized_story_idea  # description / storyIdea
+
+    if not project_name:
+        raise ValueError("projectName or project_name is required")
+    if not lesson_description:
+        raise ValueError("description is required for teacher pipeline")
+    if not request.topic:
+        raise ValueError("topic is required for teacher pipeline")
+
+    topic = request.topic
+    style = request.style or "Narrative / Story-driven"
+
+    combined_text = f"{topic} {lesson_description}"
+    language = detect_language(combined_text)
+    target_chars = calculate_target_chars(request.duration, language)
+
+    return {
+        "request_id": request.request_id or str(uuid4()),
+        "project_name": project_name,
+        "project_slug": "",
+        "project_dir": "",
+        # topic → genre so all YouTube nodes (retrieve, synthesize, etc.) work unchanged
+        "genre": topic,
+        "idea": lesson_description,
+        "duration": request.duration,
+        "language": language,
+        "target_chars": target_chars,
+        "retrieved_context": "",
+        "web_context": "",
+        "synthesized_context": "",
+        "retrieved_sources_count": 0,
+        "reasoning": "",
+        "reasoning_strategy": {},
+        "outline": "",
+        "script": "",
+        "char_count": 0,
+        "validation_passed": False,
+        "validation_ratio": 0.0,
+        "validation_message": "",
+        "iteration": 0,
+        "max_iterations": 3,
+        "web_search_enabled": False,  # teacher pipeline never needs web search
+        "should_regenerate": False,
+        "reasoning_trace": [],
+        "tokens_used": 0,
+        "error": None,
+        "segments": [],
+        "segment_count": 0,
+        "audio_files": [],
+        "audio_base_url": "",
+        "audio_files_count": 0,
+        "use_case": request.use_case,
+        "chat_id": request.chat_id,
+        # Teacher-specific fields
+        "topic": topic,
+        "style": style,
+        "fact_check_result": {},
+        "fact_check_citations": [],
+        "fact_check_passed": False,
+        "fact_check_iteration": 0,
+        "fact_check_correction": "",
+        "fact_check_snapshots": [],
+    }
+
+
+def build_fact_check_report(snapshots: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """
+    Build an enriched fact-check report from per-iteration snapshots.
+
+    Each entry in the returned list represents a unique claim found in the
+    first iteration, with fields:
+      - claim            : original claim text
+      - checked          : True if Facticity API was used (verdict != "not_checked")
+      - initial_verdict  : verdict from iteration 1
+      - was_corrected    : True if claim was flagged in iter 1 and a 2nd iteration ran
+      - corrected_to     : matching claim text from iter 2, or None
+      - final_verdict    : verdict from the last available iteration
+    """
+    if not snapshots:
+        return []
+
+    first = snapshots[0].get("citations", [])
+    last = snapshots[-1].get("citations", []) if len(snapshots) > 1 else first
+    had_second_pass = len(snapshots) > 1
+
+    _FAIL_VERDICTS = {"false", "incorrect", "misleading"}
+
+    def _match_claim(claim_text: str, pool: List[Dict]) -> Optional[Dict]:
+        """Fuzzy-match a claim by first 60 chars."""
+        key = claim_text[:60].lower()
+        for c in pool:
+            if c.get("claim", "")[:60].lower() == key:
+                return c
+        return None
+
+    report = []
+    for entry in first:
+        claim_text = entry.get("claim", "")
+        initial_verdict = str(entry.get("verdict", "unknown")).lower()
+        checked = initial_verdict != "not_checked"
+        was_flagged = initial_verdict in _FAIL_VERDICTS
+
+        corrected_to = None
+        final_verdict = initial_verdict
+        was_corrected = False
+
+        if was_flagged and had_second_pass:
+            was_corrected = True
+            match = _match_claim(claim_text, last)
+            if match:
+                final_verdict = str(match.get("verdict", "unknown")).lower()
+                # If the claim text itself changed, record the new wording
+                new_text = match.get("claim", "")
+                corrected_to = new_text if new_text[:60].lower() != claim_text[:60].lower() else None
+            else:
+                # Claim disappeared from script — it was removed
+                final_verdict = "corrected_and_removed"
+                corrected_to = "[removed from script]"
+
+        report.append({
+            "claim": claim_text,
+            "checked": checked,
+            "initial_verdict": initial_verdict,
+            "was_corrected": was_corrected,
+            "corrected_to": corrected_to,
+            "final_verdict": final_verdict,
+            "requires_manual_check": entry.get("requires_manual_check", False),
+            "manual_check_reason": entry.get("manual_check_reason"),
+            "overall_assessment": entry.get("overall_assessment"),
+        })
+
+    return report
+
+
 def state_to_response(state: AgentState) -> ScriptResponse:
     """
     Convert agent state to API response.
@@ -521,6 +739,7 @@ def state_to_response(state: AgentState) -> ScriptResponse:
         tokens_used_total=state.get("tokens_used", 0),
         retrieved_sources_count=state.get("retrieved_sources_count", 0),
         error_message=state.get("error"),
+        video_url=state.get("video_url") or None,
     )
 
 
@@ -583,6 +802,9 @@ def state_to_segmented_response(state: AgentState) -> SegmentedScriptResponse:
         error_message=state.get("error"),
         use_case=state.get("use_case"),
         chat_id=state.get("chat_id"),
+        fact_check_citations=state.get("fact_check_citations"),
+        fact_check_report=build_fact_check_report(state.get("fact_check_snapshots", [])) or None,
+        video_url=state.get("video_url") or None,
     )
 
 
